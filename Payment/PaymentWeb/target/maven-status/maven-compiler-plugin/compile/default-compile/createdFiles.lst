@@ -1,6 +1,0 @@
-com\payment\config\WebMvcConfig.class
-com\payment\controllers\ItemController.class
-com\payment\config\Application.class
-com\payment\controllers\MainController.class
-com\payment\controllers\CompanyController.class
-com\payment\config\HibernateConfig.class
