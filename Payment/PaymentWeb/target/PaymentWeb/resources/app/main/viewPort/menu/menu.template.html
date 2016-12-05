@@ -1,0 +1,12 @@
+<div ng-cloak>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-class="{ active: isActive('/')}"><a ui-sref="home">HOME</a></li>
+            <li ng-class="{ active: isActive('/billing')}"><a ui-sref="billing">BILLING</a></li>
+	        <li ng-class="{ active: isActive('/viewBills')}"><a ui-sref="viewBills">VIEW BILLS</a></li>
+            <li ng-class="{ active: isActive('/items')}"><a ui-sref="items">ITEMS</a></li>
+            <!-- <li ng-class="{ active: isActive('/gallery')}"><a ui-sref="gallery">GALLERY</a></li> -->
+            
+         </ul>
+    </nav>
+</div>
