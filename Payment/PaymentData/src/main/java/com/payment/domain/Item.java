@@ -5,16 +5,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
+@DynamicUpdate
 public class Item {
 
   @Id
@@ -22,9 +26,12 @@ public class Item {
   @GeneratedValue(generator = "incrementGenerator")
   private Long itemId;
 
-  @ManyToMany(cascade = CascadeType.PERSIST)
-  @JoinTable(name="item_company")
-  private List<ItemCompany> itemCompany;
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @JoinTable(name = "item_company", joinColumns = {
+      @JoinColumn(name = "items_itemId") }, inverseJoinColumns = {
+          @JoinColumn(name = "itemCompany_companyId") })
+  @JsonBackReference
+  private List<ItemCompany> itemCompanies;
 
   @ManyToMany(cascade = CascadeType.PERSIST)
   @JoinTable(name="item_bill")
@@ -44,12 +51,12 @@ public class Item {
     this.itemId = itemId;
   }
 
-  public List<ItemCompany> getItemCompany() {
-    return itemCompany;
+  public List<ItemCompany> getItemCompanies() {
+    return itemCompanies;
   }
 
-  public void setItemCompany(List<ItemCompany> itemCompany) {
-    this.itemCompany = itemCompany;
+  public void setItemCompanies(List<ItemCompany> itemCompanies) {
+    this.itemCompanies = itemCompanies;
   }
 
   public String getItemName() {
