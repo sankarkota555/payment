@@ -1,5 +1,9 @@
 package com.payment.service;
 
-public class BillingService {
+import com.payment.domain.Bill;
+
+public interface BillingService {
+  
+  public void saveBill(Bill bill);
 
 }

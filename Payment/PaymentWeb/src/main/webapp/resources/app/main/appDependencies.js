@@ -17,8 +17,8 @@ import "./viewPort/content/content.controller.js";
 import "./viewPort/content/home/home.controller.js";
 import "./viewPort/content/billing/billing.controller.js";
 import "./viewPort/content/viewBills/viewBills.controller.js";
-import "./viewPort/content/items/items.controller.js";
-
+import "./viewPort/content/manage/items/items.controller.js";
+import "./viewPort/content/manage/manage.controller.js";
 //import "./viewPort/content/feed/feed.controller.js";
 
 // Directives
@@ -30,7 +30,7 @@ import "./viewPort/content/content.directive.js";
 
 // Services
 import "./viewPort/content/billing/billing.service.js";
-import "./viewPort/content/items/items.service.js";
+import "./viewPort/content/manage/items/items.service.js";
 
 // Filters
 import "./viewPort/filters/matchResults.js";

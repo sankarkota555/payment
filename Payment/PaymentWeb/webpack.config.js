@@ -158,11 +158,7 @@ module.exports = function makeWebpackConfig() {
 
 	// Reference: https://github.com/ampedandwired/html-webpack-plugin
 	// Render index.html
-	config.plugins.push(new HtmlWebpackPlugin({
-		template : './src/main/webapp/resources/index.html',
-		inject : 'body'
-	}),
-
+	config.plugins.push(
 	// Reference: https://github.com/webpack/extract-text-webpack-plugin
 	// Extract css files
 	// Disabled when in test mode or not in build mode

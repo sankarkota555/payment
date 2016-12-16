@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<!-- view all items available -->
+	<manage-items> 
+	<md-card flex layout-padding>
+	
+	<md-content class="md-padding">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      
+      <md-nav-item md-nav-sref="manage.items" name="page4">Items</md-nav-item>
+      <md-nav-item  md-nav-sref="manage.companies" name="page5">view companies</md-nav-item>
+     
+    </md-nav-bar>
+    <div class="ext-content">
+      External content for `<span>{{currentNavItem}}</span>`
+    </div>
+  </md-content>
+  
+	    <md-button class="md-raised md-primary" ng-disabled="myForm.$invalid"
+			ng-click="itemsController.addItem(item)">View items</md-button>
+	    <md-button class="md-raised md-primary" ng-disabled="myForm.$invalid"
+			ng-click="itemsController.addItem(item)">Add item</md-button>
+	    <div ng-if="itemsController.items.length > 0">
+		     <table class="table table-bordered table-hover table-condensed">
+			     <thead>
+				    <tr>
+					   <th></th>
+					</tr>
+			     </thead>
+			     <tbody>
+				     <tr ng-repeat="item in itemsController.items">
+					      <td>{{item.name}}</td>
+				     </tr>
+			     </tbody>
+		     </table>
+	     </div>
+	</md-card>
+	<div></div>
+	</manage-items>
+
+</div>

@@ -7,14 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
-@DynamicUpdate  
+@DynamicUpdate
+@Table(name = "ItemCompany")
 public class ItemCompany {
 
   @Id
@@ -22,11 +22,10 @@ public class ItemCompany {
   @GeneratedValue(generator = "incrementGenerator")
   private Long companyId;
 
-  @Column(length = 100)
+  @Column(name="companyName", length = 100)
   private String companyName;
 
   @ManyToMany(mappedBy = "itemCompanies")
-  @JsonManagedReference
   private List<Item> items;
 
   public Long getCompanyId() {

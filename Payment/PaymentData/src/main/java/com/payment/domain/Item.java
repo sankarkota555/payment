@@ -1,5 +1,6 @@
 package com.payment.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,37 +12,41 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @DynamicUpdate
-public class Item {
+@DynamicInsert
+@Table(name = "item")
+public class Item implements Serializable {
+
+  private static final long serialVersionUID = -212307287210164094L;
 
   @Id
+  @Column(name = "item_id")
   @GenericGenerator(name = "incrementGenerator", strategy = "increment")
   @GeneratedValue(generator = "incrementGenerator")
   private Long itemId;
 
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinTable(name = "item_company", joinColumns = {
       @JoinColumn(name = "items_itemId") }, inverseJoinColumns = {
           @JoinColumn(name = "itemCompany_companyId") })
-  @JsonBackReference
   private List<ItemCompany> itemCompanies;
 
-  @ManyToMany(cascade = CascadeType.PERSIST)
-  @JoinTable(name="item_bill")
+  @ManyToMany(mappedBy = "items", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   private List<Bill> bills;
 
-  @Column(length = 100)
+  @Column(name = "item_Name", length = 100)
   private String itemName;
 
-  @Column
-  private int price;
+  @OneToMany(mappedBy = "item")
+  private List<ItemDetails> itemDetails;
 
   public Long getItemId() {
     return itemId;
@@ -59,6 +64,14 @@ public class Item {
     this.itemCompanies = itemCompanies;
   }
 
+  public List<Bill> getBills() {
+    return bills;
+  }
+
+  public void setBills(List<Bill> bills) {
+    this.bills = bills;
+  }
+
   public String getItemName() {
     return itemName;
   }
@@ -67,20 +80,12 @@ public class Item {
     this.itemName = itemName;
   }
 
-  public int getPrice() {
-    return price;
+  public List<ItemDetails> getItemDetails() {
+    return itemDetails;
   }
 
-  public void setPrice(int price) {
-    this.price = price;
-  }
-
-  public List<Bill> getBills() {
-    return bills;
-  }
-
-  public void setBills(List<Bill> bills) {
-    this.bills = bills;
+  public void setItemDetails(List<ItemDetails> itemDetails) {
+    this.itemDetails = itemDetails;
   }
 
 }
