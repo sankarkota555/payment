@@ -77,12 +77,8 @@ public class HibernateConfig {
   }
 
   /**
-   * close database connection.
-   * 
-   * @param dataSource
-   *          {@link DataSource}
+   * close database connection on server stopping time.
    */
-  @Autowired
   @PreDestroy
   public void preDestroy() {
     log.info("In side pre destroy of hibernate config");
