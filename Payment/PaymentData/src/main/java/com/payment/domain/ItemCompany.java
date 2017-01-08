@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -25,8 +27,11 @@ public class ItemCompany {
   @Column(name="companyName", length = 100)
   private String companyName;
 
-  @ManyToMany(mappedBy = "itemCompanies")
-  private List<Item> items;
+/*  @ManyToMany(mappedBy = "itemCompanies")
+  private List<Item> items;*/
+  
+  @OneToMany(mappedBy="itemCompany")
+  private List<ItemDetails> itemDetails;
 
   public Long getCompanyId() {
     return companyId;
@@ -44,12 +49,12 @@ public class ItemCompany {
     this.companyName = companyName;
   }
 
-  public List<Item> getItems() {
+/*  public List<Item> getItems() {
     return items;
   }
 
   public void setItems(List<Item> items) {
     this.items = items;
-  }
+  }*/
 
 }

@@ -8,15 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @DynamicUpdate
@@ -24,13 +19,13 @@ import org.hibernate.annotations.Parameter;
 public class ItemDetails {
 
   @Id
-  @GeneratedValue(generator = "foreigngen")
-  @GenericGenerator(strategy = "foreign", name = "foreigngen", parameters = @Parameter(name = "property", value = "itemCompany"))
-  @Column(name = "company_id")
+  @GeneratedValue(generator = "inc")
+  @GenericGenerator(strategy = "increment", name = "inc")
+  @Column(name = "id")
   private Long id;
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-  @PrimaryKeyJoinColumn
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+  @JoinColumn(name="company_id")
   private ItemCompany itemCompany;
 
   @Column(name = "capacity", length = 20)
@@ -39,10 +34,10 @@ public class ItemDetails {
   @Column(name = "price")
   private int price;
 
-  @ManyToOne(cascade= CascadeType.ALL)
+ /* @ManyToOne(cascade= CascadeType.ALL)
   @Fetch(FetchMode.JOIN)
   @JoinColumn(name = "item_id")
-  private Item item;
+  private Item item;*/
 
   public ItemCompany getItemCompany() {
     return itemCompany;
@@ -76,12 +71,12 @@ public class ItemDetails {
     this.id = id;
   }
 
-  public Item getItem() {
+/*  public Item getItem() {
     return item;
   }
 
   public void setItem(Item item) {
     this.item = item;
-  }
+  }*/
 
 }

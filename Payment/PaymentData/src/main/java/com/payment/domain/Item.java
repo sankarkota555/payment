@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -33,19 +35,21 @@ public class Item implements Serializable {
   @GeneratedValue(generator = "incrementGenerator")
   private Long itemId;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+/*  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinTable(name = "item_company", joinColumns = {
       @JoinColumn(name = "items_itemId") }, inverseJoinColumns = {
           @JoinColumn(name = "itemCompany_companyId") })
-  private List<ItemCompany> itemCompanies;
+  private List<ItemCompany> itemCompanies;*/
 
-  @ManyToMany(mappedBy = "items", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-  private List<Bill> bills;
+ /* @ManyToMany(mappedBy = "items", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  private List<Bill> bills;*/
 
   @Column(name = "item_Name", length = 100)
   private String itemName;
 
-  @OneToMany(mappedBy = "item")
+  //@OneToMany(mappedBy = "item")
+  @OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.PERSIST)
+  @JoinColumn(name = "item_id")
   private List<ItemDetails> itemDetails;
 
   public Long getItemId() {
@@ -56,22 +60,22 @@ public class Item implements Serializable {
     this.itemId = itemId;
   }
 
-  public List<ItemCompany> getItemCompanies() {
+/*  public List<ItemCompany> getItemCompanies() {
     return itemCompanies;
   }
 
   public void setItemCompanies(List<ItemCompany> itemCompanies) {
     this.itemCompanies = itemCompanies;
-  }
+  }*/
 
-  public List<Bill> getBills() {
+  /*public List<Bill> getBills() {
     return bills;
   }
 
   public void setBills(List<Bill> bills) {
     this.bills = bills;
   }
-
+*/
   public String getItemName() {
     return itemName;
   }
