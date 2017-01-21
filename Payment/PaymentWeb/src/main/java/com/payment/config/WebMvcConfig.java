@@ -1,45 +1,54 @@
 package com.payment.config;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.support.ErrorPageFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
+import org.springframework.webflow.executor.FlowExecutor;
+import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 @Configuration
 @ComponentScan(basePackages="com.payment")
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
-  @Bean
-  public ErrorPageFilter errorPageFilter() {
-    return new ErrorPageFilter();
-  }
+  @Autowired
+  private FlowExecutor flowExecutor;
 
-  @Bean
-  public FilterRegistrationBean disableSpringBootErrorFilter(ErrorPageFilter filter) {
-    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-    filterRegistrationBean.setFilter(filter);
-    filterRegistrationBean.setEnabled(false);
-    return filterRegistrationBean;
-  }
+  @Autowired
+  private FlowDefinitionRegistry flowRegistry;
 
-  @Bean
-  public UrlBasedViewResolver faceletsViewResolver() {
-    UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-    viewResolver.setViewClass(JstlView.class);
-    viewResolver.setPrefix("/WEB-INF/views/");
-    viewResolver.setSuffix(".html");
-    return viewResolver;
-  }
-  
   @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/res/**").addResourceLocations("/resources/")
-        .setCachePeriod(31556926);
+  public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    configurer.enable();
+  }
+
+  /**
+   * Bean for spring webflow configuration
+   * 
+   * @return {@link JsfFlowHandlerAdapter}
+   */
+  @Bean
+  public JsfFlowHandlerAdapter getJsfFlowHandlerAdapter() {
+    JsfFlowHandlerAdapter handlerAdapter = new JsfFlowHandlerAdapter();
+    handlerAdapter.setFlowExecutor(flowExecutor);
+    return handlerAdapter;
+  }
+
+  /**
+   * Bean for spring webflow configuration
+   * 
+   * @return {@link FlowHandlerMapping}
+   */
+  @Bean
+  public FlowHandlerMapping flowHandlerMapping() {
+    FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
+    handlerMapping.setOrder(-1);
+    handlerMapping.setFlowRegistry(flowRegistry);
+    return handlerMapping;
   }
 
 }

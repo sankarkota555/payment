@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>PaymentWeb</artifactId>
 	<packaging>war</packaging>
-	<name>PaymentWeb Maven Webapp</name>
+	<name>PaymentWeb - Webapp</name>
 	<dependencies>
 
 		<dependency>
@@ -41,11 +41,41 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
+		<!-- JSF: Mojarra dependency -->
+ 		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>${jsf-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>${jsf-version}</version>
+		</dependency>
+
+		<!-- spring web flow dependency -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>${spring-webflow-version}</version>
+		</dependency>
+
+		<!-- for spring-faces also use spring web flow version -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>${spring-webflow-version}</version>
+		</dependency>
 
 	</dependencies>
 	<properties>
 		<webpack.outputDirectory>${project.build.directory}/generated-sources/javascript</webpack.outputDirectory>
+		<spring-webflow-version>2.4.4.RELEASE</spring-webflow-version>
+		<jsf-version>2.2.12</jsf-version>
 	</properties>
+
 	<build>
 		<finalName>PaymentWeb</finalName>
 		<plugins>
