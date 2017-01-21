@@ -10,8 +10,9 @@
         	var obj = {type:'type '+i, name: 'item name'+i};
         	me.availableItems.push(obj);
         }
-               
-        me.user = {items:[{}]};
+        
+        console.log("available items:"+ me.availableItems.length);
+        me.bill ={items:[{}]};
         
         // increments for time picker
         me.hrstep = 1;
@@ -19,25 +20,26 @@
         
         //function to add items to user
         me.addItem = function(){
-        	me.user.items.push({});
+        	me.bill.items.push({});
         };
         
         //function for generating bill
         me.generateBill = function(){
-        	console.log("user objet");
-        	console.log(me.user);
+        	console.log("bill objet");
+        	console.log(me.bill);            
+            billingService.generateBill(me.bill);
         };
         
         //function to reset form details
         me.resetForm = function(){
             // reset user object
-        	me.user = {name:"", phone:"", email:"", address:"", items:[{}],soldDate:null};
+        	//me.user = {name:"", phone:"", email:"", address:"", items:[{}],soldDate:null};
         };
         
         //function to delete item
         me.deleteItem = function(index){
         	// delete selected item
-        	me.user.items.splice(index,1);
+        	me.bill.items.splice(index,1);
         };
         
   
@@ -46,7 +48,7 @@
          */
         me.getAvalableItems = function(){
         	itemsService.getAvailableItems().then(function (data) {
-                me.availableItems = data.data;
+               me.availableItems = data.data;
             }, function (data) {
                 // error loading items.
                //me.load = false;

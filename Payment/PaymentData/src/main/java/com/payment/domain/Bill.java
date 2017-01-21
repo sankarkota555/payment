@@ -10,15 +10,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -35,10 +36,10 @@ public class Bill implements Serializable {
   @GeneratedValue(generator = "inc")
   private Long billId;
 
-  @ManyToMany(cascade = CascadeType.PERSIST)
-  @JoinTable(name = "bill_items", joinColumns = {
-      @JoinColumn(name = "bill_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })
-  private List<Item> items;
+  @OneToMany(cascade = CascadeType.PERSIST)
+  @Fetch(FetchMode.JOIN)
+  @JoinColumn(name = "bill_id")
+  private List<SoldItem> soldItems;
 
   @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "customer_id")
@@ -57,14 +58,6 @@ public class Bill implements Serializable {
 
   public void setBillId(Long billId) {
     this.billId = billId;
-  }
-
-  public List<Item> getItems() {
-    return items;
-  }
-
-  public void setItems(List<Item> items) {
-    this.items = items;
   }
 
   public Customer getCustomer() {
@@ -89,6 +82,18 @@ public class Bill implements Serializable {
 
   public void setGeneratedDate(Date generatedDate) {
     this.generatedDate = generatedDate;
+  }
+
+  public List<SoldItem> getSoldItems() {
+    return soldItems;
+  }
+
+  public void setSoldItems(List<SoldItem> soldItems) {
+    this.soldItems = soldItems;
+  }
+
+  public static long getSerialversionuid() {
+    return serialVersionUID;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.payment.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,7 +18,9 @@ import org.hibernate.annotations.GenericGenerator;
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "customer")
-public class Customer {
+public class Customer implements Serializable{
+
+  private static final long serialVersionUID = -2224463901198787144L;
 
   @Id
   @Column(name = "id")

@@ -1,5 +1,7 @@
 package com.payment.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +15,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @DynamicUpdate
 @Table(name = "ItemDetails")
-public class ItemDetails {
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+public class ItemDetails implements Serializable {
+
+  private static final long serialVersionUID = 8803067465655470784L;
 
   @Id
   @GeneratedValue(generator = "inc")
@@ -24,8 +32,8 @@ public class ItemDetails {
   @Column(name = "id")
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-  @JoinColumn(name="company_id")
+  @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
+  @JoinColumn(name = "company_id")
   private ItemCompany itemCompany;
 
   @Column(name = "capacity", length = 20)
@@ -34,10 +42,12 @@ public class ItemDetails {
   @Column(name = "price")
   private int price;
 
- /* @ManyToOne(cascade= CascadeType.ALL)
-  @Fetch(FetchMode.JOIN)
+  @Column(name = "quantity")
+  private Integer quantity;
+
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinColumn(name = "item_id")
-  private Item item;*/
+  private Item item;
 
   public ItemCompany getItemCompany() {
     return itemCompany;
@@ -71,12 +81,20 @@ public class ItemDetails {
     this.id = id;
   }
 
-/*  public Item getItem() {
+  public Integer getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(Integer quantity) {
+    this.quantity = quantity;
+  }
+
+  public Item getItem() {
     return item;
   }
 
   public void setItem(Item item) {
     this.item = item;
-  }*/
+  }
 
 }

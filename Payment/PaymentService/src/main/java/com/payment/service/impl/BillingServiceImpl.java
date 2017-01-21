@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.payment.domain.Bill;
 import com.payment.domain.Customer;
-import com.payment.domain.Item;
-import com.payment.domain.ItemDetails;
+import com.payment.domain.SoldItem;
 import com.payment.repositories.BillRepository;
 import com.payment.service.BillingService;
 
@@ -34,16 +33,15 @@ public class BillingServiceImpl implements BillingService {
 
     log.info("bill generated date: " + bill.getGeneratedDate());
     log.info("bill getNetAmount: " + bill.getNetAmount());
-    List<Item> items = bill.getItems();
-    for (Item item : items) {
-      log.info("Item details: ");
-      log.info("getItemId: " + item.getItemId() + "  getItemName" + item.getItemName());
-      List<ItemDetails> details = item.getItemDetails();
-      for (ItemDetails itemDetails : details) {
-        log.info(
-            "  getCapacity: " + itemDetails.getCapacity() + " getPrice:" + itemDetails.getPrice()
-                + "  company name: " + itemDetails.getItemCompany().getCompanyName());
-      }
+    log.info("sold items details: ");
+    List<SoldItem> items = bill.getSoldItems();
+    for (SoldItem item : items) {
+      log.info("item name: "+ item.getItemDetails().getItem().getItemName());
+      log.info("sold quantity: " + item.getQuantity() + "  sold price: " + item.getSoldPrice());
+
+      log.info("  getCapacity: " + item.getItemDetails().getCapacity() + "  company name: "
+          + item.getItemDetails().getItemCompany().getCompanyName());
+
     }
     bill = billrepository.save(bill);
     log.info("bill saved success fully");
