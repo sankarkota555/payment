@@ -8,12 +8,12 @@
 		<form name="myForm">	
 			<md-input-container class="md-icon-float md-block">
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon>
-			    <input ng-model="billingController.bill.customer.name" class="form-group" type="text" placeholder="Name" ng-required="true"> 
+			    <input ng-model="billingController.bill.customer.name" type="text" placeholder="Name" ng-required="true"> 
 		    </md-input-container>
 		    
 			<md-input-container class="md-block"> 
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/phone.svg" class="phone"></md-icon>
-			    <input ng-model="billingController.bill.customer.phone" class="form-group"  type="text" placeholder="Phone Number" ng-required="true"> 
+			    <input ng-model="billingController.bill.customer.phone"  type="text" placeholder="Phone Number" ng-required="true"> 
 			</md-input-container>
 			
 			<md-input-container class="md-block">
@@ -23,7 +23,7 @@
 					    
 		    <md-input-container class="md-block"> 
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/home.svg" class="phone"></md-icon>
-			    <input ng-model="billingController.bill.customer.address" class="form-group" type="text" placeholder="Address" ng-required="true">
+			    <input ng-model="billingController.bill.customer.address" type="text" placeholder="Address" ng-required="true">
 		    </md-input-container>
 		    <div layout="row" layout-align="end end">
 		       <md-button class="md-raised md-primary" ng-click="billingController.addItem()">Add Item</md-button>
@@ -73,12 +73,12 @@
 		            </div> 
 		            <div flex="20">
 		                <md-input-container class="md-block"> 
-			                <input ng-model="item.quantity" class="form-group" type="number" placeholder="Quantity" ng-required="true">
+			                <input ng-model="item.quantity" type="number" placeholder="Quantity" ng-required="true">
 		                </md-input-container>		    
 		            </div>
 		            <div flex="15">
 		                <md-input-container class="md-block"> 
-			                <input ng-model="item.price" class="form-group" type="number" placeholder="Price" ng-required="true">
+			                <input ng-model="item.price" type="number" placeholder="Price" ng-required="true">
 		                </md-input-container>	
 		            </div> 
 		            <div flex="15">
