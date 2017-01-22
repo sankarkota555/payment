@@ -25,7 +25,7 @@ public class ItemCompany implements Serializable{
   @GeneratedValue(generator = "incrementGenerator")
   private Long companyId;
 
-  @Column(name="companyName", length = 100)
+  @Column(name="companyName", length = 50, unique = true)
   private String companyName;
 
 /*  @ManyToMany(mappedBy = "itemCompanies")

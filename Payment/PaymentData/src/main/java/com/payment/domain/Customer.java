@@ -13,11 +13,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "customer")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Customer implements Serializable{
 
   private static final long serialVersionUID = -2224463901198787144L;
@@ -41,6 +47,7 @@ public class Customer implements Serializable{
   private String phone;
 
   @OneToMany(mappedBy = "customer")
+  @LazyCollection(value = LazyCollectionOption.TRUE)
   private List<Bill> bills;
 
   public Long getId() {

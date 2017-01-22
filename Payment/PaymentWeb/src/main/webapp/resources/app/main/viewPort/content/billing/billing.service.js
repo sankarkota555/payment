@@ -7,6 +7,7 @@
         me.generateBill = function (bill) {
 
             var billData = { soldItems: [] };
+            var totalAmount = 0;
             billData.customer = bill.customer;
             billData.generatedDate = bill.generatedDate;
             // billData.netAmount = 
@@ -19,11 +20,13 @@
                     itemObj.itemDetails.item = { itemName : bill.items[index].searchItemText };
 
                 } else {
-                    itemObj.itemDetails.id = me.bill.items[index].itemDetails.id;
+                    itemObj.itemDetails.id = bill.items[index].selectedCompany.id;
                 }
 
                 billData.soldItems.push(itemObj);
+                totalAmount += bill.items[index].price;
             }
+            billData.netAmount = totalAmount;
              console.log("final bill object prepared: ");
             console.log(billData);
 

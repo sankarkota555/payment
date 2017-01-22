@@ -34,16 +34,16 @@
 		            <div flex="50">
 						<md-autocomplete md-no-cache="true" required
 							md-selected-item="item.selectedItem"
-							md-items="item in billingController.availableItems | matchResults: 'itemDetails.itemName': item.searchItemText"
+							md-items="item in billingController.availableItems | matchResults: 'itemName': item.searchItemText"
 							md-search-text="item.searchItemText"
-							md-item-text="item.name" md-min-length="3"
+							md-item-text="item.itemName" md-min-length="3"
 							md-floating-label="Select Item"
 							md-select-on-match = "true"
 							md-menu-class="autocomplete-custom-template"> 
 					       <md-item-template>
 						      <span class="item-title"> <md-icon
 								md-svg-icon="img/icons/octicon-repo.svg"></md-icon> <span>
-								{{item.name}} </span>
+								{{item.itemName}} </span>
 						      </span> <!-- <span class="item-metadata"> <span class="item-metastat">
 								<strong>{{item}}</strong> watchers
 						</span> <span class="item-metastat"> <strong>{{item}}</strong>
@@ -56,14 +56,14 @@
 							md-selected-item="item.selectedCompany"
 							md-items="item in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
 							md-search-text="item.searchCompanyText"
-							md-item-text="item.name" md-min-length="3"
+							md-item-text="item.itemCompany.companyName" md-min-length="3"
 							md-floating-label="Select Company"
 							md-select-on-match = "true"
 							md-menu-class="autocomplete-custom-template"> 
 					       <md-item-template>
 						      <span class="item-title"> <md-icon
 								md-svg-icon="img/icons/octicon-repo.svg"></md-icon> <span>
-								{{item.name}} </span>
+								{{item.itemCompany.companyName}} </span>
 						      </span> <!-- <span class="item-metadata"> <span class="item-metastat">
 								<strong>{{item}}</strong> watchers
 						</span> <span class="item-metastat"> <strong>{{item}}</strong>

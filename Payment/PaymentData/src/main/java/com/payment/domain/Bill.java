@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,10 +23,14 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "Bill")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Bill implements Serializable {
 
   private static final long serialVersionUID = 3801681122081332394L;
@@ -36,19 +41,19 @@ public class Bill implements Serializable {
   @GeneratedValue(generator = "inc")
   private Long billId;
 
-  @OneToMany(cascade = CascadeType.PERSIST)
-  @Fetch(FetchMode.JOIN)
+  @OneToMany(cascade=CascadeType.PERSIST)
   @JoinColumn(name = "bill_id")
+  @Fetch(FetchMode.JOIN) 
   private List<SoldItem> soldItems;
 
-  @ManyToOne(cascade = CascadeType.PERSIST)
+  @ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
   @JoinColumn(name = "customer_id")
   private Customer customer;
 
   @Column(name = "net_amount")
   private Long netAmount;
 
-  @Temporal(TemporalType.TIME)
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "generated_date")
   private Date generatedDate;
 
