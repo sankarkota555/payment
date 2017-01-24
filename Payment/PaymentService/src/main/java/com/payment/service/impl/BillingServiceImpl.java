@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import com.payment.service.BillingService;
 @Service
 public class BillingServiceImpl implements BillingService {
 
-	private static Logger log = Logger.getLogger(BillingServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(BillingServiceImpl.class);
 
 	@Autowired
 	private BillRepository billrepository;
@@ -30,9 +31,14 @@ public class BillingServiceImpl implements BillingService {
 	@Autowired
 	private ItemDetailsRepository itemDetailsRepository;
 
+  /**
+   * saves given bill into database.
+   * @param {@link Bill} object to save
+   * @return saved bill id.
+   */
 	@Override
 	@Transactional
-	public void saveBill(Bill bill) {
+	public Long saveBill(Bill bill) {
 		log.info("bill details");
 		Customer customer = bill.getCustomer();
 		log.info("cutomer details: ");
@@ -68,7 +74,9 @@ public class BillingServiceImpl implements BillingService {
 			bill.setCustomer(customer);
 		}
 		bill = billrepository.save(bill);
-		log.info("bill saved success fully");
+		log.info("bill saved success fully with id:{} ",bill.getBillId());
+		return bill.getBillId();
+		
 
 	}
 

@@ -2,9 +2,9 @@ package com.payment.controllers;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,14 +17,14 @@ import com.payment.service.BillingService;
 @RestController
 public class BillingController {
 
-	private static Logger log = Logger.getLogger(BillingController.class);
+	private static Logger log = LoggerFactory.getLogger(BillingController.class);
 
 	@Autowired
 	private BillingService billingService;
 
 	@RequestMapping(name = "/saveBill", method = RequestMethod.POST, consumes = { "application/json" })
-	public void saveBill(@RequestBody Bill bill) {
-		billingService.saveBill(bill);
+	public Long saveBill(@RequestBody Bill bill) {
+		return billingService.saveBill(bill);
 
 	}
 
