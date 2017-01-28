@@ -22,15 +22,16 @@ public class BillingController {
 	@Autowired
 	private BillingService billingService;
 
-	@RequestMapping(name = "/saveBill", method = RequestMethod.POST, consumes = { "application/json" })
-	public Long saveBill(@RequestBody Bill bill) {
-		return billingService.saveBill(bill);
+  @RequestMapping(value = "/saveBill", method = RequestMethod.POST, consumes = {
+      "application/json" })
+  public Long saveBill(@RequestBody Bill bill) {
+    return billingService.saveBill(bill);
 
-	}
+  }
 
-	@RequestMapping(name = "/getCustomerBills", method = RequestMethod.GET)
-	public List<Bill> getCunstomerBills(@RequestParam Long customerId) {
-		return billingService.getCustomerBills(customerId);
-	}
+  @RequestMapping(value = "/getCustomerBills", method = RequestMethod.GET)
+  public List<Bill> getCustomerBills(@RequestParam Long customerId) {
+    return billingService.getCustomerBills(customerId);
+  }
 
 }
