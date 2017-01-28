@@ -74,7 +74,7 @@ public class BillPdfUtil {
 
 			doc.add(getFooter(20));
 
-			BarcodeQRCode barcodeQRCode = new BarcodeQRCode(PaymentConstantNames.codeString, 120, 120, null);
+			BarcodeQRCode barcodeQRCode = new BarcodeQRCode(PaymentConstantNames.shopName, 120, 120, null);
 			Image barCodeImage = barcodeQRCode.getImage();
 			barCodeImage.setAbsolutePosition(450, 620);
 			// barCodeImage.setAlignment();
