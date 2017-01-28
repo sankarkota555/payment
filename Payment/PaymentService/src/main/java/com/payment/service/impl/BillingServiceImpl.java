@@ -12,79 +12,118 @@ import org.springframework.stereotype.Service;
 
 import com.payment.domain.Bill;
 import com.payment.domain.Customer;
+import com.payment.domain.Item;
+import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
 import com.payment.domain.SoldItem;
 import com.payment.repositories.BillRepository;
 import com.payment.repositories.CustomerRepository;
+import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemDetailsRepository;
+import com.payment.repositories.ItemRepository;
 import com.payment.service.BillingService;
 
 @Service
 public class BillingServiceImpl implements BillingService {
 
-	private static final Logger log = LoggerFactory.getLogger(BillingServiceImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(BillingServiceImpl.class);
 
-	@Autowired
-	private BillRepository billrepository;
-	@Autowired
-	private CustomerRepository customerRepository;
-	@Autowired
-	private ItemDetailsRepository itemDetailsRepository;
+  @Autowired
+  private BillRepository billrepository;
+  @Autowired
+  private CustomerRepository customerRepository;
+  @Autowired
+  private ItemDetailsRepository itemDetailsRepository;
+  @Autowired
+  private ItemRepository itemRepository;
+  @Autowired
+  private ItemCompanyRepository itemCompanyRepository;
 
   /**
    * saves given bill into database.
-   * @param {@link Bill} object to save
+   * 
+   * @param {@link
+   *          Bill} object to save
    * @return saved bill id.
    */
-	@Override
-	@Transactional
-	public Long saveBill(Bill bill) {
-		log.info("bill details");
-		Customer customer = bill.getCustomer();
-		log.info("cutomer details: ");
-		log.info("name: " + customer.getName() + "  email:" + customer.getEmail() + " Address: " + customer.getAddress()
-				+ " phone:" + customer.getPhone());
-		log.info("bill generated date: " + bill.getGeneratedDate());
-		log.info("bill getNetAmount: " + bill.getNetAmount());
+  @Override
+  @Transactional
+  public Long saveBill(Bill bill) {
+    log.info("bill details");
+    Customer customer = bill.getCustomer();
+    log.info("cutomer details: ");
+    log.info("name: " + customer.getName() + "  email:" + customer.getEmail() + " Address: "
+        + customer.getAddress() + " phone:" + customer.getPhone());
+    log.info("bill generated date: " + bill.getGeneratedDate());
+    log.info("bill getNetAmount: " + bill.getNetAmount());
 
-		if (bill.getGeneratedDate() == null) {
-			bill.setGeneratedDate(Calendar.getInstance().getTime());
-		}
-		customer = customerRepository.findByPhone(bill.getCustomer().getPhone());
-		List<SoldItem> soldItems = bill.getSoldItems();
-		ItemDetails itemDetails;
-		SoldItem soldItem;
-		log.info("sold items details: ");
-		for (int index = 0; index < soldItems.size(); index++) {
-			soldItem = soldItems.get(index);
-			if (soldItem.getItemDetails().getId() != null) {
-				itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
-				log.info("Item details exists in DB: id: " + itemDetails.getId());
-				soldItem.setItemDetails(itemDetails);
-			}
+    if (bill.getGeneratedDate() == null) {
+      bill.setGeneratedDate(Calendar.getInstance().getTime());
+    }
+    customer = customerRepository.findByPhone(bill.getCustomer().getPhone());
+    List<SoldItem> soldItems = bill.getSoldItems();
+    ItemDetails itemDetails;
+    SoldItem soldItem;
+    ItemCompany company;
+    Item item;
+    log.info("sold items details: ");
+    for (int index = 0; index < soldItems.size(); index++) {
+      soldItem = soldItems.get(index);
+      if (soldItem.getItemDetails().getId() != null) {
+        itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
+        log.info("Item details exists in DB: id: " + itemDetails.getId());
+        soldItem.setItemDetails(itemDetails);
+      } else {
+        itemDetails = new ItemDetails();
+        item = itemRepository.findByItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
+        if (item == null) {
+          item = new Item();
+          item.setItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
+        }
+        itemDetails.setItem(item);
+        company = itemCompanyRepository.findByCompanyName(
+            soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
+        if (company == null) {
+          company = new ItemCompany();
+          company.setCompanyName(
+              soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
+        }
 
-			log.info("item name: " + soldItem.getItemDetails().getItem().getItemName());
-			log.info("sold quantity: " + soldItem.getQuantity() + "  sold price: " + soldItem.getSoldPrice());
+        itemDetails.setItemCompany(company);
 
-			log.info("  getCapacity: " + soldItem.getItemDetails().getCapacity() + "  company name: "
-					+ soldItem.getItemDetails().getItemCompany().getCompanyName());
+        itemDetails.setPrice(soldItem.getSoldPrice());
+        itemDetails.setCapacity(soldItems.get(index).getItemDetails().getCapacity());
+        soldItem.setItemDetails(itemDetails);
+      }
 
-		}
-		if (customer != null) {
-			bill.setCustomer(customer);
-		}
-		bill = billrepository.save(bill);
-		log.info("bill saved success fully with id:{} ",bill.getBillId());
-		return bill.getBillId();
-		
+      log.info("item name: " + soldItem.getItemDetails().getItem().getItemName());
+      log.info(
+          "sold quantity: " + soldItem.getQuantity() + "  sold price: " + soldItem.getSoldPrice());
 
-	}
+      log.info("  getCapacity: " + soldItem.getItemDetails().getCapacity() + "  company name: "
+          + soldItem.getItemDetails().getItemCompany().getCompanyName());
 
-	@Override
-	@Transactional
-	public List<Bill> getCustomerBills(Long customerId) {
-		Customer customer = customerRepository.findOne(customerId);
-		return customer.getBills();
-	}
+    }
+    if (customer != null) {
+      bill.setCustomer(customer);
+    }
+    bill = billrepository.save(bill);
+    log.info("bill saved success fully with id:{} ", bill.getBillId());
+    return bill.getBillId();
+
+  }
+
+  @Override
+  @Transactional
+  public List<Bill> getCustomerBills(Long customerId) {
+    Customer customer = customerRepository.findOne(customerId);
+    return customer.getBills();
+  }
+
+  @Override
+  @Transactional
+  public Bill getBillById(long billId) {
+    return billrepository.findOne(billId);
+  }
 
 }

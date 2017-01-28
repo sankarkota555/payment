@@ -14,20 +14,26 @@
             for (var index = 0; index < bill.items.length; index++) {
                 var itemObj = { itemDetails: { id: null }, quantity: bill.items[index].quantity, soldPrice: bill.items[index].price };
                 if (bill.items[index].selectedItem == null) {
-                    itemObj.itemName = bill.items[index].searchItemText;
-                    itemObj.itemDetails = { id:null, capacity:bill.items[index].capacity,price: bill.items[index].price, itemCompany: null , item: null };
+                   // itemObj.itemName = bill.items[index].searchItemText;
+                    itemObj.itemDetails = { id: null, capacity: bill.items[index].capacity, price: bill.items[index].price, itemCompany: null, item: null };
                     itemObj.itemDetails.itemCompany = { companyName: bill.items[index].searchCompanyText };
-                    itemObj.itemDetails.item = { itemName : bill.items[index].searchItemText };
+                    itemObj.itemDetails.item = { itemName: bill.items[index].searchItemText };
 
-                } else {
+                } else if (bill.items[index].selectedCompany == null) {
+                    itemObj.itemDetails = { id: null, capacity: bill.items[index].capacity, price: bill.items[index].price, itemCompany: null, item: null };
+                    itemObj.itemDetails.itemCompany = { companyName: bill.items[index].searchCompanyText };
+                    itemObj.itemDetails.item = { itemName: bill.items[index].selectedItem.itemName };
+                }
+                else {
                     itemObj.itemDetails.id = bill.items[index].selectedCompany.id;
                 }
 
+
                 billData.soldItems.push(itemObj);
-                totalAmount += bill.items[index].price;
+                totalAmount += (bill.items[index].price * bill.items[index].quantity);
             }
             billData.netAmount = totalAmount;
-             console.log("final bill object prepared: ");
+            console.log("final bill object prepared: ");
             console.log(billData);
 
             $http({

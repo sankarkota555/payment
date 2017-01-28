@@ -45,7 +45,7 @@ public class Item implements Serializable {
  /* @ManyToMany(mappedBy = "items", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   private List<Bill> bills;*/
 
-  @Column(name = "item_Name", length = 100)
+  @Column(name = "item_Name", length = 100, unique = true)
   private String itemName;
 
   @OneToMany(cascade= CascadeType.PERSIST)

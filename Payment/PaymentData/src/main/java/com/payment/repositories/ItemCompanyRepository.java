@@ -4,6 +4,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.payment.domain.ItemCompany;
 
-public interface ItemCompanyRepository extends PagingAndSortingRepository<ItemCompany, Long>{
+public interface ItemCompanyRepository extends PagingAndSortingRepository<ItemCompany, Long> {
+
+  public ItemCompany findByCompanyName(String companyName);
 
 }

@@ -13,6 +13,18 @@ public interface BillingService {
    */
   public Long saveBill(Bill bill);
   
+  /**
+   * Gives customer bills as list
+   * @param customerId customer ID
+   * @return customer bills
+   */
   public List<Bill> getCustomerBills(Long customerId);
+  
+  /**
+   * Gives bill based on ID
+   * @param billId bill ID
+   * @return {@link Bill} object
+   */
+  public Bill getBillById(long billId);
 
 }
