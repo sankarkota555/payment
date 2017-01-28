@@ -5,8 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
@@ -49,6 +51,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     handlerMapping.setOrder(-1);
     handlerMapping.setFlowRegistry(flowRegistry);
     return handlerMapping;
+  }
+  
+  @Bean
+  public ViewResolver getResourceBundleView(){
+    ResourceBundleViewResolver resourceBundleViewResolver = new ResourceBundleViewResolver();
+    resourceBundleViewResolver.setBasename("views");
+    resourceBundleViewResolver.setOrder(2);    
+    return resourceBundleViewResolver;
   }
 
 }
