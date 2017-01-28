@@ -2,7 +2,7 @@
 
     var matchResults = function() {
 		 return function(array, attribute, query) {
-			
+			query = query.toLowerCase();
 	        console.log('attribute');
 	        console.log(attribute);
 			 var matchItems = [];
@@ -12,13 +12,13 @@
 	                	console.log("array[index].attribute: " +array[index].attribute);
 		        		console.log("array[index][attributes[0]]: " +array[index][attributes[0]]);
 		        		console.log("array[index][attributes[0]][attributes[1]]: " +array[index][attributes[0]][attributes[1]]);
-		        		if(array[index][attributes[0]][attributes[1]].indexOf(query) === 0){
+		        		if(array[index][attributes[0]][attributes[1]].toLowerCase().indexOf(query) === 0){
 		        			matchItems.push(array[index]);
 		        		}
 	                }
 			 }else{
 				 for(var index=0;index < array.length; index++ ){
-		        		if(array[index][attribute].indexOf(query) === 0){
+		        		if(array[index][attribute].toLowerCase().indexOf(query) === 0){
 		        			matchItems.push(array[index]);
 		        		}
 		        	}
