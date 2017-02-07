@@ -1,7 +1,7 @@
 "use strict";
-(function(){
+{
 
-    var menuRoutes = function ($stateProvider, $urlRouterProvider) {
+    function menuRoutes($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise("/billing");
 
@@ -36,5 +36,5 @@
 
     };
     angular.module("payment").config(menuRoutes);
-   
-}());
+
+};

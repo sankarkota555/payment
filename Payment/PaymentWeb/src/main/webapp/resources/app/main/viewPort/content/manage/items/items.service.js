@@ -1,32 +1,33 @@
-(function() {
+"use strict";
+{
 
-    var itemsService = function($http) {
-    	var me = this;
-    	
-    	// get available items from database.
-		me.getAvailableCompanies = function(){
-		    return $http.get('getAllCompanies');
-		}
-		
+	function itemsService = function ($http) {
+		const me = this;
+
 		// get available items from database.
-		me.getAvailableItems = function(){
-		    return $http.get('getAllItems');
+		me.getAvailableCompanies = function () {
+			return $http.get('getAllCompanies');
 		}
-		
+
+		// get available items from database.
+		me.getAvailableItems = function () {
+			return $http.get('getAllItems');
+		}
+
 		/**
 		 * 
 		 */
-		me.addItem = function(item){
-			var object = { itemName: item.itemName, companyId: item.company.companyId };
+		me.addItem = function (item) {
+			const object = { itemName: item.itemName, companyId: item.company.companyId };
 			return $http({
-		        url: 'addItem',
-		        method: "POST",
-		        data: object
-		    })
+				url: 'addItem',
+				method: "POST",
+				data: object
+			})
 		}
-		
-    };
 
-    angular.module('payment').service('itemsService',itemsService);
+	};
 
-}());
+	angular.module('payment').service('itemsService', itemsService);
+
+};

@@ -1,6 +1,7 @@
-(function () {
+"use strict";
+ {
 
-    var billingController = function ($scope, $mdDialog, billingService, itemsService) {
+    function billingController($scope, $mdDialog, billingService, itemsService) {
 
         const me = this;
 
@@ -15,7 +16,7 @@
             .cancel('Close');
 
         for (let i = 0; i < 10; i++) {
-            var obj = { type: 'type ' + i, name: 'item name' + i };
+            const obj = { type: 'type ' + i, name: 'item name' + i };
             me.availableItems.push(obj);
         }
 
@@ -87,4 +88,4 @@
 
     angular.module('payment').controller('billingController', billingController);
 
-} ());
+};

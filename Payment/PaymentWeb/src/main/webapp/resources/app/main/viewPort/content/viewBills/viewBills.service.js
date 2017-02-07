@@ -1,9 +1,10 @@
-(function() {
+"use strict";
+{
 
-    var viewBillsService = function() {
+    function viewBillsService() {
         this.menuBackground = false;
     };
 
-    angular.module('payment').service('viewBillsService',viewBillsService);
+    angular.module('payment').service('viewBillsService', viewBillsService);
 
-}());
+};

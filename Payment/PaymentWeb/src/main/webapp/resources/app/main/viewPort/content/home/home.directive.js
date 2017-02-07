@@ -1,6 +1,8 @@
-(function(){
+"use strict";
+{
 
-    var home = function() {
+    function home() {
+        
         return {
             template: require('./home.template.html'),
             controller: 'menuController',
@@ -10,4 +12,4 @@
 
     angular.module('payment').directive('home',home);
 
-}());
+};

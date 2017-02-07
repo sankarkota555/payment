@@ -1,12 +1,13 @@
-(function(){
+"use strict";
+{
 
-    var menuController = function($scope, $location) {
-        var me = this;
-      $scope.isActive = function (viewLocation) {
-    	  return viewLocation === $location.path();
-      };
-        
+    function menuController($scope, $location) {
+        const me = this;
+        $scope.isActive = function (viewLocation) {
+            return viewLocation === $location.path();
+        };
+
     };
-    
-    angular.module('payment').controller('menuController',menuController);
-}());
+
+    angular.module('payment').controller('menuController', menuController);
+};

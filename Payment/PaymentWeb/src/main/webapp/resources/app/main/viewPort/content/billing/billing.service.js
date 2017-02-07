@@ -1,6 +1,8 @@
-(function () {
+"use strict";
 
-    var billingService = function ($http) {
+{
+
+    function billingService($http) {
 
         const me = this;
 
@@ -57,4 +59,4 @@
 
     angular.module('payment').service('billingService', billingService);
 
-} ());
+};

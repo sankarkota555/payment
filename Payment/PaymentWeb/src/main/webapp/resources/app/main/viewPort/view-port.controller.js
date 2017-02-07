@@ -1,18 +1,19 @@
-(function () {
+"use strict";
+{
 
-    var viewPortController = function ($scope) {
-        var me = this;
+    function viewPortController($scope) {
+        const me = this;
 
         me.appStart = "RapidNetSports";
 
-       /* $scope.$watch(function(){ return menuService.menuBackground;},function(newValue,oldValue) {
-            me.menuBacground = newValue;
-        });*/
-    
+        /* $scope.$watch(function(){ return menuService.menuBackground;},function(newValue,oldValue) {
+             me.menuBacground = newValue;
+         });*/
+
 
 
     };
 
     angular.module("payment").controller('viewPortController', viewPortController);
 
-} ());
+};

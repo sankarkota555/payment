@@ -1,6 +1,7 @@
-(function(){
+"use strict";
+{
 
-    var menu = function() {
+    function menu() {
         return {
             template: require('./menu.template.html'),
             controller: 'menuController',
@@ -8,6 +9,6 @@
         }
     };
 
-    angular.module("payment").directive('menu',menu);
+    angular.module("payment").directive('menu', menu);
 
-}());
+};

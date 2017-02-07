@@ -1,6 +1,7 @@
-(function(){
+"use strict";
+{
 
-    var viewPort = function() {
+    function viewPort() {
         return {
             template: require('./view-port.template.html'),
             controller: 'viewPortController',
@@ -8,6 +9,6 @@
         }
     };
 
-    angular.module('payment').directive('viewPort',viewPort);
+    angular.module('payment').directive('viewPort', viewPort);
 
-}());
+};
