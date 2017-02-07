@@ -15,7 +15,7 @@ public class BillPdfController {
   @Autowired
   private BillingService billingService;
 
-  @RequestMapping(value = "/genetaeBillPdf", method = RequestMethod.GET, produces={"application/pdf"})
+  @RequestMapping(value = "/generateBillPdf", method = RequestMethod.GET, produces={"application/pdf"})
   public ModelAndView generateBillPdf(@RequestParam Long billId) {
     return new ModelAndView("billPdfView", "bill", billingService.getBillById(billId));
   }
