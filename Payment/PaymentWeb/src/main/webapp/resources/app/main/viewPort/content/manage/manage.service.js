@@ -9,11 +9,6 @@
 			return $http.get('getAllCompanies');
 		}
 
-		// get available items from database.
-		me.getAvailableItems = function () {
-			return $http.get('getAllItems');
-		}
-
 		/**
 		 * 
 		 */

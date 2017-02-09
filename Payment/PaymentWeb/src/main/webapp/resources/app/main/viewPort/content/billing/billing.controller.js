@@ -1,7 +1,7 @@
 "use strict";
- {
+{
 
-    function billingController($scope, $mdDialog, billingService, itemsService) {
+    function billingController($scope, $mdDialog, $timeout, billingService, itemsService) {
 
         const me = this;
 
@@ -50,33 +50,24 @@
             me.bill.items.splice(index, 1);
         };
 
-
-        /**
-         * Get all available items.
-         */
-        me.getAvalableItems = function () {
-            itemsService.getAvailableItems().then(function (data) {
-                me.availableItems = data.data;
-            }, function (data) {
-                // error loading items.
-                //me.load = false;
-                //utilSvc.processError(data.data, data.status, data.headers, data.config);
-            });
-        };
-
         //get all available items on controller load.
-        me.getAvalableItems();
+        $timeout(function () {
+            me.availableItems = itemsService.availableItems;
+            console.log("billing controller items: " + me.availableItems.length);
+            console.log("itemsService  items: " + itemsService.availableItems.length);
+        }, 500);
+
 
         /**
          * Prints the given bill based in user confirmation.
          */
-        function printBillConfirm(billId,$event) {
-             const billPrinfConfirmationDialog = $mdDialog.confirm()
-            .title('Would you like to print this bill?')
-            .ariaLabel('bill print confirmation')
-            .targetEvent($event)
-            .ok('Print')
-            .cancel('Close');
+        function printBillConfirm(billId, $event) {
+            const billPrinfConfirmationDialog = $mdDialog.confirm()
+                .title('Would you like to print this bill?')
+                .ariaLabel('bill print confirmation')
+                .targetEvent($event)
+                .ok('Print')
+                .cancel('Close');
             $mdDialog.show(billPrinfConfirmationDialog).then(function () {
                 billingService.printBill(billId);
             }, null);
