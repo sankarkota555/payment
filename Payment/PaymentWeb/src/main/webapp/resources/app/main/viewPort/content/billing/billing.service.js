@@ -2,7 +2,7 @@
 
 {
 
-    function billingService($http) {
+    function billingService($http,$window) {
 
         const me = this;
 
@@ -46,13 +46,8 @@
 
         }; // END - generateBill()
 
-        me.printBill = function (billId) {
-            const reqData = { billId: billId }
-            return $http({
-                url: 'generateBillPdf',
-                method: "GET",
-                data: reqData,
-            });
+        me.printBill = function (billId) {       
+            $window.open('generateBillPdf?billId='+ billId, '', "top=" + 100 + ",left=" + 200 + ",width="+(screen.width/3)+",height="+(screen.height-200));
         }; // END - printBill()
 
     }; // END - billingService()

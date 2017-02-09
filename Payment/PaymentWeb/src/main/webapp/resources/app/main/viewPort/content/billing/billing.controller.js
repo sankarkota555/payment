@@ -7,14 +7,6 @@
 
         me.availableItems = [];
 
-        const billPrinfConfirmationDialog = $mdDialog.confirm()
-            .title('Would you like to print this bill?')
-            .textContent('All of the banks have agreed to forgive you your debts.')
-            .ariaLabel('bill print confirmation')
-            .targetEvent(ev)
-            .ok('Print')
-            .cancel('Close');
-
         for (let i = 0; i < 10; i++) {
             const obj = { type: 'type ' + i, name: 'item name' + i };
             me.availableItems.push(obj);
@@ -78,7 +70,13 @@
         /**
          * Prints the given bill based in user confirmation.
          */
-        function printBillConfirm(billId) {
+        function printBillConfirm(billId,$event) {
+             const billPrinfConfirmationDialog = $mdDialog.confirm()
+            .title('Would you like to print this bill?')
+            .ariaLabel('bill print confirmation')
+            .targetEvent($event)
+            .ok('Print')
+            .cancel('Close');
             $mdDialog.show(billPrinfConfirmationDialog).then(function () {
                 billingService.printBill(billId);
             }, null);

@@ -1,7 +1,7 @@
 "use strict";
 {
 
-	function itemsService = function ($http) {
+	function itemsService($http) {
 		const me = this;
 
 		// get available items from database.
@@ -23,7 +23,7 @@
 				url: 'addItem',
 				method: "POST",
 				data: object
-			})
+			});
 		}
 
 	};
