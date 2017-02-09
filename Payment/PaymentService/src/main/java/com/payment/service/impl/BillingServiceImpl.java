@@ -71,12 +71,14 @@ public class BillingServiceImpl implements BillingService {
       soldItem = soldItems.get(index);
       if (soldItem.getItemDetails().getId() != null) {
         itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
-        log.info("Item details exists in DB: id: " + itemDetails.getId());
+        log.info("Item details exists in DB with id: " + itemDetails.getId());
         soldItem.setItemDetails(itemDetails);
       } else {
+        log.info("Item details not found in DB - creating new item details");
         itemDetails = new ItemDetails();
         item = itemRepository.findByItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
         if (item == null) {
+          log.info("Item not found in DB with name: {}",soldItems.get(index).getItemDetails().getItem().getItemName());
           item = new Item();
           item.setItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
         }
@@ -84,6 +86,7 @@ public class BillingServiceImpl implements BillingService {
         company = itemCompanyRepository.findByCompanyName(
             soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
         if (company == null) {
+          log.info("Company not found in DB with name:{}",soldItems.get(index).getItemDetails().getItemCompany().getCompanyName() );
           company = new ItemCompany();
           company.setCompanyName(
               soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());

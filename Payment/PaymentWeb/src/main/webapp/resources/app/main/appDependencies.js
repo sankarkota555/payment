@@ -10,6 +10,9 @@ import 'angular-auto-validate/dist/jcs-auto-validate.min.js';
 //Routes
 import './viewPort/routes/menuRoutes.js';
 
+//interceptors
+import "./viewPort/interceptors/csrfInterceptor.js";
+
 // Controllers
 import "./viewPort/view-port.controller.js";
 import "./viewPort/menu/menu.controller.js";
@@ -34,3 +37,5 @@ import "./viewPort/content/manage/items/items.service.js";
 
 // Filters
 import "./viewPort/filters/matchResults.js";
+
+

@@ -9,6 +9,7 @@ import datepicker from 'angular-ui-bootstrap/src/datepicker';
 import timepicker from 'angular-ui-bootstrap/src/timepicker';
 import modal from 'angular-ui-bootstrap/src/modal';
 import uiRouter from 'angular-ui-router';
+import angularCookies from 'angular-cookies';
 
 angular.module("payment", [
 	bootstrap, 
@@ -21,6 +22,7 @@ angular.module("payment", [
 	datepicker,
 	timepicker,
 	modal,	
+	angularCookies,
 	'jcs-autoValidate'
 ]);
 

@@ -25,9 +25,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     // allow basic authentication
     http.httpBasic();
     
-    // disable headers
-    http.headers().disable();
-    
     // enable session management
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         .enableSessionUrlRewriting(true);
