@@ -1,7 +1,7 @@
 "use strict";
 {
 
-    function billingController($scope, $mdDialog, $timeout, billingService, itemsService) {
+    function billingController($scope, $mdDialog, $timeout, billingService, itemsService, utilsService) {
 
         const me = this;
 

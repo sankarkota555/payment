@@ -34,6 +34,7 @@ import "./viewPort/content/content.directive.js";
 // Services
 import "./viewPort/content/billing/billing.service.js";
 import "./viewPort/content/manage/items/items.service.js";
+import "./viewPort/utils/util.service.js";
 
 // Filters
 import "./viewPort/filters/matchResults.js";
