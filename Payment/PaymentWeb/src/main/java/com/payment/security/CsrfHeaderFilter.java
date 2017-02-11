@@ -18,9 +18,7 @@ import org.springframework.web.util.WebUtils;
 @Component
 public class CsrfHeaderFilter extends OncePerRequestFilter {
   
-  
   private static final Logger log = LoggerFactory.getLogger(CsrfHeaderFilter.class);
-
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
