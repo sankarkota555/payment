@@ -71,6 +71,9 @@ public class BillingServiceImpl implements BillingService {
       soldItem = soldItems.get(index);
       if (soldItem.getItemDetails().getId() != null) {
         itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
+        if(itemDetails.getQuantity() != null ){         
+          itemDetails.setQuantity(itemDetails.getQuantity()- soldItem.getQuantity());
+        }
         log.info("Item details exists in DB with id: " + itemDetails.getId());
         soldItem.setItemDetails(itemDetails);
       } else {
