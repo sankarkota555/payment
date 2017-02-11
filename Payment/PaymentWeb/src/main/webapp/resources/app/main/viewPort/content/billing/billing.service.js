@@ -2,7 +2,7 @@
 
 {
 
-    function billingService($http,$window) {
+    function billingService($http, $window) {
 
         const me = this;
 
@@ -15,13 +15,15 @@
             // billData.netAmount = 
             for (let index = 0; index < bill.items.length; index++) {
                 const itemObj = { itemDetails: { id: null }, quantity: bill.items[index].quantity, soldPrice: bill.items[index].price };
+                // check item is new or not, if new create new item and item details
                 if (bill.items[index].selectedItem == null) {
                     // itemObj.itemName = bill.items[index].searchItemText;
                     itemObj.itemDetails = { id: null, capacity: bill.items[index].capacity, price: bill.items[index].price, itemCompany: null, item: null };
                     itemObj.itemDetails.itemCompany = { companyName: bill.items[index].searchCompanyText.toLowerCase() };
                     itemObj.itemDetails.item = { itemName: bill.items[index].searchItemText.toLowerCase() };
 
-                } else if (bill.items[index].selectedCompany == null) {
+                }// check item company is new or not 
+                else if (bill.items[index].selectedCompany == null) {
                     itemObj.itemDetails = { id: null, capacity: bill.items[index].capacity, price: bill.items[index].price, itemCompany: null, item: null };
                     itemObj.itemDetails.itemCompany = { companyName: bill.items[index].searchCompanyText.toLowerCase() };
                     itemObj.itemDetails.item = { itemName: bill.items[index].selectedItem.itemName.toLowerCase() };
@@ -46,8 +48,8 @@
 
         }; // END - generateBill()
 
-        me.printBill = function (billId) {       
-            $window.open('generateBillPdf?billId='+ billId, '', "top=" + 100 + ",left=" + 200 + ",width="+(screen.width-500)+",height="+(screen.height-200));
+        me.printBill = function (billId) {
+            $window.open('generateBillPdf?billId=' + billId, '', "top=" + 100 + ",left=" + 200 + ",width=" + (screen.width - 500) + ",height=" + (screen.height - 200));
         }; // END - printBill()
 
     }; // END - billingService()
