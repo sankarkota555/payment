@@ -25,9 +25,6 @@
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/home.svg" class="phone"></md-icon>
 			    <input ng-model="billingController.bill.customer.address" type="text" placeholder="Address" ng-required="true">
 		    </md-input-container>
-		    <div layout="row" layout-align="end end">
-		       <md-button class="md-raised md-primary" ng-click="billingController.addItem()">Add Item</md-button>
-		    </div>   
 		   	     
 		    <div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items" >
 		        <section layout="row" layout-sm="column" layout-align="start start" > 
@@ -61,29 +58,30 @@
 							md-select-on-match = "true"
 							md-menu-class="autocomplete-custom-template"> 
 					       <md-item-template>
-						      <span class="item-title"> <md-icon
-								md-svg-icon="img/icons/octicon-repo.svg"></md-icon> <span>
-								{{item.itemCompany.companyName}} </span>
-						      </span> <!-- <span class="item-metadata"> <span class="item-metastat">
-								<strong>{{item}}</strong> watchers
-						</span> <span class="item-metastat"> <strong>{{item}}</strong>
-								forks
-						</span> -->
-						</span> </md-item-template> </md-autocomplete>
+						      <span class="auto-complete">  
+								{{item.itemCompany.companyName}} 
+						      </span> 
+						   </md-item-template> 
+						</md-autocomplete>
 		            </div> 
 		            <div flex="20">
 		                <md-input-container class="md-block"> 
+		                    <md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null">Available: {{item.selectedCompany.quantity}}</md-tooltip>
 			                <input ng-model="item.quantity" type="number" placeholder="Quantity" ng-required="true">
 		                </md-input-container>		    
 		            </div>
 		            <div flex="15">
 		                <md-input-container class="md-block"> 
+		                    <md-tooltip  md-direction="top" ng-if="item.selectedCompany.price != null">Actual Price:{{item.selectedCompany.price}}</md-tooltip>
 			                <input ng-model="item.price" type="number" placeholder="Price" ng-required="true">
 		                </md-input-container>	
 		            </div> 
 		            <div flex="15">
-			            <md-button class="md-fab md-mini"  aria-label="delete item" ng-click="billingController.deleteItem($index)">
-                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/delete.svg"></md-icon>
+		                 <md-button class="md-fab md-mini md-primary md-hue-2"  title="Add item" aria-label="delete item" ng-if="$first" ng-click="billingController.addItem()">
+                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/add.svg"></md-icon>
+                        </md-button>
+			            <md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item"  aria-label="delete item" ng-if="!$first"ng-click="billingController.deleteItem($index)">
+                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/multiply.svg"></md-icon>
                         </md-button>
 		            </div>    
 		         </section> 	    
