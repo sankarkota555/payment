@@ -13,7 +13,7 @@
         }
 
         console.log("available items:" + me.availableItems.length);
-        me.bill = { items: [{}] };
+        me.bill = { items: [{selectedCompany:null}] };
 
         // increments for time picker
         me.hrstep = 1;
@@ -21,7 +21,7 @@
 
         //function to add items to user
         me.addItem = function () {
-            me.bill.items.push({});
+            me.bill.items.push({selectedCompany:null});
         };
 
         //function for generating bill

@@ -38,15 +38,10 @@
 							md-select-on-match = "true"
 							md-menu-class="autocomplete-custom-template"> 
 					       <md-item-template>
-						      <span class="item-title"> <md-icon
-								md-svg-icon="img/icons/octicon-repo.svg"></md-icon> <span>
-								{{item.itemName}} </span>
-						      </span> <!-- <span class="item-metadata"> <span class="item-metastat">
-								<strong>{{item}}</strong> watchers
-						</span> <span class="item-metastat"> <strong>{{item}}</strong>
-								forks
-						</span> -->
-						</span> </md-item-template> </md-autocomplete>
+						      <span class="item-title"> 
+								{{item.itemName}} </span> 
+						   </md-item-template> 
+						</md-autocomplete>
 					</div>
 		            <div flex="50"> 
 		                <md-autocomplete md-no-cache="true" required
@@ -66,8 +61,15 @@
 		            </div> 
 		            <div flex="20">
 		                <md-input-container class="md-block"> 
-		                    <md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null">Available: {{item.selectedCompany.quantity}}</md-tooltip>
-			                <input ng-model="item.quantity" type="number" placeholder="Quantity" ng-required="true">
+		                    <md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null && (item.quantity == null ||item.quantity <= item.selectedCompany.quantity)">Available: {{item.selectedCompany.quantity}}</md-tooltip>
+		                    <md-tooltip md-direction="top" ng-if="item.selectedCompany != null && item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity" 
+		                              ng-init="showToolTip = (item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity)" 
+		                              md-visible="showToolTip">Only {{item.selectedCompany.quantity}} Available
+		                     </md-tooltip>
+			                <input ng-model="item.quantity" name="quantity" type="number" placeholder="Quantity" ng-required="true">
+			               <!--  <div ng-messages="myForm.quantity.$error">
+                                 <div ng-message="required" class="md-input-message-animation">Those many items  not available!</div>
+                            </div> -->
 		                </md-input-container>		    
 		            </div>
 		            <div flex="15">
@@ -85,23 +87,18 @@
                         </md-button>
 		            </div>    
 		         </section> 	    
-		     </div>     
-		</form>
-	  <div class="form-group">
-	   <section layout="row" layout-sm="column" layout-align="start start" >
-	   <div flex="50"> 
-          <md-datepicker ng-model="billingController.bill.generatedDate" md-placeholder="Enter date" > <!-- md-min-date="sportsController.minDate" md-max-date="sportsController.maxDate" --></md-datepicker>
-          </div>
-          <div flex="50">
-          <div uib-timepicker ng-model="billingController.bill.generatedDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
-         </div>
-         </section>
-      </div>
-      <div class="form-group">
-         
-      </div>
-      
-     </md-card>   
+		     </div>  
+             <section layout="row" layout-sm="column" layout-align="start start" >
+	             <div flex="50"> 
+                    <md-datepicker ng-model="billingController.bill.generatedDate" md-placeholder="Enter date" ></md-datepicker>
+                    <div uib-timepicker ng-model="billingController.bill.generatedDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
+                 </div>
+<!--                  <div flex="50">
+                     
+                 </div> -->
+            </section>   
+		 </form>
+      </md-card>   
 	</div>
 	<div class="modal-footer">
 		<md-button class="md-raised md-primary" ng-disabled="myForm.$invalid"
