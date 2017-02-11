@@ -20,38 +20,53 @@
         me.minstep = 30;
 
         //function to add items to user
-        me.addItem = function () {
+        me.addItem = function() {
             me.bill.items.push({ selectedCompany: null });
         };
 
         //function for generating bill
-        me.generateBill = function () {
+        me.generateBill = function() {
             console.log("bill objet");
             console.log(me.bill);
-            billingService.generateBill(me.bill).then(function (response) {
+            billingService.generateBill(me.bill).then(function(response) {
                 console.log("successfully saved");
                 console.log(response);
                 printBillConfirm(response.data);
             },
-                function (response) {
+                function(response) {
                     console.log("failed to saved");
                 });;
         };
 
         //function to reset form details
-        me.resetForm = function () {
+        me.resetForm = function() {
             // reset user object
             //me.user = {name:"", phone:"", email:"", address:"", items:[{}],soldDate:null};
         };
 
         //function to delete item
-        me.deleteItem = function (index) {
+        me.deleteItem = function(index) {
             // delete selected item
             me.bill.items.splice(index, 1);
         };
 
+        //function to search for item
+        me.searchItems = function(itemName) {
+            itemsService.searchItems(itemName).then(function(response) {
+                console.log("successfully searched item " + itemName);
+                return response.data;
+            },
+                function(response) {
+                    console.log("error");
+                    console.log(response);
+                    utilsService.processError(response.data.data, response.data.config);
+                });;
+        };
+
+
+
         //get all available items on controller load.
-        $timeout(function () {
+        $timeout(function() {
             me.availableItems = itemsService.availableItems;
             console.log("billing controller items: " + me.availableItems.length);
             console.log("itemsService  items: " + itemsService.availableItems.length);
@@ -68,7 +83,7 @@
                 .targetEvent($event)
                 .ok('Print')
                 .cancel('Close');
-            $mdDialog.show(billPrinfConfirmationDialog).then(function () {
+            $mdDialog.show(billPrinfConfirmationDialog).then(function() {
                 billingService.printBill(billId);
             }, null);
         }

@@ -31,7 +31,7 @@
 		            <div flex="50">
 						<md-autocomplete md-no-cache="true" required
 							md-selected-item="item.selectedItem"
-							md-items="item in billingController.availableItems | matchResults: 'itemName': item.searchItemText"
+							md-items="item in billingController.searchItems(item.searchItemText) | matchResults: 'itemName': item.searchItemText"
 							md-search-text="item.searchItemText"
 							md-item-text="item.itemName" md-min-length="2"
 							md-floating-label="Select Item"
