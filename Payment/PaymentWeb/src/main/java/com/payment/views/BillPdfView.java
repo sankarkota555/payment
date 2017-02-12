@@ -1,8 +1,11 @@
 
 package com.payment.views;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
@@ -114,10 +118,12 @@ public class BillPdfView extends AbstractItextPdfView {
     final int imgeHeight = 50;
 
     try {
+    	
+      String folderPath = getFolderLocation(); 
       // image path:
-      String imageFilePathRight = "C:\\Users\\shankarrao.kota\\Desktop\\GIF imges\\wodows xp sample image.jpg"; // "C:/Users/Public/Pictures/Sample
+      String imageFilePathRight =  folderPath+"resources/images/lakshmi.jpg" ; 
       // Pictures/Tulips.jpg";
-      String imageFilePathLeft = "C:\\Users\\shankarrao.kota\\Desktop\\GIF imges\\wodows xp sample image.jpg"; // ganapathi1.png";
+      String imageFilePathLeft =  folderPath+"resources/images/ganapathi.jpg" ; 
       Image imageLeft = Image.getInstance(imageFilePathLeft);
       imageLeft.setWidthPercentage(20);
       imageLeft.setScaleToFitHeight(true);
@@ -299,4 +305,9 @@ public class BillPdfView extends AbstractItextPdfView {
     paragraph.setSpacingBefore(spacinngBefore);
     return paragraph;
   }
+  
+	private String getFolderLocation() throws UnsupportedEncodingException {
+		return URLDecoder.decode(
+				this.getClass().getClassLoader().getResource("").getPath().split("WEB-INF/classes/")[0], "UTF-8");
+	}
 }
