@@ -6,11 +6,11 @@
         const me = this;
 
         // show error popup
-        me.processError = function (errorMessage, errorMessageDetails) {
+        me.processError = function (errorRequest, errorMessage, errorMessageDetails) {
             $mdDialog.show(
                 $mdDialog.alert()
                     .clickOutsideToClose(false)
-                    .title(errorMessage)
+                    .title(errorMessage+" for "+errorRequest)
                     .textContent(errorMessageDetails)
                     .ariaLabel('Alert error message')
                     .ok('Close')
@@ -19,7 +19,7 @@
                         width: 30,
                         height: 80
                     }).closeTo({
-                        left: 1500
+                        right: 1500
                     })
             );
 
