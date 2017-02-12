@@ -36,6 +36,8 @@
             },
                 function(response) {
                     console.log("failed to saved");
+                    // show error opoup
+                    processError(response); 
                 });;
         };
 
@@ -61,8 +63,8 @@
             },
                 function(response) {
                     console.log("error");
-                    console.log(response);
-                    utilsService.processError(response.config.url,"Internal Server Error", response.data.errorMessage);
+                    //show error message opoup
+                    processError(response);                   
                 });;
         };
 
@@ -82,6 +84,10 @@
         }
 
     };
+
+    function processError(response){
+         utilsService.processError(response.config.url,"Internal Server Error", response.data.errorMessage);
+    }
 
     angular.module('payment').controller('billingController', billingController);
 
