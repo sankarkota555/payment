@@ -30,12 +30,13 @@
 		        <section layout="row" layout-sm="column" layout-align="start start" > 
 		            <div flex="50">
 						<md-autocomplete md-no-cache="true" required
+						    md-search-text-change="billingController.searchItems(item.searchItemText)"
 							md-selected-item="item.selectedItem"
-							md-items="item in billingController.searchItems(item.searchItemText) | matchResults: 'itemName': item.searchItemText"
+							md-items="item in billingController.searchedItems"
 							md-search-text="item.searchItemText"
 							md-item-text="item.itemName" md-min-length="2"
 							md-floating-label="Select Item"
-							md-select-on-match = "true"
+							md-select-on-match = "false"
 							md-menu-class="autocomplete-custom-template"> 
 					       <md-item-template>
 						      <span class="item-title"> 
@@ -50,7 +51,7 @@
 							md-search-text="item.searchCompanyText"
 							md-item-text="item.itemCompany.companyName" md-min-length="2"
 							md-floating-label="Select Company"
-							md-select-on-match = "true"
+							md-select-on-match = "false"
 							md-menu-class="autocomplete-custom-template"> 
 					       <md-item-template>
 						      <span class="auto-complete">  
@@ -79,10 +80,10 @@
 		                </md-input-container>	
 		            </div> 
 		            <div flex="15">
-		                 <md-button class="md-fab md-mini md-primary md-hue-2"  title="Add item" aria-label="delete item" ng-if="$first" ng-click="billingController.addItem()">
+		                 <md-button class="md-fab md-mini md-primary md-hue-2"  title="Add item" aria-label="delete item" ng-if="$last" ng-click="billingController.addItem()">
                             <md-icon md-svg-src="javax.faces.resource/images/thumbs/add.svg"></md-icon>
                         </md-button>
-			            <md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item"  aria-label="delete item" ng-if="!$first"ng-click="billingController.deleteItem($index)">
+			            <md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item"  aria-label="delete item" ng-if="!$last"ng-click="billingController.deleteItem($index)">
                             <md-icon md-svg-src="javax.faces.resource/images/thumbs/multiply.svg"></md-icon>
                         </md-button>
 		            </div>    

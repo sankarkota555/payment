@@ -6,6 +6,7 @@
         const me = this;
 
         me.availableItems = [];
+        me.searchedItems = [];
 
         for (let i = 0; i < 10; i++) {
             const obj = { type: 'type ' + i, name: 'item name' + i };
@@ -54,24 +55,16 @@
         me.searchItems = function(itemName) {
             itemsService.searchItems(itemName).then(function(response) {
                 console.log("successfully searched item " + itemName);
-                return response.data;
+                console.log(response.data);
+                me.searchedItems = response.data; 
+                console.log("items st to variables");
             },
                 function(response) {
                     console.log("error");
                     console.log(response);
-                    utilsService.processError(response.data.data, response.data.config);
+                    utilsService.processError(response.config.url,"Internal Server Error", response.data.errorMessage);
                 });;
         };
-
-
-
-        //get all available items on controller load.
-        $timeout(function() {
-            me.availableItems = itemsService.availableItems;
-            console.log("billing controller items: " + me.availableItems.length);
-            console.log("itemsService  items: " + itemsService.availableItems.length);
-        }, 500);
-
 
         /**
          * Prints the given bill based in user confirmation.

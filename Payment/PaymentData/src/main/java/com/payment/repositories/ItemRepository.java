@@ -12,8 +12,8 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
   public Item findByItemName(String itemName);
   
-  @Query("From Item item where lower(item.itemName) like lower('%:itenName%')")
-  public List<Item> findItemsLike(@Param("name") String searchItemName);
+  @Query("From Item item where lower(item.itemName) like :itemName%")
+  public List<Item> findItemsLike(@Param("itemName") String searchItemName);
   
   @Override
   public List<Item> findAll();
