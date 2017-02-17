@@ -1,7 +1,6 @@
 
 package com.payment.views;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
@@ -56,11 +54,15 @@ public class BillPdfView extends AbstractItextPdfView {
   @Override
   protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer,
       HttpServletRequest request, HttpServletResponse response) throws Exception {
+	  
     Bill bill = (Bill) model.get("bill");
     billDate = bill.getGeneratedDate();
     doc.addAuthor(PaymentConstantNames.shopName);
     doc.addCreationDate();
     doc.addProducer();
+    
+    //set downloadable file name
+    response.setHeader( "Content-Disposition", "filename=" + getDownloadableFileName(bill.getBillId(), bill.getCustomer().getName()) );
 
     // Add header table (office details)
     doc.add(getHeaderTable());
@@ -309,5 +311,9 @@ public class BillPdfView extends AbstractItextPdfView {
 	private String getFolderLocation() throws UnsupportedEncodingException {
 		return URLDecoder.decode(
 				this.getClass().getClassLoader().getResource("").getPath().split("WEB-INF/classes/")[0], "UTF-8");
+	}
+	
+	private String getDownloadableFileName(long billId,String customerName){
+		return "LGC_bill_"+customerName+"_"+billId+".pdf";
 	}
 }
