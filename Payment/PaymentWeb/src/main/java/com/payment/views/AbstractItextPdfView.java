@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.view.AbstractView;
 
 import com.itextpdf.text.Document;
@@ -25,7 +26,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public abstract class AbstractItextPdfView extends AbstractView {
 
   public AbstractItextPdfView() {
-    setContentType("application/pdf");
+    setContentType(MediaType.APPLICATION_PDF_VALUE);
   }
 
   @Override
