@@ -6,7 +6,9 @@
 	        <li ng-class="{ active: isActive('/viewBills')}"><a ui-sref="viewBills">VIEW BILLS</a></li>
             <li ng-class="{ active: isActive('/manage')}"><a ui-sref="manage">Manage</a></li>
             <!-- <li ng-class="{ active: isActive('/gallery')}"><a ui-sref="gallery">GALLERY</a></li> -->
-            
+            <li ng-controller="userActivityController as userActivityController">
+                <md-button class="md-raised md-warn" ng-click="userActivityController.logout()">Logout</md-button>
+            </li>
          </ul>
     </nav>
 </div>
