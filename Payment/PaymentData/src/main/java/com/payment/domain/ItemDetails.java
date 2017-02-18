@@ -41,7 +41,7 @@ public class ItemDetails implements Serializable {
   private String capacity;
 
   @Column(name = "price")
-  private int price;
+  private Integer price;
 
   @Column(name = "quantity")
   private Integer quantity;
@@ -66,14 +66,6 @@ public class ItemDetails implements Serializable {
     this.capacity = capacity;
   }
 
-  public int getPrice() {
-    return price;
-  }
-
-  public void setPrice(int price) {
-    this.price = price;
-  }
-
   public Long getId() {
     return id;
   }
@@ -96,6 +88,14 @@ public class ItemDetails implements Serializable {
 
   public void setItem(Item item) {
     this.item = item;
+  }
+
+  public Integer getPrice() {
+    return price;
+  }
+
+  public void setPrice(Integer price) {
+    this.price = price;
   }
 
 }
