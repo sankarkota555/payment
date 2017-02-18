@@ -8,6 +8,8 @@
         me.availableItems = [];
         me.searchedItems = [];
 
+        let previousSearchText = "<<";
+
         for (let i = 0; i < 10; i++) {
             const obj = { type: 'type ' + i, name: 'item name' + i };
             me.availableItems.push(obj);
@@ -21,55 +23,77 @@
         me.minstep = 30;
 
         //function to add items to user
-        me.addItem = function() {
+        me.addItem = function () {
             me.bill.items.push({ selectedCompany: null });
         };
 
         //function for generating bill
-        me.generateBill = function() {
+        me.generateBill = function () {
             console.log("bill objet");
             console.log(me.bill);
-            billingService.generateBill(me.bill).then(function(response) {
+            me.generateButtonText = "";
+            me.inProgress = true;
+            utilsService.confirmationPopup('Do you want to Generate Bill?', saveBill, setButtonText, 'testparam');
+
+        };
+
+        function saveBill(test) {
+            console.log("test param received: " + test);
+            billingService.generateBill(me.bill).then(function (response) {
                 console.log("successfully saved");
                 console.log(response);
                 me.resetForm();
                 printBillConfirm(response.data);
             },
-                function(response) {
+                function (response) {
                     console.log("failed to saved");
+                    setButtonText();
                     // show error opoup
-                    processError(response); 
+                    processError(response);
                 });;
-        };
+        }
 
         //function to reset form details
-        me.resetForm = function() {
-           // reset form
+        me.resetForm = function () {
+            // reset form
             me.bill = { items: [{ selectedCompany: null }] };
             $scope.billingForm.$setPristine();
             $scope.billingForm.$setUntouched();
+            setButtonText();
             console.log("form reset completed");
         };
 
+        function setButtonText() {
+            me.generateButtonText = "GENERATE";
+            me.inProgress = false;
+        }
+
+        setButtonText();
+
         //function to delete item
-        me.deleteItem = function(index) {
+        me.deleteItem = function (index) {
             // delete selected item
             me.bill.items.splice(index, 1);
         };
 
         //function to search for item
-        me.searchItems = function(itemName) {
-            itemsService.searchItems(itemName).then(function(response) {
-                console.log("successfully searched item " + itemName);
-                console.log(response.data);
-                me.searchedItems = response.data; 
-                console.log("items st to variables");
-            },
-                function(response) {
-                    console.log("error");
-                    //show error message opoup
-                    processError(response);                   
-                });;
+        me.searchItems = function (itemName) {
+            if (itemName.length > 1 && itemName.indexOf(previousSearchText) != 0) {
+                me.searchedItems = [];
+                itemsService.searchItems(itemName).then(function (response) {
+                    console.log("successfully searched item " + itemName);
+                    console.log(response.data);
+                    previousSearchText = itemName;
+                    me.searchedItems = response.data;
+                    console.log("items st to variables");
+                },
+                    function (response) {
+                        console.log("error");
+                        //show error message opoup
+                        processError(response);
+                    });;
+            }
+
         };
 
         /**
@@ -82,16 +106,16 @@
                 .targetEvent($event)
                 .ok('Print')
                 .cancel('Close');
-            $mdDialog.show(billPrinfConfirmationDialog).then(function() {
+            $mdDialog.show(billPrinfConfirmationDialog).then(function () {
                 billingService.printBill(billId);
             }, null);
         }
 
-    };
+        function processError(response) {
+            utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);
+        }
 
-    function processError(response){
-         utilsService.processError(response.config.url,"Internal Server Error", response.data.errorMessage);
-    }
+    };
 
     angular.module('payment').controller('billingController', billingController);
 

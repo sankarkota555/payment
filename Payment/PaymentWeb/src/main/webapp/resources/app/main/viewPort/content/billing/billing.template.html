@@ -1,10 +1,11 @@
-<div class="container-fluid">
+<div layout-fill layout="column" layout-align="center" style="max-height=800px;">
 
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-title">Enter Details</h4>
-	</div>
+<div layout="row" layout-align="center start">
 	<div class="modal-body" id="modal-body">
 	 <md-card flex layout-padding>
+	    <div class="modal-header">
+		        <h4 class="modal-title" align="center">Enter Bill Details</h4>
+	     </div>
 		<form name="billingForm">	
 			<md-input-container class="md-icon-float md-block">
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon>
@@ -13,7 +14,7 @@
 		    
 			<md-input-container class="md-block"> 
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/phone.svg" class="phone"></md-icon>
-			    <input ng-model="billingController.bill.customer.phone"  type="text" placeholder="Phone Number" ng-required="true"> 
+			    <input ng-model="billingController.bill.customer.phone"  type="text" placeholder="Phone Number" ng-pattern="/^[0-9]{10,10}$/" ng-required="true"> 
 			</md-input-container>
 			
 			<md-input-container class="md-block">
@@ -25,7 +26,8 @@
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/home.svg" class="phone"></md-icon>
 			    <input ng-model="billingController.bill.customer.address" type="text" placeholder="Address" ng-required="true">
 		    </md-input-container>
-		   	     
+		     <div><h5 style="margin-left:1%">Number of items: {{billingController.bill.items.length}}</h5></div> 
+		   	 <div style="max-height:200px;overflow-y:auto; ">   	   	  
 		    <div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items" >
 		        <section layout="row" layout-sm="column" layout-align="start start" > 
 		            <div flex="50">
@@ -67,7 +69,7 @@
 		                              ng-init="showToolTip = (item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity)" 
 		                              md-visible="showToolTip">Only {{item.selectedCompany.quantity}} Available
 		                     </md-tooltip>
-			                <input ng-model="item.quantity" name="quantity" type="number" placeholder="Quantity" ng-required="true">
+			                <input ng-model="item.quantity" name="quantity" type="text"  ng-pattern="/^\d+$/" placeholder="Quantity" ng-required="true">
 			               <!--  <div ng-messages="myForm.quantity.$error">
                                  <div ng-message="required" class="md-input-message-animation">Those many items  not available!</div>
                             </div> -->
@@ -76,7 +78,7 @@
 		            <div flex="15">
 		                <md-input-container class="md-block"> 
 		                    <md-tooltip  md-direction="top" ng-if="item.selectedCompany.price != null">Actual Price:{{item.selectedCompany.price}}</md-tooltip>
-			                <input ng-model="item.price" type="number" placeholder="Price" ng-required="true">
+			                <input ng-model="item.price" type="text"  ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
 		                </md-input-container>	
 		            </div> 
 		            <div flex="15">
@@ -89,24 +91,22 @@
 		            </div>    
 		         </section> 	    
 		     </div>  
-             <section layout="row" layout-sm="column" layout-align="start start" >
-	             <div flex="50"> 
-                    <md-datepicker ng-model="billingController.bill.generatedDate" md-placeholder="Enter date" ></md-datepicker>
-                    <div uib-timepicker ng-model="billingController.bill.generatedDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
-                 </div>
-<!--                  <div flex="50">
-                     
-                 </div> -->
-            </section>   
+		     </div>
+             <section layout="row" layout-sm="row" layout-align="start start" >
+          <md-datepicker flex="50" ng-model="billingController.user.soldDate" md-placeholder="Enter date" > <!-- md-min-date="sportsController.minDate" md-max-date="sportsController.maxDate" --></md-datepicker>       
+          <div flex="50" style="margin-top: -4%;" uib-timepicker ng-model="billingController.user.soldDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
+        </section> 
 		 </form>
-      </md-card>   
-	</div>
-	<div class="modal-footer">
-		<md-button class="md-raised md-primary" ng-disabled="billingForm.$invalid"
-			ng-click="billingController.generateBill()">Generate</md-button>
+		 <div layout="row" layout-align="end end">
+		     <!--  <div style="height: 4%;margin-top:-2%;"><md-progress-circular ng-disabled="false" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></div> -->
+		      <md-button class="md-raised md-primary" ng-disabled="billingForm.$invalid || billingController.inProgress"
+			ng-click="billingController.generateBill()">{{billingController.generateButtonText}}<span ng-if="billingController.inProgress"><md-progress-circular ng-disabled="!billingController.inProgress" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></span></md-button>
 		<md-button class="md-raised md-warn"
 			ng-click="billingController.resetForm()">Cancel</md-button>
+		 </div>
+      </md-card>   
 	</div>
 
+</div>
 
 </div>
