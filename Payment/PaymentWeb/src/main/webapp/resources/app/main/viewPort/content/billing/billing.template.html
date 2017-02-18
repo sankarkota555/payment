@@ -1,10 +1,11 @@
-<div class="container-fluid">
+<div layout-fill layout="column" layout-align="center" style="max-height=800px;">
 
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-title">Enter Details</h4>
-	</div>
-	<div class="modal-body" id="modal-body">
-	 <md-card flex layout-padding>
+<div layout="row" layout-align="center start">
+	<div id="modal-body">
+	 <md-card flex layout-padding style="background-color:rgb(255, 252, 252);">
+	    	<div class="modal-header">
+		        <h4 class="modal-title" id="modal-title" align="center">Enter Details</h4>
+	        </div>
 		<form name="myForm">	
 			<md-input-container class="md-icon-float md-block">
 			    <md-icon md-svg-src="res/images/thumbs/person.svg" class="name"></md-icon>
@@ -13,7 +14,7 @@
 		    
 			<md-input-container class="md-block"> 
 			    <md-icon md-svg-src="res/images/thumbs/phone.svg" class="phone"></md-icon>
-			    <input ng-model="billingController.user.phone" type="text" placeholder="Phone Number" ng-required="true"> 
+			    <input ng-model="billingController.user.phone" type="text" placeholder="Phone Number" ng-pattern="/^[0-9]{10,10}$/" ng-required="true"> 
 			</md-input-container>
 			
 			<md-input-container class="md-block">
@@ -28,8 +29,8 @@
 		    <div layout="row" layout-align="end end">
 		       <md-button class="md-raised md-primary" ng-click="billingController.addItem()">Add Item</md-button>
 		    </div>   
-		   	     
-		    <div layout="row" layout-align="start start" ng-repeat="item in billingController.user.items" >
+		   	<div style="max-height:200px;overflow-y:auto">    
+		    <div layout="row" layout-align="start start" ng-repeat="item in billingController.user.items">
 		        <section layout="row" layout-sm="column" layout-align="start start" > 
 		            <div flex="50">
 						<md-autocomplete md-no-cache="true" required
@@ -58,12 +59,12 @@
 		            </div> 
 		            <div flex="20">
 		                <md-input-container class="md-block"> 
-			                <input ng-model="item.quantity" type="number" placeholder="Quantity" ng-required="true">
+			                <input ng-model="item.quantity" type="text" ng-pattern="/^\d+$/" placeholder="Quantity" ng-required="true">
 		                </md-input-container>		    
 		            </div>
 		            <div flex="15">
 		                <md-input-container class="md-block"> 
-			                <input ng-model="item.price" type="number" placeholder="Price" ng-required="true">
+			                <input ng-model="item.price" type="text" ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
 		                </md-input-container>	
 		            </div> 
 		            <div flex="15">
@@ -72,30 +73,24 @@
                         </md-button>
 		            </div>    
 		         </section> 	    
-		     </div>     
+		     </div>  
+		     </div>   
 		</form>
-	  <div class="form-group">
-	   <section layout="row" layout-sm="column" layout-align="start start" >
-	   <div flex="50"> 
-          <md-datepicker ng-model="billingController.user.soldDate" md-placeholder="Enter date" > <!-- md-min-date="sportsController.minDate" md-max-date="sportsController.maxDate" --></md-datepicker>
-          </div>
-          <div flex="50">
-          <div uib-timepicker ng-model="billingController.user.soldDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
-         </div>
-         </section>
+	  <div>
+	   <section layout="row" layout-sm="row" layout-align="start start" >
+          <md-datepicker flex="50" ng-model="billingController.user.soldDate" md-placeholder="Enter date" > <!-- md-min-date="sportsController.minDate" md-max-date="sportsController.maxDate" --></md-datepicker>       
+          <div flex="50" style="margin-top: -4%;" uib-timepicker ng-model="billingController.user.soldDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
+        </section>
       </div>
-      <div class="form-group">
-         
-      </div>
-      
-     </md-card>   
-	</div>
-	<div class="modal-footer">
+      <div layout="row" layout-align="end end"> <!-- class="modal-footer" -->
+        <div style="height: 4%;"><md-progress-circular ng-disabled="false" class="md-warn md-hue-3" md-diameter="17"></md-progress-circular></div>
 		<md-button class="md-raised md-primary" ng-disabled="myForm.$invalid"
 			ng-click="billingController.generateBill()">Generate</md-button>
 		<md-button class="md-raised md-warn"
 			ng-click="billingController.resetForm()">Cancel</md-button>
+	  </div>
+     </md-card>   
 	</div>
 
-
+</div>
 </div>
