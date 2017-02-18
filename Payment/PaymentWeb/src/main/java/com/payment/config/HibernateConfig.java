@@ -1,26 +1,14 @@
 package com.payment.config;
 
-import java.io.IOException;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-@Configuration
-@EnableJpaRepositories(basePackages="com.payment.repositories") // package name where is you spring data repositories written
+//@Configuration
+//@EnableJpaRepositories(basePackages="com.payment.repositories") // package name where is you spring data repositories written
 public class HibernateConfig {
   
   private Logger logger=Logger.getLogger(HibernateConfig.class);
 
-  @Bean
+/*  @Bean
   public DataSource getDataSource() {
     BasicDataSource ds = new BasicDataSource();
     ds.setUsername("payment");
@@ -29,7 +17,7 @@ public class HibernateConfig {
     ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
     logger.info("Data source object created "+ ds);
     return ds;
-  }
+  }*/
   
 /*  @Bean
   public JndiObjectFactoryBean getJndiObject(){
@@ -38,7 +26,7 @@ public class HibernateConfig {
     return jndiObjectFactoryBean;
   }
 */
-  @Bean
+/*  @Bean
   public HibernateJpaVendorAdapter getHibernateJpaAdapter() {
     HibernateJpaVendorAdapter adpter=new HibernateJpaVendorAdapter();
     adpter.setShowSql(true);
@@ -46,9 +34,9 @@ public class HibernateConfig {
     adpter.setDatabasePlatform("org.hibernate.dialect.OracleDialect");
     
     return adpter;
-  }
+  }*/
   
-  @Bean(name="entityManagerFactory") // same name "entityManagerFactory"  required if u change name then @EnableJpaRepositories(entityManagerFactoryRef="name" ,basePackages="com.data.repositories")
+/*  @Bean(name="entityManagerFactory") // same name "entityManagerFactory"  required if u change name then @EnableJpaRepositories(entityManagerFactoryRef="name" ,basePackages="com.data.repositories")
   public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() throws IOException{
     LocalContainerEntityManagerFactoryBean factory=new LocalContainerEntityManagerFactoryBean();
     factory.setDataSource(getDataSource());
@@ -60,7 +48,7 @@ public class HibernateConfig {
     factory.setJpaProperties(hibernateProperties);
     
     return factory;
-  }
+  }*/
   
 
 }
