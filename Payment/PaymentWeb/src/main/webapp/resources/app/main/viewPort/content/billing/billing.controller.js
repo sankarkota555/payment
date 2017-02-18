@@ -32,6 +32,7 @@
             billingService.generateBill(me.bill).then(function(response) {
                 console.log("successfully saved");
                 console.log(response);
+                me.resetForm();
                 printBillConfirm(response.data);
             },
                 function(response) {
@@ -43,8 +44,11 @@
 
         //function to reset form details
         me.resetForm = function() {
-            // reset user object
-            //me.user = {name:"", phone:"", email:"", address:"", items:[{}],soldDate:null};
+           // reset form
+            me.bill = { items: [{ selectedCompany: null }] };
+            $scope.billingForm.$setPristine();
+            $scope.billingForm.$setUntouched();
+            console.log("form reset completed");
         };
 
         //function to delete item

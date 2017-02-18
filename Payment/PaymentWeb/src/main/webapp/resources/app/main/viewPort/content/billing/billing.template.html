@@ -5,7 +5,7 @@
 	</div>
 	<div class="modal-body" id="modal-body">
 	 <md-card flex layout-padding>
-		<form name="myForm">	
+		<form name="billingForm">	
 			<md-input-container class="md-icon-float md-block">
 			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon>
 			    <input ng-model="billingController.bill.customer.name" type="text" placeholder="Name" ng-required="true"> 
@@ -102,7 +102,7 @@
       </md-card>   
 	</div>
 	<div class="modal-footer">
-		<md-button class="md-raised md-primary" ng-disabled="myForm.$invalid"
+		<md-button class="md-raised md-primary" ng-disabled="billingForm.$invalid"
 			ng-click="billingController.generateBill()">Generate</md-button>
 		<md-button class="md-raised md-warn"
 			ng-click="billingController.resetForm()">Cancel</md-button>
