@@ -8,6 +8,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.AntPathMatcher;
+
+import com.payment.handlers.CustomLogoutHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -15,6 +19,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private UserDetailsService userDetailsService;
+  
+  @Autowired
+  private CustomLogoutHandler customLogoutHandler;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -30,7 +37,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .enableSessionUrlRewriting(true);
     
     // configure logout
-    http.logout().deleteCookies("remove").invalidateHttpSession(true).logoutSuccessUrl("/successlogout").logoutUrl("/logout");
+    http.logout().clearAuthentication(true).deleteCookies("XSRF-TOKEN","JSESSIONID").invalidateHttpSession(true);
+    
+
 
   }
 

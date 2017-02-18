@@ -24,8 +24,9 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
    log.info("In filter for csrf  ");
+   log.info("ser context path: "+request.getRequestURI());
     CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-    if (csrf != null) {
+    if (csrf != null && !request.getRequestURI().contains("logout") && !request.getRequestURI().contains("login")) {
       Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
       String token = csrf.getToken();
       log.info("csrf token: {}",token);
