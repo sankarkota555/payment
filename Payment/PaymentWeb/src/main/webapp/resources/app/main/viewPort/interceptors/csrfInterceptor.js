@@ -15,6 +15,11 @@
                     config.headers['X-CSRF-TOKEN'] = token;
                 }
                 return config;
+            },
+
+            response: function (responseConfig) {
+
+                return responseConfig;
             }
         }
 

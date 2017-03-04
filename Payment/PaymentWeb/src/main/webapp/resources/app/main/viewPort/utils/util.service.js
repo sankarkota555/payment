@@ -50,7 +50,7 @@
         }; // END - processError()
 
         // show alert popup
-        me.alertPopup = function (alertTitle, alertDetails) {
+        me.alertPopup = function (alertTitle, alertDetails,sucessCallbackFunction) {
             $mdDialog.show(
                 $mdDialog.alert()
                     .clickOutsideToClose(false)
@@ -65,7 +65,9 @@
                     }).closeTo({
                         right: 1500
                     })
-            );
+            ).then(function () {
+                sucessCallbackFunction();
+            },null);
 
         }; // END - processError()
 
