@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.payment</groupId>
-	<version>1.0.RELEASE</version>
+	<version>1.1.RELEASE</version>
 	<packaging>pom</packaging>
 	<artifactId>Payment</artifactId>
 	<parent>
@@ -18,7 +18,7 @@
 	</modules>
 
 	<properties>
-		<project-version>1.0.RELEASE</project-version>
+		<project-version>1.1.RELEASE</project-version>
 		<java-version>1.8</java-version>
 	</properties>
 
