@@ -19,7 +19,7 @@
 
             response: function (responseConfig) {
 
-                if (responseConfig.config.url.indexOf("/logout") == -1 && responseConfig.data.indexOf("<html>") != -1) {
+                if (responseConfig.config.url.indexOf("/logout") == -1 && typeof responseConfig.data === 'string' && responseConfig.data.indexOf("<html>") != -1) {
                     let userActivityService = $injector.get("userActivityService");
                     let utilsService = $injector.get("utilsService");
                     utilsService.alertPopup("Session Expired!!", "Please Login...", userActivityService.navigateTologin);
