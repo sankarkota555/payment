@@ -3,8 +3,10 @@ package com.payment.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -17,13 +19,14 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "customer")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Customer implements Serializable{
 
   private static final long serialVersionUID = -2224463901198787144L;
@@ -46,7 +49,7 @@ public class Customer implements Serializable{
   @Column(name = "phone", length = 15, unique = true)
   private String phone;
 
-  @OneToMany(mappedBy = "customer")
+  @OneToMany(cascade=CascadeType.PERSIST)
   @LazyCollection(value = LazyCollectionOption.TRUE)
   private List<Bill> bills;
 
@@ -98,4 +101,9 @@ public class Customer implements Serializable{
     this.bills = bills;
   }
 
+  @Override
+  public String toString() {
+    return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + "]";
+  }
+  
 }

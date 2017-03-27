@@ -17,14 +17,15 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "ItemDetails", uniqueConstraints = { @UniqueConstraint( columnNames = { "company_id", "item_id" } ) } )
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class ItemDetails implements Serializable {
 
   private static final long serialVersionUID = 8803067465655470784L;
@@ -48,8 +49,9 @@ public class ItemDetails implements Serializable {
   @Column(name = "quantity")
   private Integer quantity;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")
+  @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@Item_Id")
   private Item item;
 
   public ItemCompany getItemCompany() {

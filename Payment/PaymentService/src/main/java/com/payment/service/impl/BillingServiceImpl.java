@@ -1,14 +1,14 @@
 package com.payment.service.impl;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
-import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.payment.domain.Bill;
 import com.payment.domain.Customer;
@@ -22,6 +22,7 @@ import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemDetailsRepository;
 import com.payment.repositories.ItemRepository;
 import com.payment.service.BillingService;
+import com.payment.utils.DateUtils;
 
 @Service
 public class BillingServiceImpl implements BillingService {
@@ -71,17 +72,19 @@ public class BillingServiceImpl implements BillingService {
       soldItem = soldItems.get(index);
       if (soldItem.getItemDetails().getId() != null) {
         itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
-        if(itemDetails.getQuantity() != null ){         
-          itemDetails.setQuantity(itemDetails.getQuantity()- soldItem.getQuantity());
+        if (itemDetails.getQuantity() != null) {
+          itemDetails.setQuantity(itemDetails.getQuantity() - soldItem.getQuantity());
         }
         log.info("Item details exists in DB with id: " + itemDetails.getId());
         soldItem.setItemDetails(itemDetails);
       } else {
         log.info("Item details not found in DB - creating new item details");
         itemDetails = new ItemDetails();
-        item = itemRepository.findByItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
+        item = itemRepository
+            .findByItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
         if (item == null) {
-          log.info("Item not found in DB with name: {}",soldItems.get(index).getItemDetails().getItem().getItemName());
+          log.info("Item not found in DB with name: {}",
+              soldItems.get(index).getItemDetails().getItem().getItemName());
           item = new Item();
           item.setItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
         }
@@ -89,7 +92,8 @@ public class BillingServiceImpl implements BillingService {
         company = itemCompanyRepository.findByCompanyName(
             soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
         if (company == null) {
-          log.info("Company not found in DB with name:{}",soldItems.get(index).getItemDetails().getItemCompany().getCompanyName() );
+          log.info("Company not found in DB with name:{}",
+              soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
           company = new ItemCompany();
           company.setCompanyName(
               soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
@@ -130,6 +134,22 @@ public class BillingServiceImpl implements BillingService {
   @Transactional
   public Bill getBillById(long billId) {
     return billrepository.findOne(billId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<Bill> getBillsBasedOnDate(Date billDate) {
+    if (billDate == null) {
+      billDate = DateUtils.getCurrentdate();
+    }
+    log.info("days - 1: "+ DateUtils.addDaysToDate(billDate, -1));
+   List<Bill> bills= billrepository.getBillsBetweenDates(DateUtils.addDaysToDate(billDate, -1),billDate);
+   log.info("Number if bills: "+ bills.size());
+   /*for(Bill bill: bills){
+     Customer cus = bill.getCustomer();
+     log.info("customer: "+ cus);
+   }*/
+    return bills;
   }
 
 }

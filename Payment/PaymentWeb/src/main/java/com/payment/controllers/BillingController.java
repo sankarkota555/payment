@@ -1,5 +1,6 @@
 package com.payment.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,20 +19,27 @@ import com.payment.service.BillingService;
 @RestController
 public class BillingController {
 
-	private static Logger log = LoggerFactory.getLogger(BillingController.class);
+  private static Logger log = LoggerFactory.getLogger(BillingController.class);
 
-	@Autowired
-	private BillingService billingService;
+  @Autowired
+  private BillingService billingService;
 
-	@RequestMapping(value = "/saveBill", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public Long saveBill(@RequestBody Bill bill) {
-		return billingService.saveBill(bill);
+  @RequestMapping(value = "/saveBill", method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON_VALUE })
+  public Long saveBill(@RequestBody Bill bill) {
+    return billingService.saveBill(bill);
 
-	}
+  }
 
-	@RequestMapping(value = "/getCustomerBills", method = RequestMethod.GET)
-	public List<Bill> getCustomerBills(@RequestParam Long customerId) {
-		return billingService.getCustomerBills(customerId);
-	}
+  @RequestMapping(value = "/getCustomerBills", method = RequestMethod.GET)
+  public List<Bill> getCustomerBills(@RequestParam Long customerId) {
+    return billingService.getCustomerBills(customerId);
+  }
+
+  @RequestMapping(value = "/getBillsBasedOnDate", method = RequestMethod.POST)
+  public List<Bill> getCustomerBills(Date billDate) {
+    log.info("billDatereceived in controller: "+ billDate); 
+    return billingService.getBillsBasedOnDate(billDate);
+  }
 
 }

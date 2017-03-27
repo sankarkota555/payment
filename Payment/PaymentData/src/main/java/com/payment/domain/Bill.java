@@ -22,13 +22,9 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
 @DynamicInsert
 @Table(name = "Bill")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Bill implements Serializable {
 
   private static final long serialVersionUID = 3801681122081332394L;
@@ -53,8 +49,8 @@ public class Bill implements Serializable {
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "generated_date")
-  private Date generatedDate;
 
+  private Date generatedDate;
   public Long getBillId() {
     return billId;
   }

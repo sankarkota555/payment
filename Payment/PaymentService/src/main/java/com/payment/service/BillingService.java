@@ -1,5 +1,6 @@
 package com.payment.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.payment.domain.Bill;
@@ -26,5 +27,13 @@ public interface BillingService {
    * @return {@link Bill} object
    */
   public Bill getBillById(long billId);
+  
+  /**
+   * Gives bills based on date
+   * @param billDate date for get bills
+   * @return {@link List} of {@link Bill}
+   */
+  public List<Bill> getBillsBasedOnDate(Date billDate);
+
 
 }

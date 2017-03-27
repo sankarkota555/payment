@@ -52,6 +52,17 @@
             $window.open('generateBillPdf?billId=' + billId, '', "top=" + 100 + ",left=" + 200 + ",width=" + (screen.width - 500) + ",height=" + (screen.height - 200));
         }; // END - printBill()
 
+        me.getBillsBasedOnDate = function (billDate) {
+            const params = {billDate: billDate};
+            return $http({
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                url: 'getBillsBasedOnDate',
+                method: "POST",
+                data: $.param(params)
+            });
+
+        };
+
     }; // END - billingService()
 
     angular.module('payment').service('billingService', billingService);
