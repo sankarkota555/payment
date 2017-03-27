@@ -1,112 +1,103 @@
 <div layout-fill layout="column" layout-align="center" style="max-height=800px;">
 
-<div layout="row" layout-align="center start">
-	<div class="modal-body" id="modal-body">
-	 <md-card flex layout-padding>
-	    <div class="modal-header">
-		        <h4 class="modal-title" align="center">Enter Bill Details</h4>
-	     </div>
-		<form name="billingForm">	
-			<md-input-container class="md-icon-float md-block">
-			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon>
-			    <input ng-model="billingController.bill.customer.name" type="text" placeholder="Name" ng-required="true"> 
-		    </md-input-container>
-		    
-			<md-input-container class="md-block"> 
-			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/phone.svg" class="phone"></md-icon>
-			    <input ng-model="billingController.bill.customer.phone"  type="text" placeholder="Phone Number" ng-pattern="/^[0-9]{10,10}$/" ng-required="true"> 
-			</md-input-container>
-			
-			<md-input-container class="md-block">
-			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/email.svg" class="email"></md-icon>
-			    <input ng-model="billingController.bill.customer.email" type="email" placeholder="Email" ng-required="false"> 
-			</md-input-container>
-					    
-		    <md-input-container class="md-block"> 
-			    <md-icon md-svg-src="javax.faces.resource/images/thumbs/home.svg" class="phone"></md-icon>
-			    <input ng-model="billingController.bill.customer.address" type="text" placeholder="Address" ng-required="true">
-		    </md-input-container>
-		     <div><h5 style="margin-left:1%">Number of items: {{billingController.bill.items.length}}</h5></div> 
-		   	 <div style="max-height:200px;overflow-y:auto; ">   	   	  
-		    <div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items" >
-		        <section layout="row" layout-sm="column" layout-align="start start" > 
-		            <div flex="50">
-						<md-autocomplete md-no-cache="true" required
-						    md-search-text-change="billingController.searchItems(item.searchItemText)"
-							md-selected-item="item.selectedItem"
-							md-items="item in billingController.searchedItems"
-							md-search-text="item.searchItemText"
-							md-item-text="item.itemName" md-min-length="2"
-							md-floating-label="Select Item"
-							md-select-on-match = "false"
-							md-menu-class="autocomplete-custom-template"> 
-					       <md-item-template>
-						      <span class="item-title"> 
-								{{item.itemName}} </span> 
-						   </md-item-template> 
-						</md-autocomplete>
+	<div layout="row" layout-align="center start">
+		<div class="modal-body" id="modal-body">
+			<md-card flex layout-padding>
+				<div class="modal-header">
+					<h4 class="modal-title" align="center">Enter Bill Details</h4>
+				</div>
+				<form name="billingForm">
+					<md-input-container class="md-icon-float md-block">
+						<md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon>
+						<input ng-model="billingController.bill.customer.name" type="text" placeholder="Name" ng-required="true">
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<md-icon md-svg-src="javax.faces.resource/images/thumbs/phone.svg" class="phone"></md-icon>
+						<input ng-model="billingController.bill.customer.phone" type="text" placeholder="Phone Number" ng-pattern="/^[0-9]{10,10}$/"
+						 ng-required="true">
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<md-icon md-svg-src="javax.faces.resource/images/thumbs/email.svg" class="email"></md-icon>
+						<input ng-model="billingController.bill.customer.email" type="email" placeholder="Email" ng-required="false">
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<md-icon md-svg-src="javax.faces.resource/images/thumbs/home.svg" class="phone"></md-icon>
+						<input ng-model="billingController.bill.customer.address" type="text" placeholder="Address" ng-required="true">
+					</md-input-container>
+					<div>
+						<h5 style="margin-left:1%">Number of items: {{billingController.bill.items.length}}</h5>
 					</div>
-		            <div flex="50"> 
-		                <md-autocomplete md-no-cache="true" required
-							md-selected-item="item.selectedCompany"
-							md-items="item in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
-							md-search-text="item.searchCompanyText"
-							md-item-text="item.itemCompany.companyName" md-min-length="2"
-							md-floating-label="Select Company"
-							md-select-on-match = "false"
-							md-menu-class="autocomplete-custom-template"> 
-					       <md-item-template>
-						      <span class="auto-complete">  
-								{{item.itemCompany.companyName}} 
-						      </span> 
-						   </md-item-template> 
-						</md-autocomplete>
-		            </div> 
-		            <div flex="20">
-		                <md-input-container class="md-block"> 
-		                    <md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null && (item.quantity == null ||item.quantity <= item.selectedCompany.quantity)">Available: {{item.selectedCompany.quantity}}</md-tooltip>
-		                    <md-tooltip md-direction="top" ng-if="item.selectedCompany != null && item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity" 
-		                              ng-init="showToolTip = (item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity)" 
-		                              md-visible="showToolTip">Only {{item.selectedCompany.quantity}} Available
-		                     </md-tooltip>
-			                <input ng-model="item.quantity" name="quantity" type="text"  ng-pattern="/^\d+$/" placeholder="Quantity" ng-required="true">
-			               <!--  <div ng-messages="myForm.quantity.$error">
+					<div style="max-height:200px;overflow-y:auto; ">
+						<div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items">
+							<section layout="row" layout-sm="column" layout-align="start start">
+								<div flex="50">
+									<md-autocomplete md-no-cache="true" required md-search-text-change="billingController.searchItems(item.searchItemText)" md-selected-item="item.selectedItem"
+									 md-items="item in billingController.searchedItems" md-search-text="item.searchItemText" md-item-text="item.itemName"
+									 md-min-length="2" md-floating-label="Select Item" md-select-on-match="false" md-menu-class="autocomplete-custom-template">
+										<md-item-template>
+											<span class="item-title"> 
+								{{item.itemName}} </span>
+										</md-item-template>
+									</md-autocomplete>
+								</div>
+								<div flex="50">
+									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="item in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
+									 md-search-text="item.searchCompanyText" md-item-text="item.itemCompany.companyName" md-min-length="2" md-floating-label="Select Company"
+									 md-select-on-match="false" md-menu-class="autocomplete-custom-template">
+										<md-item-template>
+											<span class="auto-complete"> {{item.itemCompany.companyName}}  </span>
+										</md-item-template>
+									</md-autocomplete>
+								</div>
+								<div flex="20">
+									<md-input-container class="md-block">
+										<md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null && (item.quantity == null ||item.quantity <= item.selectedCompany.quantity)">Available: {{item.selectedCompany.quantity}}</md-tooltip>
+										<md-tooltip md-direction="top" ng-if="item.selectedCompany != null && item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity"
+										 ng-init="showToolTip = (item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity)"
+										 md-visible="showToolTip">Only {{item.selectedCompany.quantity}} Available
+										</md-tooltip>
+										<input ng-model="item.quantity" name="quantity" type="text" ng-pattern="/^\d+$/" placeholder="Quantity" ng-required="true">
+										<!--  <div ng-messages="myForm.quantity.$error">
                                  <div ng-message="required" class="md-input-message-animation">Those many items  not available!</div>
                             </div> -->
-		                </md-input-container>		    
-		            </div>
-		            <div flex="15">
-		                <md-input-container class="md-block"> 
-		                    <md-tooltip  md-direction="top" ng-if="item.selectedCompany.price != null">Actual Price:{{item.selectedCompany.price}}</md-tooltip>
-			                <input ng-model="item.price" type="text"  ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
-		                </md-input-container>	
-		            </div> 
-		            <div flex="15">
-		                 <md-button class="md-fab md-mini md-primary md-hue-2"  title="Add item" aria-label="delete item" ng-if="$last" ng-click="billingController.addItem()">
-                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/add.svg"></md-icon>
-                        </md-button>
-			            <md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item"  aria-label="delete item" ng-if="!$last"ng-click="billingController.deleteItem($index)">
-                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/multiply.svg"></md-icon>
-                        </md-button>
-		            </div>    
-		         </section> 	    
-		     </div>  
-		     </div>
-             <section layout="row" layout-sm="row" layout-align="start start" >
-          <md-datepicker flex="50" ng-model="billingController.user.soldDate" md-placeholder="Enter date" > <!-- md-min-date="sportsController.minDate" md-max-date="sportsController.maxDate" --></md-datepicker>       
-          <div flex="50" style="margin-top: -4%;" uib-timepicker ng-model="billingController.user.soldDate" hour-step="billingController.hrstep" minute-step="billingController.minstep" show-meridian="true"></div>
-        </section> 
-		 </form>
-		 <div layout="row" layout-align="end end">
-		     <!--  <div style="height: 4%;margin-top:-2%;"><md-progress-circular ng-disabled="false" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></div> -->
-		      <md-button class="md-raised md-primary" ng-disabled="billingForm.$invalid || billingController.inProgress"
-			ng-click="billingController.generateBill()">{{billingController.generateButtonText}}<span ng-if="billingController.inProgress"><md-progress-circular ng-disabled="!billingController.inProgress" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></span></md-button>
-		<md-button class="md-raised md-warn"
-			ng-click="billingController.resetForm()">Cancel</md-button>
-		 </div>
-      </md-card>   
-	</div>
+									</md-input-container>
+								</div>
+								<div flex="15">
+									<md-input-container class="md-block">
+										<md-tooltip md-direction="top" ng-if="item.selectedCompany.price != null">Actual Price:{{item.selectedCompany.price}}</md-tooltip>
+										<input ng-model="item.price" type="text" ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
+									</md-input-container>
+								</div>
+								<div flex="15">
+									<md-button class="md-fab md-mini md-primary md-hue-2" title="Add item" aria-label="delete item" ng-if="$last" ng-click="billingController.addItem()">
+										<md-icon md-svg-src="javax.faces.resource/images/thumbs/add.svg"></md-icon>
+									</md-button>
+									<md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item" aria-label="delete item" ng-if="!$last" ng-click="billingController.deleteItem($index)">
+										<md-icon md-svg-src="javax.faces.resource/images/thumbs/multiply.svg"></md-icon>
+									</md-button>
+								</div>
+							</section>
+						</div>
+					</div>
+					<section layout="row" layout-sm="row" layout-align="start start">
+						<md-datepicker flex="50" ng-model="billingController.user.soldDate" md-placeholder="Enter date">
+							<!-- md-min-date="sportsController.minDate" md-max-date="sportsController.maxDate" -->
+						</md-datepicker>
+						<div flex="50" style="margin-top: -4%;" uib-timepicker ng-model="billingController.user.soldDate" hour-step="billingController.hrstep"
+						 minute-step="billingController.minstep" show-meridian="true"></div>
+					</section>
+				</form>
+				<div layout="row" layout-align="end end">
+					<!--  <div style="height: 4%;margin-top:-2%;"><md-progress-circular ng-disabled="false" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></div> -->
+					<md-button class="md-raised md-primary" ng-disabled="billingForm.$invalid || billingController.inProgress" ng-click="billingController.generateBill()">{{billingController.generateButtonText}}<span ng-if="billingController.inProgress"><md-progress-circular ng-disabled="!billingController.inProgress" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></span></md-button>
+					<md-button class="md-raised md-warn" ng-click="billingController.resetForm()">Cancel</md-button>
+				</div>
+			</md-card>
+		</div>
 
-</div>
+	</div>
 
 </div>
