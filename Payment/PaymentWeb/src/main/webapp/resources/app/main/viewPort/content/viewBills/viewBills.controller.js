@@ -3,30 +3,22 @@
 
     function viewBillsController($scope, billingService) {
         const me = this;
-        // Could not pass controller as object to directive, so using scope
-        $scope.showNews = false;
 
+        me.fromDate = null;
+        me.toDate = null;
+        me.billsOnDate = [];
 
-        me.getBillsBasedOnDate = function () {
-            getBillsBasedOnDate(new Date());
-        }
-
-        function getBillsBasedOnDate(billDate) {
-            billingService.getBillsBasedOnDate(billDate).then(
+        me.getBillsBasedOnDates = function () {
+            billingService.getBillsBasedOnDates(me.fromDate, me.toDate).then(
                 function (response) {
                     console.log("returnung data: ", response.data);
-                    me.foundCustomers = response.data;
+                    me.billsOnDate = response.data;
                 },
                 function (response) {
                     console.log("error while searching user:", response);
-                    me.foundCustomers = [];
+                    me.billsOnDate = [];
                 });
         }
-
-
-
-
-
     };
 
 

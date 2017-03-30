@@ -138,17 +138,16 @@ public class BillingServiceImpl implements BillingService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<Bill> getBillsBasedOnDate(Date billDate) {
-    if (billDate == null) {
-      billDate = DateUtils.getCurrentdate();
+  public List<Bill> getBillsBetweebDates(Date frmDate, Date toDate) {
+    if (frmDate == null) {
+      frmDate = DateUtils.addDaysToDate(frmDate, -1);
     }
-    log.info("days - 1: "+ DateUtils.addDaysToDate(billDate, -1));
-   List<Bill> bills= billrepository.getBillsBetweenDates(DateUtils.addDaysToDate(billDate, -1),billDate);
-   log.info("Number if bills: "+ bills.size());
-   /*for(Bill bill: bills){
-     Customer cus = bill.getCustomer();
-     log.info("customer: "+ cus);
-   }*/
+    if (toDate == null) {
+      toDate = DateUtils.getCurrentdate();
+    }
+    log.info("get bills between dates, from date:{}, to date: {}", frmDate, toDate);
+    List<Bill> bills = billrepository.getBillsBetweenDates(frmDate, toDate);
+    log.info("Number if bills: " + bills.size());
     return bills;
   }
 

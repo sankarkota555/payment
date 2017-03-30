@@ -1,9 +1,9 @@
 package com.payment.utils;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
@@ -14,7 +14,8 @@ public class DateUtils {
    * @return {@link Date} curretn date
    */
   public static Date getCurrentdate() {
-    return Calendar.getInstance().getTime();
+    Instant instant= LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+    return Date.from(instant);
   }
 
   /**
@@ -31,9 +32,7 @@ public class DateUtils {
     if (date != null) {
       return Date.from(date.toInstant().plus(numOfDays, ChronoUnit.DAYS));
     }
-
     return null;
-
   }
-
+ 
 }

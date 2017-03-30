@@ -29,11 +29,12 @@ public interface BillingService {
   public Bill getBillById(long billId);
   
   /**
-   * Gives bills based on date
-   * @param billDate date for get bills
+   * Gives bills between given dates
+   * @param frmDate from date
+   * @param todate to date
    * @return {@link List} of {@link Bill}
    */
-  public List<Bill> getBillsBasedOnDate(Date billDate);
+  public List<Bill> getBillsBetweebDates(Date frmDate, Date todate);
 
 
 }

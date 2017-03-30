@@ -52,11 +52,11 @@
             $window.open('generateBillPdf?billId=' + billId, '', "top=" + 100 + ",left=" + 200 + ",width=" + (screen.width - 500) + ",height=" + (screen.height - 200));
         }; // END - printBill()
 
-        me.getBillsBasedOnDate = function (billDate) {
-            const params = {billDate: billDate};
+        me.getBillsBasedOnDates = function (fromDate, toDate) {
+            const params = { fromDate: fromDate, toDate: toDate };
             return $http({
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                url: 'getBillsBasedOnDate',
+                url: 'getBillsBasedOnDates',
                 method: "POST",
                 data: $.param(params)
             });

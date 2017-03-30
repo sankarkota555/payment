@@ -31,15 +31,16 @@ public class BillingController {
 
   }
 
-  @RequestMapping(value = "/getCustomerBills", method = RequestMethod.GET)
+  @RequestMapping(value = "/getCustomerBills", method = RequestMethod.GET, consumes = {
+      MediaType.APPLICATION_JSON_VALUE })
   public List<Bill> getCustomerBills(@RequestParam Long customerId) {
     return billingService.getCustomerBills(customerId);
   }
 
-  @RequestMapping(value = "/getBillsBasedOnDate", method = RequestMethod.POST)
-  public List<Bill> getCustomerBills(Date billDate) {
-    log.info("billDatereceived in controller: "+ billDate); 
-    return billingService.getBillsBasedOnDate(billDate);
+  @RequestMapping(value = "/getBillsBasedOnDates", method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public List<Bill> getCustomerBills(Date fromDate, Date toDate) {
+    return billingService.getBillsBetweebDates(fromDate, toDate);
   }
 
 }
