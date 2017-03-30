@@ -51,7 +51,7 @@ public class ItemDetails implements Serializable {
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")
-  @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@Item_Id")
+  @JsonBackReference
   private Item item;
 
   public ItemCompany getItemCompany() {

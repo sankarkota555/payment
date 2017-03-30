@@ -18,15 +18,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "item")
-
 public class Item implements Serializable {
 
   private static final long serialVersionUID = -212307287210164094L;
@@ -52,7 +49,7 @@ public class Item implements Serializable {
   @OneToMany(cascade= CascadeType.PERSIST)
   @Fetch(FetchMode.JOIN)
   @JoinColumn(name = "item_id")
-  @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@ItemDetails_Id")
+  @JsonManagedReference
   private List<ItemDetails> itemDetails;
 
   public Long getItemId() {
