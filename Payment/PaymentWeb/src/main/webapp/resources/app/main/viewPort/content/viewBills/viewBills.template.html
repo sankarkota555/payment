@@ -1,13 +1,17 @@
 <div class="container-fluid about-default-font">
-    <div>
-        <md-datepicker flex="50" ng-model="viewBillsController.fromDate" md-placeholder="from date"></md-datepicker>
-        <md-datepicker flex="50" ng-model="viewBillsController.toDate" md-placeholder="to date"></md-datepicker>
+	<div>
+		<md-datepicker flex="50" ng-model="viewBillsController.fromDate" md-placeholder="from date"></md-datepicker>
+		<md-datepicker flex="50" ng-model="viewBillsController.toDate" md-placeholder="to date"></md-datepicker>
 
-    </div>
+	</div>
 
-    <div>
-        <md-button class="md-raised md-warn" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getBillsBasedOnDates()">
-        </md-button>
-    </div>
+	<div>
+		<md-button class="md-raised md-warn" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getBillsBasedOnDates()">
+			view Bills</md-button>
+	</div>
+	<div>
+		<md-button class="md-raised md-warn" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getTodatBills()">
+			View Today Bills</md-button>
+	</div>
 
 </div>

@@ -2,6 +2,7 @@
 {
 
     function viewBillsController($scope, billingService) {
+
         const me = this;
 
         me.fromDate = null;
@@ -9,6 +10,13 @@
         me.billsOnDate = [];
 
         me.getBillsBasedOnDates = function () {
+            getBills();
+        }
+
+        me.getTodatBills = function () {
+
+        }
+        function getBills() {
             billingService.getBillsBasedOnDates(me.fromDate, me.toDate).then(
                 function (response) {
                     console.log("returnung data: ", response.data);
