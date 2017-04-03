@@ -14,7 +14,7 @@ public class DateUtils {
    * @return {@link Date} curretn date
    */
   public static Date getCurrentdate() {
-    Instant instant= LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+    Instant instant = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
     return Date.from(instant);
   }
 
@@ -34,5 +34,17 @@ public class DateUtils {
     }
     return null;
   }
- 
+
+  /**
+   * Removes time from given date
+   * 
+   * @param date
+   *          {@link Date} object
+   * @return {@link Date} without time.
+   */
+  public static Date removeTime(Date date) {
+    return Date.from(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        .atStartOfDay(ZoneId.systemDefault()).toInstant());
+  }
+
 }

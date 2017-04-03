@@ -8,13 +8,27 @@
         me.fromDate = null;
         me.toDate = null;
         me.billsOnDate = [];
+        me.description = "";
+        me.query = {
+            order: 'generatedDate',
+            limit: 5,
+            page: 1
+        };
 
         me.getBillsBasedOnDates = function () {
-            getBills();
+            if (me.toDate && me.toDate) {
+                let fromStr = me.fromDate + "";
+                let toStr = me.toDate + "";
+                me.description = "Bill Details between " + fromStr.substr(3, 15) + " And " + toStr.substr(3, 15);
+                getBills();
+            }
         }
 
         me.getTodatBills = function () {
-
+            me.fromDate = new Date();
+            me.toDate = me.fromDate;
+            me.description = "Today bill Details";
+            getBills();
         }
         function getBills() {
             billingService.getBillsBasedOnDates(me.fromDate, me.toDate).then(

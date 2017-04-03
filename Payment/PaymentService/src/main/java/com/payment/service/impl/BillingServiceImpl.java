@@ -136,9 +136,7 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Bill> getBillsBetweebDates(Date frmDate, Date toDate) {
-		if (frmDate == null) {
-			frmDate = DateUtils.addDaysToDate(frmDate, -1);
-		}
+		frmDate = DateUtils.removeTime(frmDate);
 		if (toDate == null) {
 			toDate = DateUtils.getCurrentdate();
 		}

@@ -1,17 +1,52 @@
 <div class="container-fluid about-default-font">
-	<div>
-		<md-datepicker flex="50" ng-model="viewBillsController.fromDate" md-placeholder="from date"></md-datepicker>
-		<md-datepicker flex="50" ng-model="viewBillsController.toDate" md-placeholder="to date"></md-datepicker>
+	<div layout="row" layout-align="start start">
+		<div flex="20">
+			<md-datepicker flex="50" ng-model="viewBillsController.fromDate" md-placeholder="from date" aria-placeholder="From date"></md-datepicker>
+			<md-datepicker flex="50" ng-model="viewBillsController.toDate" md-placeholder="to date" aria-placeholder="To date"></md-datepicker>
+		</div>
+		<div flex="10">
+			<md-button class="md-raised md-primary" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getBillsBasedOnDates()">
+				view Bills</md-button>
+		</div>
+		<div flex="10">
+			<md-button class="md-raised md-primary" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getTodatBills()">
+				View Today Bills</md-button>
+		</div>
 
 	</div>
 
 	<div>
-		<md-button class="md-raised md-warn" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getBillsBasedOnDates()">
-			view Bills</md-button>
-	</div>
-	<div>
-		<md-button class="md-raised md-warn" aria-label="get bills" title="Click to view Bills" ng-click="viewBillsController.getTodatBills()">
-			View Today Bills</md-button>
+		<div layout="row" layout-align="center center">
+			<h3> {{viewBillsController.description}} </h3>
+		</div>
+		<md-table-container>
+			<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+				<thead md-head md-order="viewBillsController.query.order" md-on-reorder="getDesserts">
+					<tr md-row>
+						<th md-column md-order-by="generatedDate"><span>Bill Date</span></th>
+						<th md-column md-order-by="customer.name"><span>Customer Name</span></th>
+						<th md-column md-numeric>Customer Phone</th>
+						<th md-column md-numeric>Num of Items</th>
+						<th md-column md-numeric md-order-by="netAmount">Toatal Amount</th>
+
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="bill in viewBillsController.billsOnDate | filter: filter.search | 
+					            orderBy: viewBillsController.query.order | limitTo: viewBillsController.query.limit : (viewBillsController.query.page -1) * viewBillsController.query.limit">
+						<td md-cell>{{bill.generatedDate | date: "MMM d, y h:mm a"}}</td>
+						<td md-cell>{{bill.customer.name}}</td>
+						<td md-cell>{{bill.customer.phone}}</td>
+						<td md-cell>{{bill.soldItems.length}}</td>
+						<td md-cell>{{bill.netAmount}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+
+		<md-table-pagination md-limit="viewBillsController.query.limit" md-limit-options="[5, 10, 15, 20]" md-page="viewBillsController.query.page"
+		 md-total="{{viewBillsController.billsOnDate.length}}" md-boundary-links="true" md-page-select></md-table-pagination>
 	</div>
 
 </div>
