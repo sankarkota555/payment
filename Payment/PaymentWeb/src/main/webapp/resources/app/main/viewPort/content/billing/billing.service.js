@@ -49,7 +49,9 @@
         }; // END - generateBill()
 
         me.printBill = function (billId) {
-            $window.open('generateBillPdf?billId=' + billId, '', "top=" + 100 + ",left=" + 200 + ",width=" + (screen.width - 500) + ",height=" + (screen.height - 200));
+            const height = screen.height;
+            const width = screen.width;
+            $window.open('generateBillPdf?billId=' + billId, '', "top=" + height * (1 / 2.5) + ",left=" + width * (3 / 4.1) + ",width=" + (width / 4) + ",height=" + (height / 2));
         }; // END - printBill()
 
         me.getBillsBasedOnDates = function (fromDate, toDate) {
