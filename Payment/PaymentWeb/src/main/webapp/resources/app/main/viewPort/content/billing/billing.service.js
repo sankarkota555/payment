@@ -2,7 +2,7 @@
 
 {
 
-    function billingService($http, $window) {
+    function billingService($http, $window, utilsService) {
 
         const me = this;
 
@@ -54,6 +54,9 @@
             $window.open('generateBillPdf?billId=' + billId, '', "top=" + height * (1 / 2.5) + ",left=" + width * (3 / 4.1) + ",width=" + (width / 4) + ",height=" + (height / 2));
         }; // END - printBill()
 
+        /**
+         * Returns bills between given dates
+         */
         me.getBillsBasedOnDates = function (fromDate, toDate) {
             const params = { fromDate: fromDate, toDate: toDate };
             return $http({
@@ -64,6 +67,13 @@
             });
 
         };
+
+        /**
+         * Prints the given bill based in user confirmation.
+         */
+        me.printBillConfirm = function (billId) {
+            utilsService.confirmationPopup('Would you like to print this bill?', 'print', me.printBill, null, billId);
+        }
 
     }; // END - billingService()
 

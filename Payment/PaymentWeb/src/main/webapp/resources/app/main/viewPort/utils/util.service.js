@@ -26,11 +26,14 @@
         }; // END - processError()
 
         // Confirmation popup
-        me.confirmationPopup = function (confirmationMessage, successCallbackFunction, erroCallbackFunction, successParam, errorParam) {
+        me.confirmationPopup = function (confirmationMessage, yesButtonText, successCallbackFunction, erroCallbackFunction, successParam, errorParam) {
+            if (!yesButtonText) {
+                yesButtonText = 'YES';
+            }
             const confirmationDialog = $mdDialog.confirm()
                 .title(confirmationMessage)
                 .ariaLabel('confirmation prompt')
-                .ok('YES')
+                .ok(yesButtonText)
                 .cancel('NO')
                 .openFrom({
                     top: -50,
@@ -50,7 +53,7 @@
         }; // END - processError()
 
         // show alert popup
-        me.alertPopup = function (alertTitle, alertDetails,sucessCallbackFunction) {
+        me.alertPopup = function (alertTitle, alertDetails, sucessCallbackFunction) {
             $mdDialog.show(
                 $mdDialog.alert()
                     .clickOutsideToClose(false)
@@ -67,7 +70,7 @@
                     })
             ).then(function () {
                 sucessCallbackFunction();
-            },null);
+            }, null);
 
         }; // END - processError()
 

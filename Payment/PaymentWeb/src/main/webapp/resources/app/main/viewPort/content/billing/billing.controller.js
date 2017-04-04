@@ -1,7 +1,7 @@
 "use strict";
 {
 
-    function billingController($scope, $mdDialog, $timeout, billingService, itemsService, utilsService) {
+    function billingController($scope, billingService, itemsService, utilsService) {
 
         const me = this;
 
@@ -10,11 +10,6 @@
 
         let previousSearchText = "<<";
 
-        for (let i = 0; i < 10; i++) {
-            const obj = { type: 'type ' + i, name: 'item name' + i };
-            me.availableItems.push(obj);
-        }
-
         console.log("available items:" + me.availableItems.length);
         me.bill = { items: [{ selectedCompany: null }] };
 
@@ -22,18 +17,22 @@
         me.hrstep = 1;
         me.minstep = 30;
 
-        //function to add items to user
+        /**
+         * function to add items to user
+         */
         me.addItem = function () {
             me.bill.items.push({ selectedCompany: null });
         };
 
-        //function for generating bill
+        /**
+         * function for generating bill
+         */
         me.generateBill = function () {
             console.log("bill objet");
             console.log(me.bill);
             me.generateButtonText = "";
             me.inProgress = true;
-            utilsService.confirmationPopup('Do you want to Generate Bill?', saveBill, setButtonText, 'testparam');
+            utilsService.confirmationPopup('Do you want to Generate Bill?', 'yes', saveBill, setButtonText, 'testparam');
 
         };
 
@@ -43,7 +42,7 @@
                 console.log("successfully saved");
                 console.log(response);
                 me.resetForm();
-                printBillConfirm(response.data);
+                billingService.printBillConfirm(response.data);
             },
                 function (response) {
                     console.log("failed to saved");
@@ -53,7 +52,9 @@
                 });;
         }
 
-        //function to reset form details
+        /**
+         * function to reset form details
+         */
         me.resetForm = function () {
             // reset form
             me.bill = { items: [{ selectedCompany: null }] };
@@ -70,13 +71,17 @@
 
         setButtonText();
 
-        //function to delete item
+        /**
+         * function to delete item
+         */
         me.deleteItem = function (index) {
             // delete selected item
             me.bill.items.splice(index, 1);
         };
 
-        //function to search for item
+        /**
+         * function to search for an item by item name
+         */
         me.searchItems = function (itemName) {
             if (itemName.length > 1 && itemName.indexOf(previousSearchText) != 0) {
                 me.searchedItems = [];
@@ -95,21 +100,6 @@
             }
 
         };
-
-        /**
-         * Prints the given bill based in user confirmation.
-         */
-        function printBillConfirm(billId, $event) {
-            const billPrinfConfirmationDialog = $mdDialog.confirm()
-                .title('Would you like to print this bill?')
-                .ariaLabel('bill print confirmation')
-                .targetEvent($event)
-                .ok('Print')
-                .cancel('Close');
-            $mdDialog.show(billPrinfConfirmationDialog).then(function () {
-                billingService.printBill(billId);
-            }, null);
-        }
 
         function processError(response) {
             utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);
