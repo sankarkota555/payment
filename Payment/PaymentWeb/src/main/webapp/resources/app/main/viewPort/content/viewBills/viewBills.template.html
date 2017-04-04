@@ -16,37 +16,60 @@
 	</div>
 
 	<div>
-		<div layout="row" layout-align="center center">
-			<h3> {{viewBillsController.description}} </h3>
-		</div>
-		<md-table-container>
-			<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-				<thead md-head md-order="viewBillsController.query.order" md-on-reorder="getDesserts">
-					<tr md-row>
-						<th md-column md-order-by="generatedDate"><span>Bill Date</span></th>
-						<th md-column md-order-by="customer.name"><span>Customer Name</span></th>
-						<th md-column md-numeric>Customer Phone</th>
-						<th md-column md-numeric>Num of Items</th>
-						<th md-column md-numeric md-order-by="netAmount">Toatal Amount</th>
-
-					</tr>
-				</thead>
-				<tbody md-body>
-					<tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="bill in viewBillsController.billsOnDate | filter: filter.search | 
+		<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline" layout="row" layout-align="center center"></span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content layout="column" layout-align="space-between">
+				<md-table-container>
+					<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+						<thead md-head md-order="viewBillsController.query.order" md-on-reorder="getDesserts">
+							<tr md-row>
+								<th md-column md-order-by="generatedDate"><span>Bill Date</span></th>
+								<th md-column md-order-by="customer.name"><span>Customer Name</span></th>
+								<th md-column md-numeric>Customer Phone</th>
+								<th md-column md-numeric>Num of Items</th>
+								<th md-column md-numeric md-order-by="netAmount">Toatal Amount</th>
+								<th md-column>Sold item Details <br>
+									<p class="word-space"> Item Company Price Quantity</p>
+								</th>
+								<th md-column>Print bill </th>
+							</tr>
+						</thead>
+						<tbody md-body>
+							<tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="bill in viewBillsController.billsOnDate | filter: filter.search | 
 					            orderBy: viewBillsController.query.order | limitTo: viewBillsController.query.limit : (viewBillsController.query.page -1) * viewBillsController.query.limit">
-						<td md-cell>{{bill.generatedDate | date: "MMM d, y h:mm a"}}</td>
-						<td md-cell>{{bill.customer.name}}</td>
-						<td md-cell>{{bill.customer.phone}}</td>
-						<td md-cell>{{bill.soldItems.length}}</td>
-						<td md-cell>{{bill.netAmount}}</td>
+								<td md-cell>{{bill.generatedDate | date: "MMM d, y h:mm a"}}</td>
+								<td md-cell>{{bill.customer.name}}</td>
+								<td md-cell>{{bill.customer.phone}}</td>
+								<td md-cell>{{bill.billItems.length}}</td>
+								<td md-cell>{{bill.totalAmount}}</td>
+								<td md-cell>
+									<table>
+										<tr ng-repeat="soldItem in bill.billItems">
+											<td class="soldItem-details">{{soldItem.itemName}}</td>
+											<td class="soldItem-details">{{soldItem.companyName}}</td>
+											<td class="soldItem-details center-text">{{soldItem.price}}</td>
+											<td class="soldItem-details center-text">{{soldItem.quantity}}</td>
+										</tr>
+									</table>
+								</td>
+								<td md-cell>
+									<md-button class="md-raised md-primary" aria-label="print bill" title="Click to print Bill" ng-click="viewBillsController.printBillConfirm(bill.billId)">
+										Print</md-button>
+								</td>
 
-					</tr>
-				</tbody>
-			</table>
-		</md-table-container>
+							</tr>
+						</tbody>
+					</table>
+				</md-table-container>
 
-		<md-table-pagination md-limit="viewBillsController.query.limit" md-limit-options="[5, 10, 15, 20]" md-page="viewBillsController.query.page"
-		 md-total="{{viewBillsController.billsOnDate.length}}" md-boundary-links="true" md-page-select></md-table-pagination>
+				<md-table-pagination md-limit="viewBillsController.query.limit" md-limit-options="[5, 10, 15, 20]" md-page="viewBillsController.query.page"
+				 md-total="{{viewBillsController.billsOnDate.length}}" md-boundary-links="false"></md-table-pagination>
+			</md-card-content>
+		</md-card>
 	</div>
 
 </div>

@@ -19,7 +19,7 @@
             if (me.toDate && me.toDate) {
                 let fromStr = me.fromDate + "";
                 let toStr = me.toDate + "";
-                me.description = "Bill Details between " + fromStr.substr(3, 15) + " And " + toStr.substr(3, 15);
+                me.description = "Bill Details between " + fromStr.substr(3, 13) + " And " + toStr.substr(3, 13);
                 getBills();
             }
         }
@@ -30,6 +30,11 @@
             me.description = "Today bill Details";
             getBills();
         }
+
+        me.printBillConfirm = function (billId) {
+            billingService.printBillConfirm(billId);
+        }
+
         function getBills() {
             billingService.getBillsBasedOnDates(me.fromDate, me.toDate).then(
                 function (response) {
