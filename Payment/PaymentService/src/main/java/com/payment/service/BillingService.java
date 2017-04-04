@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.payment.domain.Bill;
+import com.payment.dto.BillDTO;
 
 public interface BillingService {
   
@@ -32,9 +33,9 @@ public interface BillingService {
    * Gives bills between given dates
    * @param frmDate from date
    * @param todate to date
-   * @return {@link List} of {@link Bill}
+   * @return {@link List} of {@link BillDTO}
    */
-  public List<Bill> getBillsBetweebDates(Date frmDate, Date todate);
+  public List<BillDTO> getBillsBetweebDates(Date frmDate, Date todate);
 
 
 }

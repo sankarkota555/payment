@@ -2,18 +2,17 @@ package com.payment.dto;
 
 import java.io.Serializable;
 
-public class ItemDTO implements Serializable{
+public class BillItemDTO implements Serializable {
 
   private static final long serialVersionUID = -719118662936944475L;
-  
+
   private String itemName;
   private Long itemId;
-  private Long companyName;
-  private String companyId;
+  private String companyName;
+  private Long companyId;
   private String capacity;
   private int quantity;
   private int price;
-
 
   public String getItemName() {
     return itemName;
@@ -31,19 +30,19 @@ public class ItemDTO implements Serializable{
     this.itemId = itemId;
   }
 
-  public Long getCompanyName() {
-    return companyName;
-  }
-
-  public void setCompanyName(Long companyName) {
+  public void setCompanyName(String companyName) {
     this.companyName = companyName;
   }
 
-  public String getCompanyId() {
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public Long getCompanyId() {
     return companyId;
   }
 
-  public void setCompanyId(String companyId) {
+  public void setCompanyId(Long companyId) {
     this.companyId = companyId;
   }
 

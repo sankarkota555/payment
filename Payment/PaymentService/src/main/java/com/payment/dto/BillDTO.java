@@ -13,9 +13,9 @@ public class BillDTO implements Serializable {
 
   private Long billId;
   private Customer customer;
-  private List<SoldItem> soldItems;
+  private List<BillItemDTO> billItems;
   private Date generatedDate;
-  private Integer totalAmount;
+  private Long totalAmount;
 
   public Long getBillId() {
     return billId;
@@ -37,23 +37,23 @@ public class BillDTO implements Serializable {
     return generatedDate;
   }
 
-  public List<SoldItem> getSoldItems() {
-    return soldItems;
-  }
-
-  public void setSoldItems(List<SoldItem> soldItems) {
-    this.soldItems = soldItems;
-  }
-
   public void setGeneratedDate(Date generatedDate) {
     this.generatedDate = generatedDate;
   }
 
-  public Integer getTotalAmount() {
+  public List<BillItemDTO> getBillItems() {
+    return billItems;
+  }
+
+  public void setBillItems(List<BillItemDTO> billItems) {
+    this.billItems = billItems;
+  }
+
+  public Long getTotalAmount() {
     return totalAmount;
   }
 
-  public void setTotalAmount(Integer totalAmount) {
+  public void setTotalAmount(Long totalAmount) {
     this.totalAmount = totalAmount;
   }
 

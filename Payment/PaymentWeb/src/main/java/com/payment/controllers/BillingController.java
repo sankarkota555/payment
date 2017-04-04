@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.payment.domain.Bill;
+import com.payment.dto.BillDTO;
 import com.payment.service.BillingService;
 
 @RestController
@@ -39,7 +40,7 @@ public class BillingController {
 
   @RequestMapping(value = "/getBillsBasedOnDates", method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public List<Bill> getCustomerBills(Date fromDate, Date toDate) {
+  public List<BillDTO> getCustomerBills(Date fromDate, Date toDate) {
     return billingService.getBillsBetweebDates(fromDate, toDate);
   }
 

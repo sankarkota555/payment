@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.payment.domain.Item;
-import com.payment.dto.ItemDTO;
 import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemRepository;
 import com.payment.service.ItemService;
