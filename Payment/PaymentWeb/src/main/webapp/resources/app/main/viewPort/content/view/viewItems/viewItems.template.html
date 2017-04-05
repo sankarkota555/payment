@@ -21,10 +21,10 @@
                             <td md-cell>
                                 <table>
                                     <tr ng-repeat="itemDetail in item.itemDetails">
-                                        <td class="soldItem-details">{{itemDetail.itemCompany.companyName}}</td>
-                                        <td class="soldItem-details">{{itemDetail.capacity}}</td>
-                                        <td class="soldItem-details center-text">{{itemDetail.price}}</td>
-                                        <td class="soldItem-details center-text">{{itemDetail.quantity}}</td>
+                                        <td class="item-details">{{itemDetail.itemCompany.companyName}}</td>
+                                        <td class="item-details center-text">{{itemDetail.capacity || '__'}}</td>
+                                        <td class="item-details center-text">{{itemDetail.price}}</td>
+                                        <td class="item-details center-text">{{itemDetail.quantity || '__'}}</td>
                                     </tr>
                                 </table>
                             </td>
