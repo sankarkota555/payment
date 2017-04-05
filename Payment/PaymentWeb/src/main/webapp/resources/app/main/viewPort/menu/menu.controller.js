@@ -4,7 +4,14 @@
     function menuController($scope, $location) {
         const me = this;
         $scope.isActive = function (viewLocation) {
-            return viewLocation === $location.path();
+            const path = $location.path();
+            if (viewLocation === path) {
+                return true;
+            } else {
+                viewLocation = viewLocation + "/";
+                return (path.indexOf(viewLocation) === 0);
+            }
+
         };
 
     };

@@ -7,6 +7,8 @@
 
         $urlRouterProvider.otherwise("/billing");
 
+        $urlRouterProvider.when("/view", "/view/viewBills");
+
         $stateProvider.state('home', {
             url: '/',
         }).state('billing', {
@@ -14,11 +16,26 @@
             templateUrl: prefixUrl + 'app/main/viewPort/content/billing/billing.template.html',
             controller: 'billingController',
             controllerAs: 'billingController'
-        }).state('viewBills', {
+        }).state('view', {
+            url: '/view',
+            templateUrl: prefixUrl + 'app/main/viewPort/content/view/view.template.html',
+            controller: 'viewController',
+            controllerAs: 'viewController'
+        }).state('view.bills', {
             url: '/viewBills',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/viewBills/viewBills.template.html',
+            templateUrl: prefixUrl + 'app/main/viewPort/content/view/viewBills/viewBills.template.html',
             controller: 'viewBillsController',
             controllerAs: 'viewBillsController'
+        }).state('view.companies', {
+            url: '/viewCompanies',
+            templateUrl: prefixUrl + 'app/main/viewPort/content/view/viewBills/viewBills.template.html',
+            controller: 'viewBillsController',
+            controllerAs: 'viewBillsController'
+        }).state('view.items', {
+            url: '/viewItems',
+            templateUrl: prefixUrl + 'app/main/viewPort/content/view/viewItems/viewItems.template.html',
+            controller: 'viewItemsController',
+            controllerAs: 'viewItemsController'
         }).state('manage', {
             url: '/manage',
             templateUrl: prefixUrl + 'app/main/viewPort/content/manage/manage.template.html',

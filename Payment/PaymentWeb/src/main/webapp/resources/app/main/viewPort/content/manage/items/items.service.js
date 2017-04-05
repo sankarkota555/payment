@@ -8,24 +8,24 @@
         me.availableItems = null;
 
         // get available items from database.
-        me.getAvailableCompanies = function() {
+        me.getAvailableCompanies = function () {
             return $http.get('getAllCompanies');
         }
 
         // get available items from database.
-        me.getAvailableItems = function() {
+        me.getAvailableItems = function () {
             return $http.get('getAllItems');
         }
 
         // find by item name.
-        me.searchItems = function(itemName) {
+        me.searchItems = function (itemName) {
             return $http.get('findItems?searchText=' + itemName);
         }
 
 		/**
 		 * 
 		 */
-        me.addItem = function(item) {
+        me.addItem = function (item) {
             const object = { itemName: item.itemName, companyId: item.company.companyId };
             return $http({
                 url: 'addItem',
@@ -38,9 +38,9 @@
 		* Get all available items.
 		*/
         function loadAvailableItems() {
-            me.getAvailableItems().then(function(data) {
+            me.getAvailableItems().then(function (data) {
                 me.availableItems = data.data;
-            }, function(data) {
+            }, function (data) {
                 // error loading items.
                 console.log('error message');
                 console.log(data);
@@ -50,7 +50,7 @@
         };
 
         // load items from DB while initialising service.
-        loadAvailableItems();
+        //loadAvailableItems();
 
 
     };

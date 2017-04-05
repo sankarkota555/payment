@@ -1,0 +1,39 @@
+<div layout="column" layout-align="center center">
+    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline" layout="row" layout-align="center center"></span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="column" layout-align="space-between">
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Name</th>
+                            <th md-column class="word-space">Comapany Price Quantity</th>
+
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="item in viewItemsController.availableItems">
+                            <td md-cell>{{item.itemName}}</td>
+                            <td md-cell>
+                                <table>
+                                    <tr ng-repeat="itemDetail in item.itemDetails">
+                                        <td class="soldItem-details">{{itemDetail.itemCompany.companyName}}</td>
+                                        <td class="soldItem-details">{{itemDetail.capacity}}</td>
+                                        <td class="soldItem-details center-text">{{itemDetail.price}}</td>
+                                        <td class="soldItem-details center-text">{{itemDetail.quantity}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+
+</div>

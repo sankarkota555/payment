@@ -31,7 +31,7 @@
         };
 
         // get all companies
-        me.getAvalableCompanies();
+        //me.getAvalableCompanies();
 
     };
 
