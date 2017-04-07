@@ -9,7 +9,8 @@ import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +19,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import com.payment.service.impl.BillingServiceImpl;
+
 @Configuration
 @EnableJpaRepositories(basePackages = "com.payment.repositories") // package name where is you
                                                                   // spring data repositories
                                                                   // written
 public class HibernateConfig {
 
-  private static Logger log = Logger.getLogger(HibernateConfig.class);
+  private static final Logger log = LoggerFactory.getLogger(BillingServiceImpl.class);
 
   @Autowired
   private DataSource dataSource;
