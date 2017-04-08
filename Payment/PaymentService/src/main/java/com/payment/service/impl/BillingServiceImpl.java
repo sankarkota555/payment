@@ -1,6 +1,5 @@
 package com.payment.service.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,6 @@ import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
-import com.payment.dto.BillItemDTO;
 import com.payment.mapper.PaymentMapper;
 import com.payment.repositories.BillRepository;
 import com.payment.repositories.CustomerRepository;
@@ -49,7 +47,7 @@ public class BillingServiceImpl implements BillingService {
   /**
    * saves given bill into database.
    * 
-   * @param {@link
+   * @param bill {@link
    *          Bill} object to save
    * @return saved bill id.
    */

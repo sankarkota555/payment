@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.payment.domain.Customer;
-import com.payment.domain.SoldItem;
 
 public class BillDTO implements Serializable {
 

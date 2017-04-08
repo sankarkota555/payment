@@ -24,7 +24,11 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
-
+/**
+ * 
+ * This class is for generate PDF reference (NOT using in project)
+ *
+ */
 public class BillPdfUtil {
 	
 	private static Font boldFont = PaymentFonts.boldFont;
