@@ -19,7 +19,7 @@ public class PaymentGolbalExceptionResolver {
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView  handleException(Exception exception) {
-		log.info("exception to string  : ", exception);
+		log.error("exception to string  : ", exception);
 		return new ModelAndView(jsonView,"errorMessage" ,exception.toString());
 
 	}

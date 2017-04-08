@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ import com.payment.service.ItemService;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-  private Logger log = Logger.getLogger(ItemServiceImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(ItemServiceImpl.class);
+
 
   @Autowired
   private ItemRepository itemRepository;

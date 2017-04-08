@@ -1,6 +1,7 @@
 package com.payment.controllers;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +13,9 @@ import com.payment.service.impl.CompanyServiceImpl;
 @RestController
 public class CompanyController {
 
-  private Logger log = Logger.getLogger(CompanyController.class);
+  
+  private static final Logger log = LoggerFactory.getLogger(CompanyController.class);
+
 
   @Autowired
   private CompanyServiceImpl companyService;
