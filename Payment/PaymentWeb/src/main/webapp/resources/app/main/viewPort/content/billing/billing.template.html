@@ -28,7 +28,7 @@
 						<input ng-model="billingController.bill.customer.address" type="text" placeholder="Address" ng-required="true">
 					</md-input-container>
 					<div>
-						<h5 style="margin-left:1%">Number of items: {{billingController.bill.items.length}}</h5>
+						<h5 style="margin-left:1%;">Number of items: {{billingController.bill.items.length}}</h5>
 					</div>
 					<div style="max-height:200px;overflow-y:auto; ">
 						<div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items">
@@ -38,23 +38,30 @@
 									 md-items="item in billingController.searchedItems" md-search-text="item.searchItemText" md-item-text="item.itemName"
 									 md-min-length="2" md-floating-label="Select Item" md-select-on-match="false" md-menu-class="autocomplete-custom-template">
 										<md-item-template>
-											<span class="item-title"> 
-								{{item.itemName}} </span>
+											<span class="item-title">{{item.itemName}} </span>
 										</md-item-template>
 									</md-autocomplete>
 								</div>
 								<div flex="50">
-									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="item in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
-									 md-search-text="item.searchCompanyText" md-item-text="item.itemCompany.companyName" md-min-length="2" md-floating-label="Select Company"
+									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="item in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText | capacityFilter"
+									 md-search-text="item.searchCompanyText" md-item-text="item.companyName" md-min-length="2" md-floating-label="Select Company"
 									 md-select-on-match="false" md-menu-class="autocomplete-custom-template">
 										<md-item-template>
-											<span class="auto-complete"> {{item.itemCompany.companyName}}  </span>
+											<span class="auto-complete"> {{item.companyName}}  </span>
 										</md-item-template>
 									</md-autocomplete>
 								</div>
+								<div flex="50" ng-show="item.selectedCompany.hasCapacity">
+									<md-input-container>
+										<label>Capacity</label>
+										<md-select ng-model="item.detailsId" ng-change="billingController.capacitySelected($index,item.detailsId)" required>
+											<md-option ng-repeat="detail in item.selectedCompany.itemDetails" value="{{detail.detailsId}}">{{detail.capacity}}</md-option>
+										</md-select>
+									</md-input-container>
+								</div>
 								<div flex="20">
 									<md-input-container class="md-block">
-										<md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null && (item.quantity == null ||item.quantity <= item.selectedCompany.quantity)">Available: {{item.selectedCompany.quantity}}</md-tooltip>
+										<md-tooltip md-direction="top" ng-if="item.selectedCompany.quantity != null && (item.quantity == null ||item.quantity <= item.selectedCompany.quantity)">Available: {{item.selectedCompany.itemDetails[0].quantity}}</md-tooltip>
 										<md-tooltip md-direction="top" ng-if="item.selectedCompany != null && item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity"
 										 ng-init="showToolTip = (item.selectedCompany.quantity != null && item.quantity > item.selectedCompany.quantity)"
 										 md-visible="showToolTip">Only {{item.selectedCompany.quantity}} Available

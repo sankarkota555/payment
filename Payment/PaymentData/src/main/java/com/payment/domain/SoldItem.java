@@ -29,8 +29,8 @@ public class SoldItem implements Serializable {
 	private Long soldItemId;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "itemdetails_id")
-	private ItemDetails itemDetails;
+	@JoinColumn(name = "itemPriceDetails_id")
+	private ItemPriceDeatils itemPriceDeatils;
 
 	@Column(name = "quantity")
 	private Integer quantity;
@@ -46,15 +46,15 @@ public class SoldItem implements Serializable {
 		this.soldItemId = soldItemId;
 	}
 
-	public ItemDetails getItemDetails() {
-		return itemDetails;
-	}
+	public ItemPriceDeatils getItemPriceDeatils() {
+    return itemPriceDeatils;
+  }
 
-	public void setItemDetails(ItemDetails itemDetails) {
-		this.itemDetails = itemDetails;
-	}
+  public void setItemPriceDeatils(ItemPriceDeatils itemPriceDeatils) {
+    this.itemPriceDeatils = itemPriceDeatils;
+  }
 
-	public Integer getQuantity() {
+  public Integer getQuantity() {
 		return quantity;
 	}
 

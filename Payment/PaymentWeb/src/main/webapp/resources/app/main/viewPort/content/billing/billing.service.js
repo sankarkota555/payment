@@ -29,7 +29,8 @@
                     itemObj.itemDetails.item = { itemName: bill.items[index].selectedItem.itemName.toLowerCase() };
                 }
                 else {
-                    itemObj.itemDetails.id = bill.items[index].selectedCompany.id;
+                    console.log('selected item company.itemDetails[] length:' + bill.items[index].selectedCompany.itemDetails);
+                    itemObj.itemDetails.id = bill.items[index].selectedCompany.itemDetails[0].detailsId;
                 }
 
 
@@ -73,7 +74,11 @@
          */
         me.printBillConfirm = function (billId) {
             utilsService.confirmationPopup('Would you like to print this bill?', 'print', me.printBill, null, billId);
-        }
+        };
+
+        me.capacitySelected = function (index, detailsId) {
+
+        };
 
     }; // END - billingService()
 

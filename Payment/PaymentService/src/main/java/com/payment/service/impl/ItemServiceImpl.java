@@ -46,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
 
   @Override
   public List<Item> findItemsLike(String searchItemName) {
-    return itemRepository.findItemsLike(searchItemName.toLowerCase());
+    return itemRepository.findByItemNameStartingWith(searchItemName.toLowerCase());
   }
 
 }

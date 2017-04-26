@@ -1,6 +1,7 @@
 package com.payment.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,19 +11,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "ItemDetails", uniqueConstraints = { @UniqueConstraint( columnNames = { "company_id", "item_id" } ) } )
+@Table(name = "ItemDetails", uniqueConstraints = {
+    @UniqueConstraint(columnNames = { "company_id", "item_id" }) })
 public class ItemDetails implements Serializable {
 
   private static final long serialVersionUID = 8803067465655470784L;
@@ -37,14 +43,11 @@ public class ItemDetails implements Serializable {
   @JoinColumn(name = "company_id")
   private ItemCompany itemCompany;
 
-  @Column(name = "capacity", length = 20)
-  private String capacity;
-
-  @Column(name = "price")
-  private Integer price;
-
-  @Column(name = "quantity")
-  private Integer quantity;
+  @OneToMany(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "itemdetails_id")
+  @LazyCollection(LazyCollectionOption.TRUE)
+  @JsonManagedReference
+  private List<ItemPriceDeatils> itemPriceDeatils;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")
@@ -59,28 +62,12 @@ public class ItemDetails implements Serializable {
     this.itemCompany = itemCompany;
   }
 
-  public String getCapacity() {
-    return capacity;
-  }
-
-  public void setCapacity(String capacity) {
-    this.capacity = capacity;
-  }
-
   public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public Integer getQuantity() {
-    return quantity;
-  }
-
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
   }
 
   public Item getItem() {
@@ -91,12 +78,12 @@ public class ItemDetails implements Serializable {
     this.item = item;
   }
 
-  public Integer getPrice() {
-    return price;
+  public List<ItemPriceDeatils> getItemPriceDeatils() {
+    return itemPriceDeatils;
   }
 
-  public void setPrice(Integer price) {
-    this.price = price;
+  public void setItemPriceDeatils(List<ItemPriceDeatils> itemPriceDeatils) {
+    this.itemPriceDeatils = itemPriceDeatils;
   }
 
 }

@@ -27,6 +27,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     return billsDtoList;
   }
 
+  @Deprecated
   private BillDTO mapBillToBillDto(Bill bill) {
     BillDTO billDto;
     billDto = new BillDTO();
@@ -38,7 +39,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     List<BillItemDTO> billItemsList = new ArrayList<>();
     for (SoldItem soldItem : bill.getSoldItems()) {
       billItemDto = new BillItemDTO();
-      billItemDto.setCapacity(soldItem.getItemDetails().getCapacity());
+      //billItemDto.setCapacity(soldItem.getItemDetails().getCapacity());
       billItemDto.setCompanyId(soldItem.getItemDetails().getItemCompany().getCompanyId());
       billItemDto.setCompanyName(soldItem.getItemDetails().getItemCompany().getCompanyName());
       billItemDto.setItemId(soldItem.getItemDetails().getItem().getItemId());
