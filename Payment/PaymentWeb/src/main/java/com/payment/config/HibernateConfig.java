@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -14,31 +15,37 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import com.payment.service.impl.BillingServiceImpl;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.payment.repositories") // package name where is you
                                                                   // spring data repositories
                                                                   // written
+@PropertySource("classpath:dataSource.properties")
 public class HibernateConfig {
 
-  private static final Logger log = LoggerFactory.getLogger(BillingServiceImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(HibernateConfig.class);
 
   @Autowired
   private DataSource dataSource;
+  
+  @Resource
+  private Environment environment;
 
   @Bean
   public DataSource getDataSource() {
+    log.info("environ ment: "+ environment);
     BasicDataSource ds = new BasicDataSource();
-    ds.setUsername("payment");
-    ds.setPassword("payment");
-    ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-    ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+    ds.setUsername(environment.getProperty("dataSourceUserName"));
+    ds.setPassword(environment.getProperty("dataSourcePassword"));
+    ds.setUrl(environment.getProperty("dataSourceUrl"));
+    ds.setDriverClassName(environment.getProperty("dataSourceDriverClass"));
     log.info("Data source object created " + ds);
     return ds;
   }
