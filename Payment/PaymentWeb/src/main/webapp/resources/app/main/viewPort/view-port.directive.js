@@ -3,7 +3,7 @@
 
     function viewPort() {
         return {
-            template: require('./view-port.template.html'),
+            template: require('./viewPort.template.html'),
             controller: 'viewPortController',
             controllerAs: 'viewPortController'
         }
