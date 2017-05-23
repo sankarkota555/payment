@@ -11,7 +11,7 @@
         let previousSearchText = "<<";
 
         console.log("available items:" + me.availableItems.length);
-        me.bill = { items: [{ selectedCompany: null }] };
+        me.bill = { items: [{ selectedCompany: null, availableQuantity: null, actualPrice: null }] };
 
         // increments for time picker
         me.hrstep = 1;
@@ -21,7 +21,7 @@
          * function to add items to user
          */
         me.addItem = function () {
-            me.bill.items.push({ selectedCompany: null });
+            me.bill.items.push({ selectedCompany: null, availableQuantity: null, actualPrice: null });
         };
 
         /**
@@ -100,6 +100,31 @@
             }
 
         };
+
+        /**
+         * Update item availableQuantity and actualPrice.
+         */
+        me.capacitySelected = function (index, detailsId) {
+            for (const obj of me.bill.items[index].selectedCompany.itemPriceDeatils) {
+                if (obj.id == detailsId) {
+                    me.bill.items[index].availableQuantity = obj.quantity;
+                    me.bill.items[index].actualPrice = obj.price;
+                }
+            }
+
+        };
+
+        /**
+         * Update item availableQuantity and actualPrice.
+         */
+        me.companySelected = function (index, itemPriceDeatils) {
+            if (itemPriceDeatils.length == 1) {
+                me.bill.items[index].availableQuantity = itemPriceDeatils[0].quantity;
+                me.bill.items[index].actualPrice = itemPriceDeatils[0].price;
+            }
+        };
+
+
 
         function processError(response) {
             utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);

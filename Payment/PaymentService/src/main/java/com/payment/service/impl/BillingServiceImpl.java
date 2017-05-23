@@ -51,8 +51,8 @@ public class BillingServiceImpl implements BillingService {
    *          Bill} object to save
    * @return saved bill id.
    */
-  @Override
   @Transactional
+  @Deprecated
   public Long saveBill(Bill bill) {
     log.info("bill details");
     Customer customer = bill.getCustomer();
@@ -72,7 +72,7 @@ public class BillingServiceImpl implements BillingService {
     ItemCompany company;
     Item item;
     log.info("sold items details: ");
-    for (int index = 0; index < soldItems.size(); index++) {
+    /*for (int index = 0; index < soldItems.size(); index++) {
       soldItem = soldItems.get(index);
       if (soldItem.getItemDetails().getId() != null) {
         itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
@@ -117,7 +117,7 @@ public class BillingServiceImpl implements BillingService {
       log.info("  getCapacity: " + soldItem.getItemDetails().getCapacity() + "  company name: "
           + soldItem.getItemDetails().getItemCompany().getCompanyName());
 
-    }
+    }*/
     if (customer != null) {
       bill.setCustomer(customer);
     }
@@ -127,21 +127,21 @@ public class BillingServiceImpl implements BillingService {
 
   }
 
-  @Override
   @Transactional
+  @Deprecated
   public List<Bill> getCustomerBills(Long customerId) {
     Customer customer = customerRepository.findOne(customerId);
     return customer.getBills();
   }
 
-  @Override
   @Transactional
+  @Deprecated
   public Bill getBillById(long billId) {
     return billrepository.findOne(billId);
   }
 
-  @Override
   @Transactional(readOnly = true)
+  @Deprecated
   public List<BillDTO> getBillsBetweebDates(Date frmDate, Date toDate) {
     frmDate = DateUtils.removeTime(frmDate);
     if (toDate == null) {

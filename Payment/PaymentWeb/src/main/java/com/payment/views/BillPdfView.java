@@ -233,6 +233,7 @@ public class BillPdfView extends AbstractItextPdfView {
     return customerTable;
   }
 
+  @Deprecated
   private PdfPTable getPurchaseDetailsTable(int spaceTop, List<SoldItem> soldItems, long netAmount)
       throws DocumentException {
 
@@ -257,9 +258,9 @@ public class BillPdfView extends AbstractItextPdfView {
     for (int index = 0; index < soldItems.size(); index++) {
       soldItem = soldItems.get(index);
       // item name
-      detailsTable.addCell(new Phrase(soldItem.getItemDetails().getItem().getItemName(), textFont));
-      detailsTable.addCell(
-          new Phrase(soldItem.getItemDetails().getItemCompany().getCompanyName(), textFont)); // company
+     // detailsTable.addCell(new Phrase(soldItem.getItemDetails().getItem().getItemName(), textFont));
+     // detailsTable.addCell(
+         // new Phrase(soldItem.getItemDetails().getItemCompany().getCompanyName(), textFont)); // company
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getSoldPrice()), textFont)); // price
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getQuantity()), textFont)); // quantity
       amount = (soldItem.getSoldPrice() * soldItem.getQuantity());

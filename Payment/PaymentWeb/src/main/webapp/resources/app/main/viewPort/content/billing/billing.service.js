@@ -76,10 +76,6 @@
             utilsService.confirmationPopup('Would you like to print this bill?', 'print', me.printBill, null, billId);
         };
 
-        me.capacitySelected = function (index, detailsId) {
-
-        };
-
     }; // END - billingService()
 
     angular.module('payment').service('billingService', billingService);
