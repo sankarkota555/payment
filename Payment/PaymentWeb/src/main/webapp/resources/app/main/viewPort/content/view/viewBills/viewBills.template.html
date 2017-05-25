@@ -33,7 +33,7 @@
 								<th md-column md-numeric>Num of Items</th>
 								<th md-column md-numeric md-order-by="netAmount">Toatal Amount</th>
 								<th md-column>Sold item Details <br>
-									<p class="word-space"> Item Company Price Quantity</p>
+									<p class="word-space"> Item Company Capacity Price Quantity</p>
 								</th>
 								<th md-column>Print bill </th>
 							</tr>
@@ -51,6 +51,7 @@
 										<tr ng-repeat="soldItem in bill.billItems">
 											<td class="soldItem-details">{{soldItem.itemName}}</td>
 											<td class="soldItem-details">{{soldItem.companyName}}</td>
+											<td class="soldItem-details center-text">{{soldItem.capacity}}</td>
 											<td class="soldItem-details center-text">{{soldItem.price}}</td>
 											<td class="soldItem-details center-text">{{soldItem.quantity}}</td>
 										</tr>

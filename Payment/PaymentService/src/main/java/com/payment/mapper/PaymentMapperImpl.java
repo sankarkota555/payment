@@ -36,6 +36,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     billDto.setTotalAmount(bill.getNetAmount());
     BillItemDTO billItemDto;
     List<BillItemDTO> billItemsList = new ArrayList<>();
+    String capacity = null;
     for (SoldItem soldItem : bill.getSoldItems()) {
       billItemDto = new BillItemDTO();
 
@@ -46,6 +47,9 @@ public class PaymentMapperImpl implements PaymentMapper {
       billItemDto.setItemName(soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName());
       billItemDto.setPrice(soldItem.getSoldPrice());
       billItemDto.setQuantity(soldItem.getQuantity());
+      capacity = (soldItem.getItemPriceDeatils().getCapacity()!= null)? soldItem.getItemPriceDeatils().getCapacity(): "-";
+      billItemDto.setCapacity(capacity);
+      
       billItemsList.add(billItemDto);
 
     }

@@ -238,35 +238,52 @@ public class BillPdfView extends AbstractItextPdfView {
   private PdfPTable getPurchaseDetailsTable(int spaceTop, List<SoldItem> soldItems, long netAmount)
       throws DocumentException {
 
-    SoldItem soldItem;
     float amount;
+    int numberOfCols = 5;
+    float[] columnWidths = new float[] { 20f, 18f, 12f, 13f, 15f };
+    // verify capacity need to mention in PDf
+    for (SoldItem soldItem : soldItems) {
+      if (soldItem.getItemPriceDeatils().getCapacity() != null) {
+        numberOfCols = 6;
+        columnWidths = new float[] { 20f, 18f, 12f, 12f, 13f, 15f };
+      }
+    }
 
-    PdfPTable detailsTable = new PdfPTable(5);
+    PdfPTable detailsTable = new PdfPTable(numberOfCols);
 
     detailsTable.setSpacingBefore(spaceTop);
 
-    float[] columnWidths = new float[] { 20f, 18f, 12f, 10f, 15f };
     detailsTable.setWidths(columnWidths);
     detailsTable.getDefaultCell().setBorder(Rectangle.BOX);
     detailsTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
     detailsTable.addCell(new Phrase("Item Name", boldFont));
     detailsTable.addCell(new Phrase("Company", boldFont));
+    if (numberOfCols == 6) {
+      detailsTable.addCell(new Phrase("Capacity", boldFont));
+    }
     detailsTable.addCell(new Phrase("Price", boldFont));
     detailsTable.addCell(new Phrase("Quantity", boldFont));
     detailsTable.addCell(new Phrase("Amount", boldFont));
 
-    for (int index = 0; index < soldItems.size(); index++) {
-      soldItem = soldItems.get(index);
-      // item name
+    for (SoldItem soldItem : soldItems) {
+
       detailsTable.addCell(new Phrase(
-          soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName(), textFont));
+          soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName(), textFont)); // itemName
+
       detailsTable.addCell(new Phrase(
           soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyName(),
           textFont)); // company
+
+      if (numberOfCols == 6) {
+        detailsTable.addCell(new Phrase((soldItem.getItemPriceDeatils().getCapacity() != null)
+            ? soldItem.getItemPriceDeatils().getCapacity() : "-", textFont)); // Capacity
+
+      }
+
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getSoldPrice()), textFont)); // price
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getQuantity()), textFont)); // quantity
-      amount = (soldItem.getSoldPrice() * soldItem.getQuantity());
+      amount = soldItem.getSoldPrice() * soldItem.getQuantity();
       detailsTable.addCell(new Phrase(String.valueOf(amount), textFont)); // amount
 
     }
