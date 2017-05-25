@@ -13,29 +13,31 @@
             billData.customer = bill.customer;
             billData.generatedDate = bill.generatedDate;
             // billData.netAmount = 
-            for (let index = 0; index < bill.items.length; index++) {
-                const itemObj = { itemDetails: { id: null }, quantity: bill.items[index].quantity, soldPrice: bill.items[index].price };
+            for (const item of bill.items) {
+                const itemObj = { itemPriceDeatils: { id: null }, quantity: item.quantity, soldPrice: item.price };
+                // existing item price details selected
+                if (item.detailsId) {
+                    itemObj.itemPriceDeatils.id = item.detailsId;
+                }
                 // check item is new or not, if new create new item and item details
-                if (bill.items[index].selectedItem == null) {
-                    // itemObj.itemName = bill.items[index].searchItemText;
-                    itemObj.itemDetails = { id: null, capacity: bill.items[index].capacity, price: bill.items[index].price, itemCompany: null, item: null };
-                    itemObj.itemDetails.itemCompany = { companyName: bill.items[index].searchCompanyText.toLowerCase() };
-                    itemObj.itemDetails.item = { itemName: bill.items[index].searchItemText.toLowerCase() };
+                //else if (item.selectedItem == null || item.selectedCompany == null) {
+                else {
+                    // itemObj.itemName = item.searchItemText;
+                    itemObj.itemPriceDeatils = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
+                    itemObj.itemPriceDeatils.itemDetails = { id: null, itemCompany: null, item: null };
+                    itemObj.itemPriceDeatils.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
+                    itemObj.itemPriceDeatils.itemDetails.item = { itemName: item.searchItemText.toLowerCase() };
 
                 }// check item company is new or not 
-                else if (bill.items[index].selectedCompany == null) {
-                    itemObj.itemDetails = { id: null, capacity: bill.items[index].capacity, price: bill.items[index].price, itemCompany: null, item: null };
-                    itemObj.itemDetails.itemCompany = { companyName: bill.items[index].searchCompanyText.toLowerCase() };
-                    itemObj.itemDetails.item = { itemName: bill.items[index].selectedItem.itemName.toLowerCase() };
-                }
-                else {
-                    console.log('selected item company.itemDetails[] length:' + bill.items[index].selectedCompany.itemDetails);
-                    itemObj.itemDetails.id = bill.items[index].selectedCompany.itemDetails[0].detailsId;
-                }
-
+                /*else if (item.selectedCompany == null) {
+                    itemObj.itemPriceDeatils = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
+                    itemObj.itemPriceDeatils.itemDetails = { id: null, itemCompany: null, item: null };
+                    itemObj.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
+                    itemObj.itemDetails.item = { itemName: item.selectedItem.itemName.toLowerCase() };
+                } */
 
                 billData.soldItems.push(itemObj);
-                totalAmount += (bill.items[index].price * bill.items[index].quantity);
+                totalAmount += (item.price * item.quantity);
             }
             billData.netAmount = totalAmount;
             console.log("final bill object prepared: ");

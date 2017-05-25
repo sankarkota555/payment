@@ -2,6 +2,7 @@ package com.payment.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -18,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "itemPriceDetails", uniqueConstraints = {
     @UniqueConstraint(columnNames = { "capacity", "itemdetails_id" }) })
+@DynamicUpdate
+@DynamicInsert
 public class ItemPriceDeatils implements Serializable{
 
   private static final long serialVersionUID = -3876472800137573252L;
@@ -28,7 +33,7 @@ public class ItemPriceDeatils implements Serializable{
   @GeneratedValue(generator = "incrementGenerator")
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
   @JsonBackReference
   private ItemDetails itemDetails;
 

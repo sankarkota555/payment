@@ -27,7 +27,6 @@ public class PaymentMapperImpl implements PaymentMapper {
     return billsDtoList;
   }
 
-  @Deprecated
   private BillDTO mapBillToBillDto(Bill bill) {
     BillDTO billDto;
     billDto = new BillDTO();
@@ -39,15 +38,16 @@ public class PaymentMapperImpl implements PaymentMapper {
     List<BillItemDTO> billItemsList = new ArrayList<>();
     for (SoldItem soldItem : bill.getSoldItems()) {
       billItemDto = new BillItemDTO();
-      /*
-       * billItemDto.setCapacity(soldItem.getItemDetails().getCapacity());
-       * billItemDto.setCompanyId(soldItem.getItemDetails().getItemCompany().getCompanyId());
-       * billItemDto.setCompanyName(soldItem.getItemDetails().getItemCompany().getCompanyName());
-       * billItemDto.setItemId(soldItem.getItemDetails().getItem().getItemId());
-       * billItemDto.setItemName(soldItem.getItemDetails().getItem().getItemName());
-       * billItemDto.setPrice(soldItem.getSoldPrice());
-       * billItemDto.setQuantity(soldItem.getQuantity()); billItemsList.add(billItemDto);
-       */
+
+      billItemDto.setCapacity(soldItem.getItemPriceDeatils().getCapacity());
+      billItemDto.setCompanyId(soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyId());
+      billItemDto.setCompanyName(soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyName());
+      billItemDto.setItemId(soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemId());
+      billItemDto.setItemName(soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName());
+      billItemDto.setPrice(soldItem.getSoldPrice());
+      billItemDto.setQuantity(soldItem.getQuantity());
+      billItemsList.add(billItemDto);
+
     }
     billDto.setBillItems(billItemsList);
     return billDto;

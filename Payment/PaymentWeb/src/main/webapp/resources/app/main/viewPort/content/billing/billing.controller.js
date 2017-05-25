@@ -121,6 +121,7 @@
             if (itemPriceDeatils.length == 1) {
                 me.bill.items[index].availableQuantity = itemPriceDeatils[0].quantity;
                 me.bill.items[index].actualPrice = itemPriceDeatils[0].price;
+                me.bill.items[index].detailsId = itemPriceDeatils[0].id;
             }
         };
 

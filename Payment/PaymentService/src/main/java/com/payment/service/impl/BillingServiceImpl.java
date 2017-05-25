@@ -15,6 +15,7 @@ import com.payment.domain.Customer;
 import com.payment.domain.Item;
 import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
+import com.payment.domain.ItemPriceDeatils;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.mapper.PaymentMapper;
@@ -22,6 +23,7 @@ import com.payment.repositories.BillRepository;
 import com.payment.repositories.CustomerRepository;
 import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemDetailsRepository;
+import com.payment.repositories.ItemPriceDetailsRepositoty;
 import com.payment.repositories.ItemRepository;
 import com.payment.service.BillingService;
 import com.payment.utils.DateUtils;
@@ -38,6 +40,8 @@ public class BillingServiceImpl implements BillingService {
   @Autowired
   private ItemDetailsRepository itemDetailsRepository;
   @Autowired
+  private ItemPriceDetailsRepositoty itemPriceDetailsRepositoty;
+  @Autowired
   private ItemRepository itemRepository;
   @Autowired
   private ItemCompanyRepository itemCompanyRepository;
@@ -47,12 +51,11 @@ public class BillingServiceImpl implements BillingService {
   /**
    * saves given bill into database.
    * 
-   * @param bill {@link
-   *          Bill} object to save
+   * @param bill
+   *          {@link Bill} object to save
    * @return saved bill id.
    */
   @Transactional
-  @Deprecated
   public Long saveBill(Bill bill) {
     log.info("bill details");
     Customer customer = bill.getCustomer();
@@ -66,61 +69,76 @@ public class BillingServiceImpl implements BillingService {
       bill.setGeneratedDate(Calendar.getInstance().getTime());
     }
     customer = customerRepository.findByPhone(bill.getCustomer().getPhone());
-    List<SoldItem> soldItems = bill.getSoldItems();
-    ItemDetails itemDetails;
-    SoldItem soldItem;
+    // List<SoldItem> soldItems = bill.getSoldItems();
+    ItemDetails itemDetails = null;
+    ItemPriceDeatils itemPriceDeatils;
     ItemCompany company;
     Item item;
+    String soldItemName = null;
+    String soldItemConpanyName = null;
     log.info("sold items details: ");
-    /*for (int index = 0; index < soldItems.size(); index++) {
-      soldItem = soldItems.get(index);
-      if (soldItem.getItemDetails().getId() != null) {
-        itemDetails = itemDetailsRepository.findOne(soldItems.get(index).getItemDetails().getId());
-        if (itemDetails.getQuantity() != null) {
-          itemDetails.setQuantity(itemDetails.getQuantity() - soldItem.getQuantity());
+    for (SoldItem soldItem : bill.getSoldItems()) {
+      // check item is existing in DB
+      if (soldItem.getItemPriceDeatils().getId() != null) {
+        itemPriceDeatils = itemPriceDetailsRepositoty
+            .findOne(soldItem.getItemPriceDeatils().getId());
+        // update quantity
+        if (itemPriceDeatils.getQuantity() != null) {
+          itemPriceDeatils.setQuantity(itemPriceDeatils.getQuantity() - soldItem.getQuantity());
         }
-        log.info("Item details exists in DB with id: " + itemDetails.getId());
-        soldItem.setItemDetails(itemDetails);
-      } else {
+        log.info("Item price details exists in DB with id: " + itemPriceDeatils.getId());
+        soldItem.setItemPriceDeatils(itemPriceDeatils);
+      }
+      // Item or company is new, then add them to pricedetails
+      else {
         log.info("Item details not found in DB - creating new item details");
-        itemDetails = new ItemDetails();
-        item = itemRepository
-            .findByItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
+
+        soldItemName = soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName();
+        soldItemConpanyName = soldItem.getItemPriceDeatils().getItemDetails().getItemCompany()
+            .getCompanyName();
+
+        // search for item in DB
+        item = itemRepository.findByItemName(soldItemName);
         if (item == null) {
-          log.info("Item not found in DB with name: {}",
-              soldItems.get(index).getItemDetails().getItem().getItemName());
+          log.info("Item not found in DB with name: {}", soldItemName);
           item = new Item();
-          item.setItemName(soldItems.get(index).getItemDetails().getItem().getItemName());
-        }
-        itemDetails.setItem(item);
-        company = itemCompanyRepository.findByCompanyName(
-            soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
-        if (company == null) {
-          log.info("Company not found in DB with name:{}",
-              soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
-          company = new ItemCompany();
-          company.setCompanyName(
-              soldItems.get(index).getItemDetails().getItemCompany().getCompanyName());
+          item.setItemName(soldItemName);
         }
 
+        // search for item company in DB
+        company = itemCompanyRepository.findByCompanyName(soldItemConpanyName);
+        if (company == null) {
+          log.info("Company not found in DB with name:{}", soldItemConpanyName);
+          company = new ItemCompany();
+          company.setCompanyName(soldItemConpanyName);
+        }
+
+        // create and set values to item details
+        itemDetails = new ItemDetails();
+        itemDetails.setItem(item);
         itemDetails.setItemCompany(company);
 
-        itemDetails.setPrice(soldItem.getSoldPrice());
-        itemDetails.setCapacity(soldItems.get(index).getItemDetails().getCapacity());
-        soldItem.setItemDetails(itemDetails);
+        // create and set values to item price details
+        itemPriceDeatils = new ItemPriceDeatils();
+        itemPriceDeatils.setItemDetails(itemDetails);
+        itemPriceDeatils.setPrice(soldItem.getSoldPrice());
+
+        // set item price details sold item
+        soldItem.setItemPriceDeatils(itemPriceDeatils);
       }
 
-      log.info("item name: " + soldItem.getItemDetails().getItem().getItemName());
+      log.info("item name: " + soldItemName);
       log.info(
           "sold quantity: " + soldItem.getQuantity() + "  sold price: " + soldItem.getSoldPrice());
 
-      log.info("  getCapacity: " + soldItem.getItemDetails().getCapacity() + "  company name: "
-          + soldItem.getItemDetails().getItemCompany().getCompanyName());
+      log.info("  getCapacity: " + soldItem.getItemPriceDeatils().getCapacity() + "  company name: "
+          + soldItemConpanyName);
 
-    }*/
+    }
     if (customer != null) {
       bill.setCustomer(customer);
     }
+    log.info("NOT saving bill, uncomment to save");
     bill = billrepository.save(bill);
     log.info("bill saved success fully with id:{} ", bill.getBillId());
     return bill.getBillId();
@@ -128,20 +146,17 @@ public class BillingServiceImpl implements BillingService {
   }
 
   @Transactional
-  @Deprecated
   public List<Bill> getCustomerBills(Long customerId) {
     Customer customer = customerRepository.findOne(customerId);
     return customer.getBills();
   }
 
   @Transactional
-  @Deprecated
   public Bill getBillById(long billId) {
     return billrepository.findOne(billId);
   }
 
   @Transactional(readOnly = true)
-  @Deprecated
   public List<BillDTO> getBillsBetweebDates(Date frmDate, Date toDate) {
     frmDate = DateUtils.removeTime(frmDate);
     if (toDate == null) {

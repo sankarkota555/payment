@@ -22,6 +22,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @DynamicInsert
 @Table(name = "Bill")
@@ -42,6 +44,7 @@ public class Bill implements Serializable {
 
   @ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
   @JoinColumn(name = "customer_id")
+  @JsonBackReference
   private Customer customer;
 
   @Column(name = "net_amount")
@@ -49,8 +52,8 @@ public class Bill implements Serializable {
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "generated_date")
-
   private Date generatedDate;
+  
   public Long getBillId() {
     return billId;
   }

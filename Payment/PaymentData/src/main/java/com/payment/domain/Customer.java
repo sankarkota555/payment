@@ -18,6 +18,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @DynamicUpdate
@@ -46,8 +47,9 @@ public class Customer implements Serializable{
   @Column(name = "phone", length = 15, unique = true)
   private String phone;
 
-  @OneToMany(cascade=CascadeType.PERSIST)
+  @OneToMany(cascade=CascadeType.PERSIST, mappedBy= "customer")
   @LazyCollection(value = LazyCollectionOption.TRUE)
+  @JsonManagedReference
   private List<Bill> bills;
 
   public Long getId() {

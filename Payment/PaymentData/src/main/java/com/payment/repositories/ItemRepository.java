@@ -8,8 +8,10 @@ import com.payment.domain.Item;
 
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
-  public List<Item> findByItemNameStartingWith(String searchItemName);
-  
+  List<Item> findByItemNameStartingWith(String searchItemName);
+
+  Item findByItemName(String itemName);
+
   @Override
   public List<Item> findAll();
 

@@ -43,7 +43,8 @@ public class BillPdfView extends AbstractItextPdfView {
   private static Font textFont = PaymentFonts.textFont;
   private static Font footerFont = PaymentFonts.footerFont;
   private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-  private static final SimpleDateFormat footerDateFormat = new SimpleDateFormat("dd/MMM/yyyy EEEEEE h:mm a");
+  private static final SimpleDateFormat footerDateFormat = new SimpleDateFormat(
+      "dd/MMM/yyyy EEEEEE h:mm a");
 
   private Date billDate = null;
   private String customerName = null;
@@ -54,15 +55,16 @@ public class BillPdfView extends AbstractItextPdfView {
   @Override
   protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer,
       HttpServletRequest request, HttpServletResponse response) throws Exception {
-	  
+
     Bill bill = (Bill) model.get("bill");
     billDate = bill.getGeneratedDate();
     doc.addAuthor(PaymentConstantNames.shopName);
     doc.addCreationDate();
     doc.addProducer();
-    
-    //set downloadable file name
-    response.setHeader( "Content-Disposition", "filename=" + getDownloadableFileName(bill.getBillId(), bill.getCustomer().getName()) );
+
+    // set downloadable file name
+    response.setHeader("Content-Disposition",
+        "filename=" + getDownloadableFileName(bill.getBillId(), bill.getCustomer().getName()));
 
     // Add header table (office details)
     doc.add(getHeaderTable());
@@ -120,12 +122,12 @@ public class BillPdfView extends AbstractItextPdfView {
     final int imgeHeight = 50;
 
     try {
-    	
-      String folderPath = getFolderLocation(); 
+
+      String folderPath = getFolderLocation();
       // image path:
-      String imageFilePathRight =  folderPath+"resources/images/lakshmi.jpg" ; 
+      String imageFilePathRight = folderPath + "resources/images/lakshmi.jpg";
       // Pictures/Tulips.jpg";
-      String imageFilePathLeft =  folderPath+"resources/images/ganapathi.jpg" ; 
+      String imageFilePathLeft = folderPath + "resources/images/ganapathi.jpg";
       Image imageLeft = Image.getInstance(imageFilePathLeft);
       imageLeft.setWidthPercentage(20);
       imageLeft.setScaleToFitHeight(true);
@@ -233,7 +235,6 @@ public class BillPdfView extends AbstractItextPdfView {
     return customerTable;
   }
 
-  @Deprecated
   private PdfPTable getPurchaseDetailsTable(int spaceTop, List<SoldItem> soldItems, long netAmount)
       throws DocumentException {
 
@@ -258,9 +259,11 @@ public class BillPdfView extends AbstractItextPdfView {
     for (int index = 0; index < soldItems.size(); index++) {
       soldItem = soldItems.get(index);
       // item name
-     // detailsTable.addCell(new Phrase(soldItem.getItemDetails().getItem().getItemName(), textFont));
-     // detailsTable.addCell(
-         // new Phrase(soldItem.getItemDetails().getItemCompany().getCompanyName(), textFont)); // company
+      detailsTable.addCell(new Phrase(
+          soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName(), textFont));
+      detailsTable.addCell(new Phrase(
+          soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyName(),
+          textFont)); // company
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getSoldPrice()), textFont)); // price
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getQuantity()), textFont)); // quantity
       amount = (soldItem.getSoldPrice() * soldItem.getQuantity());
@@ -308,13 +311,14 @@ public class BillPdfView extends AbstractItextPdfView {
     paragraph.setSpacingBefore(spacinngBefore);
     return paragraph;
   }
-  
-	private String getFolderLocation() throws UnsupportedEncodingException {
-		return URLDecoder.decode(
-				this.getClass().getClassLoader().getResource("").getPath().split("WEB-INF/classes/")[0], "UTF-8");
-	}
-	
-	private String getDownloadableFileName(long billId,String customerName){
-		return "LGC_bill_"+customerName+"_"+billId+".pdf";
-	}
+
+  private String getFolderLocation() throws UnsupportedEncodingException {
+    return URLDecoder.decode(
+        this.getClass().getClassLoader().getResource("").getPath().split("WEB-INF/classes/")[0],
+        "UTF-8");
+  }
+
+  private String getDownloadableFileName(long billId, String customerName) {
+    return "LGC_bill_" + customerName + "_" + billId + ".pdf";
+  }
 }
