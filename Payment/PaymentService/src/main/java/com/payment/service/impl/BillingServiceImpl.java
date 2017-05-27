@@ -69,13 +69,7 @@ public class BillingServiceImpl implements BillingService {
       bill.setGeneratedDate(Calendar.getInstance().getTime());
     }
     customer = customerRepository.findByPhone(bill.getCustomer().getPhone());
-    // List<SoldItem> soldItems = bill.getSoldItems();
-    ItemDetails itemDetails = null;
-    ItemPriceDeatils itemPriceDeatils;
-    ItemCompany company;
-    Item item;
-    String soldItemName = null;
-    String soldItemConpanyName = null;
+    ItemPriceDeatils itemPriceDeatils = null;
     log.info("sold items details: ");
     for (SoldItem soldItem : bill.getSoldItems()) {
       // check item is existing in DB
@@ -92,48 +86,11 @@ public class BillingServiceImpl implements BillingService {
       // Item or company is new, then add them to pricedetails
       else {
         log.info("Item details not found in DB - creating new item details");
-
-        soldItemName = soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName();
-        soldItemConpanyName = soldItem.getItemPriceDeatils().getItemDetails().getItemCompany()
-            .getCompanyName();
-
-        // search for item in DB
-        item = itemRepository.findByItemName(soldItemName);
-        if (item == null) {
-          log.info("Item not found in DB with name: {}", soldItemName);
-          item = new Item();
-          item.setItemName(soldItemName);
-        }
-
-        // search for item company in DB
-        company = itemCompanyRepository.findByCompanyName(soldItemConpanyName);
-        if (company == null) {
-          log.info("Company not found in DB with name:{}", soldItemConpanyName);
-          company = new ItemCompany();
-          company.setCompanyName(soldItemConpanyName);
-        }
-
-        // create and set values to item details
-        itemDetails = new ItemDetails();
-        itemDetails.setItem(item);
-        itemDetails.setItemCompany(company);
-
-        // create and set values to item price details
-        itemPriceDeatils = new ItemPriceDeatils();
-        itemPriceDeatils.setItemDetails(itemDetails);
-        itemPriceDeatils.setPrice(soldItem.getSoldPrice());
-
+        // Map Item price details.
+        paymentMapper.findAndMapItemPricedetails(itemPriceDeatils, soldItem.getSoldPrice());
         // set item price details sold item
         soldItem.setItemPriceDeatils(itemPriceDeatils);
       }
-
-      log.info("item name: " + soldItemName);
-      log.info(
-          "sold quantity: " + soldItem.getQuantity() + "  sold price: " + soldItem.getSoldPrice());
-
-      log.info("  getCapacity: " + soldItem.getItemPriceDeatils().getCapacity() + "  company name: "
-          + soldItemConpanyName);
-
     }
     if (customer != null) {
       bill.setCustomer(customer);

@@ -2,7 +2,11 @@ package com.payment.mapper;
 
 import java.util.List;
 
+import org.hibernate.loader.collection.OneToManyJoinWalker;
+
 import com.payment.domain.Bill;
+import com.payment.domain.ItemDetails;
+import com.payment.domain.ItemPriceDeatils;
 import com.payment.dto.BillDTO;
 
 public interface PaymentMapper {
@@ -25,4 +29,22 @@ public interface PaymentMapper {
    */
   List<BillDTO> mapBillToDto(List<Bill> bills);
 
+  /**
+   * Maps given itemPriceDeatils into DB format.<br>
+   * Finds items and companies if present in DB or else creates new ones.
+   * 
+   * @param itemPriceDeatils
+   *          {@link ItemDetails} to be mapped.
+   * @param price
+   *          price of item.
+   */
+  void findAndMapItemPricedetails(ItemPriceDeatils itemPriceDeatils, Integer price);
+
+  /**
+   * Converts and prints given object as JSON string.
+   * 
+   * @param object
+   *          object which is to be converted as JSON.
+   */
+  void writeObjectAsJson(Object object);
 }
