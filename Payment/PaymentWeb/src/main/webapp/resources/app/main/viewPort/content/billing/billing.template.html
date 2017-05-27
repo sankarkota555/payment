@@ -34,13 +34,14 @@
 						<div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items">
 							<section layout="row" layout-sm="column" layout-align="start start">
 								<div flex="50">
-									<md-autocomplete md-no-cache="true" required md-search-text-change="billingController.searchItems(item.searchItemText)" md-selected-item="item.selectedItem"
+									<!-- <md-autocomplete md-no-cache="true" required md-search-text-change="billingController.searchItems(item.searchItemText)" md-selected-item="item.selectedItem"
 									 md-items="item in billingController.searchedItems" md-search-text="item.searchItemText" md-item-text="item.itemName"
 									 md-dropdown-position="bottom" md-min-length="2" md-floating-label="Select Item" md-select-on-match="false" md-menu-class="autocomplete-custom-template">
 										<md-item-template>
 											<span class="item-title" md-highlight-text="item.searchItemText">{{item.itemName}} </span>
 										</md-item-template>
-									</md-autocomplete>
+									</md-autocomplete> -->
+									<auto-complete-item item="item" />
 								</div>
 								<!--<div flex="50">
 									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="company in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
@@ -52,7 +53,7 @@
 									</md-autocomplete>
 								</div> -->
 								<div flex="50">
-									<item-company item="item" index="$index" on-select-callback-functuion="billingController.companySelected" />
+									<auto-complete-item-company item="item" index="$index" on-select-callback-functuion="billingController.companySelected" />
 								</div>
 								<div flex="50" ng-if="item.selectedCompany && item.selectedCompany.itemPriceDeatils | capacityFilter">
 									<md-input-container>

@@ -2,7 +2,7 @@
 "use strict";
 {
 
-    function itemCompany(matchResultsFilter) {
+    function autoCompleteItemCompany(matchResultsFilter) {
 
         const directive = {};
 
@@ -29,6 +29,6 @@
 
     };
 
-    angular.module('payment').directive('itemCompany', itemCompany);
+    angular.module('payment').directive('autoCompleteItemCompany', autoCompleteItemCompany);
 
 };

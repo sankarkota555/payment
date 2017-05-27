@@ -6,7 +6,6 @@
         const me = this;
 
         me.availableItems = [];
-        me.searchedItems = [];
 
         let previousSearchText = "<<";
 
@@ -82,7 +81,7 @@
         /**
          * function to search for an item by item name
          */
-        me.searchItems = function (itemName) {
+        /* me.searchItems = function (itemName) {
             if (itemName.length > 1 && itemName.indexOf(previousSearchText) != 0) {
                 me.searchedItems = [];
                 itemsService.searchItems(itemName).then(function (response) {
@@ -99,7 +98,7 @@
                     });;
             }
 
-        };
+        }; */
 
         /**
          * Update item availableQuantity and actualPrice.
