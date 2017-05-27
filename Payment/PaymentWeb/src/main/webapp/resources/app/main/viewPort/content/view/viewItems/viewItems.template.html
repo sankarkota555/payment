@@ -1,39 +1,122 @@
 <div layout="column" layout-align="center center">
-    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline" layout="row" layout-align="center center"></span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="column" layout-align="space-between">
-            <md-table-container>
-                <table md-table>
-                    <thead md-head>
-                        <tr md-row>
-                            <th md-column>Name</th>
-                            <th md-column class="word-space">Comapany Capacity Price Quantity</th>
+    <md-content class="md-padding" layout-xs="column" layout="row" style="min-width:950px;">
+        <div flex-xs flex-gt-xs="70" layout="column">
+            <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" layout="row" layout-align="center center"></span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="column" layout-align="space-between">
+                    <table md-table>
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>Name</th>
+                                <th md-column class="word-space">Comapany Capacity Price Quantity</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <md-table-container style="max-height:450px;" class="border_bottom">
+                        <table md-table>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="item in viewItemsController.availableItems ">
+                                    <td md-cell>{{item.itemName}}</td>
+                                    <td md-cell>
+                                        <table>
+                                            <tr ng-class="{ 'border_bottom': !$last && itemDetail.itemPriceDetails.length> 1}" ng-repeat="itemDetail in item.itemDetails">
+                                                <td class="item-details">{{itemDetail.itemCompany.companyName}}</td>
+                                                <td>
+                                                    <table>
+                                                        <tr ng-repeat="itemPriceDetail in itemDetail.itemPriceDetails">
 
-                        </tr>
-                    </thead>
-                    <tbody md-body>
-                        <tr md-row ng-repeat="item in viewItemsController.availableItems">
-                            <td md-cell>{{item.itemName}}</td>
-                            <td md-cell>
-                                <table>
-                                    <tr ng-repeat="itemDetail in item.itemDetails">
-                                        <td class="item-details">{{itemDetail.itemCompany.companyName}}</td>
-                                        <td class="item-details center-text">{{itemDetail.capacity || '__'}}</td>
-                                        <td class="item-details center-text">{{itemDetail.price}}</td>
-                                        <td class="item-details center-text">{{itemDetail.quantity || '__'}}</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id != itemPriceDetail.id" class="item-details center-text">{{itemPriceDetail.capacity || '__'}}</td>
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id == itemPriceDetail.id">
+                                                                <md-input-container class="md-block input-width">
+                                                                    <input ng-model="viewItemsController.currentlyEditingItem.capacity" type="text" placeholder="Capacity" ng-required="false">
+                                                                </md-input-container>
+                                                            </td>
 
-                </table>
-            </md-table-container>
-        </md-card-content>
-    </md-card>
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id != itemPriceDetail.id" class="item-details center-text">{{itemPriceDetail.price}}</td>
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id == itemPriceDetail.id">
+                                                                <md-input-container class="md-block input-width">
+                                                                    <input ng-model="viewItemsController.currentlyEditingItem.price" type="text" ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
+                                                                </md-input-container>
+                                                            </td>
 
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id != itemPriceDetail.id" class="item-details center-text">{{itemPriceDetail.quantity || '__'}}</td>
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id == itemPriceDetail.id">
+                                                                <md-input-container class="md-block input-width">
+                                                                    <input ng-model="viewItemsController.currentlyEditingItem.quantity" type="text" ng-pattern="/^\d+$/" placeholder="Quantity"
+                                                                        ng-required="true">
+                                                                </md-input-container>
+                                                            </td>
+
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id != itemPriceDetail.id">
+                                                                <md-button class="md-icon-button" aria-label="More" title="Edit" ng-click="viewItemsController.editItem(itemPriceDetail)">
+                                                                    <md-icon md-svg-icon="javax.faces.resource/images/thumbs/writer.svg"></md-icon>
+                                                                </md-button>
+                                                                <md-button class="md-icon-button" aria-label="More" title="Delete" ng-click="viewItemsController.deleteItem(itemPriceDetail)">
+                                                                    <md-icon md-svg-icon="javax.faces.resource/images/thumbs/delete Icon file.svg"></md-icon>
+                                                                </md-button>
+                                                            </td>
+
+                                                            <td ng-show="viewItemsController.currentlyEditingItem.id == itemPriceDetail.id">
+                                                                <md-button class="md-icon-button" aria-label="More" title="Save" ng-click="viewItemsController.updateItem($parent.$parent.$index, $parent.$index)">
+                                                                    <md-icon md-svg-icon="javax.faces.resource/images/thumbs/verification-mark.svg"></md-icon>
+                                                                </md-button>
+                                                                <md-button class="md-icon-button" aria-label="More" title="Cancel" ng-click="viewItemsController.cancelEditing()">
+                                                                    <md-icon md-svg-icon="javax.faces.resource/images/thumbs/cancel.svg"></md-icon>
+                                                                </md-button>
+                                                            </td>
+                                                        </tr>
+
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary">Add New</md-button>
+
+                    </md-card-actions>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div flex-xs flex-gt-xs="30" layout="column" ng-show="viewItemsController.newItem">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" layout="row" layout-align="center center"></span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="column" layout-align="space-between">
+                    <form name="addNewItemForm">
+                        <auto-complete-item item="viewItemsController.currentlyEditingItem"></auto-complete-item>
+                        <auto-complete-item-company item="viewItemsController.currentlyEditingItem" on-select-callback-functuion="billingController.companySelected">
+                        </auto-complete-item-company>
+                        <md-input-container class="md-block">
+                            <label>Capacity</label>
+                            <input ng-model="viewItemsController.currentlyEditingItem" type="text" ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Price</label>
+                            <input ng-model="viewItemsController.currentlyEditingItem" type="text" ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Quantity</label>
+                            <input ng-model="viewItemsController.currentlyEditingItem" type="text" ng-pattern="/^\d+$/" placeholder="Price" ng-required="true">
+                        </md-input-container>
+                    </form>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" ng-click="">save</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
 </div>
