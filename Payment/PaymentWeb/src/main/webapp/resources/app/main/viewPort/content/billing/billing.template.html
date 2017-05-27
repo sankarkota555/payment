@@ -42,14 +42,17 @@
 										</md-item-template>
 									</md-autocomplete>
 								</div>
-								<div flex="50">
-									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="item in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
-									 md-search-text="item.searchCompanyText" md-item-text="item.itemCompany.companyName" md-min-length="2" md-floating-label="Select Company"
-									 md-select-on-match="false" md-menu-class="autocomplete-custom-template" md-selected-item-change="billingController.companySelected($index,item.itemPriceDeatils)">
+								<!--<div flex="50">
+									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="company in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"
+									 md-search-text="item.searchCompanyText" md-item-text="company.itemCompany.companyName" md-min-length="2" md-floating-label="Select Company"
+									 md-select-on-match="false" md-menu-class="autocomplete-custom-template" md-selected-item-change="billingController.companySelected($index,company.itemPriceDetails)">
 										<md-item-template>
-											<span class="auto-complete"> {{item.itemCompany.companyName}}  </span>
+											<span class="auto-complete"> {{company.itemCompany.companyName}}  </span>
 										</md-item-template>
 									</md-autocomplete>
+								</div> -->
+								<div flex="50">
+									<item-company item="item" index="$index" on-select-callback-functuion="billingController.companySelected" />
 								</div>
 								<div flex="50" ng-if="item.selectedCompany && item.selectedCompany.itemPriceDeatils | capacityFilter">
 									<md-input-container>
@@ -81,10 +84,10 @@
 								</div>
 								<div flex="15">
 									<md-button class="md-fab md-mini md-primary md-hue-2" title="Add item" aria-label="delete item" ng-if="$last" ng-click="billingController.addItem()">
-										<md-icon md-svg-src="javax.faces.resource/images/thumbs/add.svg"></md-icon>
+										<md-icon md-svg-src="javax.faces.resource/images/thumbs/add Icon file.svg"></md-icon>
 									</md-button>
 									<md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item" aria-label="delete item" ng-if="!$last" ng-click="billingController.deleteItem($index)">
-										<md-icon md-svg-src="javax.faces.resource/images/thumbs/multiply.svg"></md-icon>
+										<md-icon md-svg-src="javax.faces.resource/images/thumbs/delete Icon file.svg"></md-icon>
 									</md-button>
 								</div>
 							</section>

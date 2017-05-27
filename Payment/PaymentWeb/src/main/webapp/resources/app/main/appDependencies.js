@@ -32,7 +32,7 @@ import "./viewPort/view-port.directive.js";
 import "./viewPort/content/home/home.directive.js";
 import "./viewPort/menu/menu.directive.js";
 import "./viewPort/content/content.directive.js";
-//import "./viewPort/common/document-hide.directive.js";
+import "./viewPort/directives/itemCompany.directive.js";
 
 // Services
 import "./viewPort/content/billing/billing.service.js";
