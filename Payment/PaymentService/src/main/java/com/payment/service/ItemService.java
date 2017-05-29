@@ -3,7 +3,7 @@ package com.payment.service;
 import java.util.List;
 
 import com.payment.domain.Item;
-import com.payment.domain.ItemPriceDeatils;
+import com.payment.domain.ItemPriceDetails;
 
 public interface ItemService {
 
@@ -29,13 +29,13 @@ public interface ItemService {
    * @return true, if operation success.<br>
    *         else false.
    */
-  boolean updateItemDetails(ItemPriceDeatils itemPriceDeatils);
+  boolean updateItemDetails(ItemPriceDetails itemPriceDetails);
 
   /**
    * Add new Item price details.
    * 
    * @return Id of object saved.
    */
-  Long addNewItemDetails(ItemPriceDeatils itemPriceDeatils);
+  Long addNewItemDetails(ItemPriceDetails itemPriceDetails);
 
 }

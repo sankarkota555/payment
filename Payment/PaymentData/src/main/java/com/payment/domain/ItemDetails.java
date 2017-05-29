@@ -47,7 +47,7 @@ public class ItemDetails implements Serializable {
   @JoinColumn(name = "itemdetails_id")
   @LazyCollection(LazyCollectionOption.TRUE)
   @JsonManagedReference
-  private List<ItemPriceDeatils> itemPriceDetails;
+  private List<ItemPriceDetails> itemPriceDetails;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")
@@ -78,11 +78,11 @@ public class ItemDetails implements Serializable {
     this.item = item;
   }
 
-  public List<ItemPriceDeatils> getItemPriceDetails() {
+  public List<ItemPriceDetails> getItemPriceDetails() {
     return itemPriceDetails;
   }
 
-  public void setItemPriceDetails(List<ItemPriceDeatils> itemPriceDetails) {
+  public void setItemPriceDetails(List<ItemPriceDetails> itemPriceDetails) {
     this.itemPriceDetails = itemPriceDetails;
   }
 

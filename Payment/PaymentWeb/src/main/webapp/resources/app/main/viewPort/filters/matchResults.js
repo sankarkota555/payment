@@ -27,7 +27,9 @@
 				//console.log('matchItems');
 				//console.log(matchItems);
 				return matchItems;
-			};
+			} else {
+				return [];
+			}
 		}
 	};
 

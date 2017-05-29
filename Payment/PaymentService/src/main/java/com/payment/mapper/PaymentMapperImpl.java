@@ -14,7 +14,7 @@ import com.payment.domain.Bill;
 import com.payment.domain.Item;
 import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
-import com.payment.domain.ItemPriceDeatils;
+import com.payment.domain.ItemPriceDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.dto.BillItemDTO;
@@ -73,18 +73,18 @@ public class PaymentMapperImpl implements PaymentMapper {
     for (SoldItem soldItem : bill.getSoldItems()) {
       billItemDto = new BillItemDTO();
 
-      billItemDto.setCapacity(soldItem.getItemPriceDeatils().getCapacity());
+      billItemDto.setCapacity(soldItem.getItemPriceDetails().getCapacity());
       billItemDto.setCompanyId(
-          soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyId());
+          soldItem.getItemPriceDetails().getItemDetails().getItemCompany().getCompanyId());
       billItemDto.setCompanyName(
-          soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyName());
-      billItemDto.setItemId(soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemId());
+          soldItem.getItemPriceDetails().getItemDetails().getItemCompany().getCompanyName());
+      billItemDto.setItemId(soldItem.getItemPriceDetails().getItemDetails().getItem().getItemId());
       billItemDto
-          .setItemName(soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName());
+          .setItemName(soldItem.getItemPriceDetails().getItemDetails().getItem().getItemName());
       billItemDto.setPrice(soldItem.getSoldPrice());
       billItemDto.setQuantity(soldItem.getQuantity());
-      capacity = (soldItem.getItemPriceDeatils().getCapacity() != null)
-          ? soldItem.getItemPriceDeatils().getCapacity() : "-";
+      capacity = (soldItem.getItemPriceDetails().getCapacity() != null)
+          ? soldItem.getItemPriceDetails().getCapacity() : "-";
       billItemDto.setCapacity(capacity);
 
       billItemsList.add(billItemDto);
@@ -95,18 +95,19 @@ public class PaymentMapperImpl implements PaymentMapper {
   }
 
   /**
-   * Maps given itemPriceDeatils into DB format.<br>
+   * Maps given ItemPriceDetails into DB format.<br>
    * Finds items and companies if present in DB or else creates new ones.
    * 
-   * @param itemPriceDeatils
+   * @param ItemPriceDetails
    *          {@link ItemDetails} to be mapped.
    * @param price
    *          price of item.
    */
   @Override
-  public void findAndMapItemPricedetails(ItemPriceDeatils itemPriceDeatils, Integer price) {
-    String soldItemName = itemPriceDeatils.getItemDetails().getItem().getItemName();
-    String soldItemConpanyName = itemPriceDeatils.getItemDetails().getItemCompany()
+  public void findAndMapItemPricedetails(ItemPriceDetails ItemPriceDetails, Integer price) {
+    writeObjectAsJson(ItemPriceDetails);
+    String soldItemName = ItemPriceDetails.getItemDetails().getItem().getItemName();
+    String soldItemConpanyName = ItemPriceDetails.getItemDetails().getItemCompany()
         .getCompanyName();
 
     // search for item in DB
@@ -131,8 +132,8 @@ public class PaymentMapperImpl implements PaymentMapper {
     itemDetails.setItemCompany(company);
 
     // set values to item price details
-    itemPriceDeatils.setItemDetails(itemDetails);
-    itemPriceDeatils.setPrice(price);
+    ItemPriceDetails.setItemDetails(itemDetails);
+    ItemPriceDetails.setPrice(price);
 
   }
 

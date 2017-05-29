@@ -6,7 +6,7 @@ import org.hibernate.loader.collection.OneToManyJoinWalker;
 
 import com.payment.domain.Bill;
 import com.payment.domain.ItemDetails;
-import com.payment.domain.ItemPriceDeatils;
+import com.payment.domain.ItemPriceDetails;
 import com.payment.dto.BillDTO;
 
 public interface PaymentMapper {
@@ -38,7 +38,7 @@ public interface PaymentMapper {
    * @param price
    *          price of item.
    */
-  void findAndMapItemPricedetails(ItemPriceDeatils itemPriceDeatils, Integer price);
+  void findAndMapItemPricedetails(ItemPriceDetails itemPriceDetails, Integer price);
 
   /**
    * Converts and prints given object as JSON string.

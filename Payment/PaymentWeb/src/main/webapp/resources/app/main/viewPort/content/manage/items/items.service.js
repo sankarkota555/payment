@@ -26,12 +26,11 @@
         /**
          *  Function to add new Item
          */
-        me.addItem = function (item) {
-            const object = { itemName: item.itemName, companyId: item.company.companyId };
+        me.addItemDetails = function (item) {
             return $http({
-                url: 'addItem',
+                url: 'addItemDetails',
                 method: "POST",
-                data: object
+                data: item
             });
         };
 

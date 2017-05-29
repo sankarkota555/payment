@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
     @UniqueConstraint(columnNames = { "capacity", "itemdetails_id" }) })
 @DynamicUpdate
 @DynamicInsert
-public class ItemPriceDeatils implements Serializable{
+public class ItemPriceDetails implements Serializable{
 
   private static final long serialVersionUID = -3876472800137573252L;
 

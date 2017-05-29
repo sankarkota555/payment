@@ -104,7 +104,7 @@
          * Update item availableQuantity and actualPrice.
          */
         me.capacitySelected = function (index, detailsId) {
-            for (const obj of me.bill.items[index].selectedCompany.itemPriceDeatils) {
+            for (const obj of me.bill.items[index].selectedCompany.itemPriceDetails) {
                 if (obj.id == detailsId) {
                     me.bill.items[index].availableQuantity = obj.quantity;
                     me.bill.items[index].actualPrice = obj.price;
@@ -116,11 +116,11 @@
         /**
          * Update item availableQuantity and actualPrice.
          */
-        me.companySelected = function (index, itemPriceDeatils) {
-            if (itemPriceDeatils.length == 1) {
-                me.bill.items[index].availableQuantity = itemPriceDeatils[0].quantity;
-                me.bill.items[index].actualPrice = itemPriceDeatils[0].price;
-                me.bill.items[index].detailsId = itemPriceDeatils[0].id;
+        me.companySelected = function (index, itemPriceDetails) {
+            if (itemPriceDetails.length == 1) {
+                me.bill.items[index].availableQuantity = itemPriceDetails[0].quantity;
+                me.bill.items[index].actualPrice = itemPriceDetails[0].price;
+                me.bill.items[index].detailsId = itemPriceDetails[0].id;
             }
         };
 

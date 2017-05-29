@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.payment.domain.Item;
-import com.payment.domain.ItemPriceDeatils;
+import com.payment.domain.ItemPriceDetails;
 import com.payment.mapper.PaymentMapper;
 import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemPriceDetailsRepositoty;
@@ -75,17 +75,17 @@ public class ItemServiceImpl implements ItemService {
    */
   @Override
   @Transactional
-  public boolean updateItemDetails(ItemPriceDeatils itemPriceDeatils) {
-    log.info("Trying to update item price details with id: " + itemPriceDeatils.getId());
-    ItemPriceDeatils itemPriceDeatilsDb = itemPriceDetailsRepositoty
-        .findOne(itemPriceDeatils.getId());   
-    if (itemPriceDeatilsDb != null) {
+  public boolean updateItemDetails(ItemPriceDetails ItemPriceDetails) {
+    log.info("Trying to update item price details with id: " + ItemPriceDetails.getId());
+    ItemPriceDetails ItemPriceDetailsDb = itemPriceDetailsRepositoty
+        .findOne(ItemPriceDetails.getId());   
+    if (ItemPriceDetailsDb != null) {
       // update details
-      itemPriceDeatilsDb.setCapacity(itemPriceDeatils.getCapacity());
-      itemPriceDeatilsDb.setQuantity(itemPriceDeatils.getQuantity());
-      itemPriceDeatilsDb.setPrice(itemPriceDeatils.getPrice());
+      ItemPriceDetailsDb.setCapacity(ItemPriceDetails.getCapacity());
+      ItemPriceDetailsDb.setQuantity(ItemPriceDetails.getQuantity());
+      ItemPriceDetailsDb.setPrice(ItemPriceDetails.getPrice());
     } else {
-      log.info("Item price details not found in DB with id: " + itemPriceDeatils.getId());
+      log.info("Item price details not found in DB with id: " + ItemPriceDetails.getId());
       return false;
     }
     // No need to save object manually, Transaction will be auto commit the object.
@@ -99,9 +99,9 @@ public class ItemServiceImpl implements ItemService {
    */
   @Override
   @Transactional
-  public Long addNewItemDetails(ItemPriceDeatils itemPriceDeatils) {
+  public Long addNewItemDetails(ItemPriceDetails ItemPriceDetails) {
     log.info("Trying to save new item price details");
-    paymentMapper.findAndMapItemPricedetails(itemPriceDeatils, itemPriceDeatils.getPrice());
-    return itemPriceDetailsRepositoty.save(itemPriceDeatils).getId();
+    paymentMapper.findAndMapItemPricedetails(ItemPriceDetails, ItemPriceDetails.getPrice());
+    return itemPriceDetailsRepositoty.save(ItemPriceDetails).getId();
   }
 }

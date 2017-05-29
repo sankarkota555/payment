@@ -74,6 +74,13 @@
 
         }; // END - processError()
 
+        me.mapItemPriceDetails = function (item) {
+            itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
+            itemPriceDetails.itemDetails = { id: null, itemCompany: null, item: null };
+            itemPriceDetails.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
+            itemPriceDetails.itemDetails.item = { itemName: item.searchItemText.toLowerCase() };
+            return itemPriceDetails;
+        };
     };
 
     angular.module('payment').service('utilsService', utilsService);

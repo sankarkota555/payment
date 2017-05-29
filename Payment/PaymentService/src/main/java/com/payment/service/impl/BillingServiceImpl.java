@@ -15,7 +15,7 @@ import com.payment.domain.Customer;
 import com.payment.domain.Item;
 import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
-import com.payment.domain.ItemPriceDeatils;
+import com.payment.domain.ItemPriceDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.mapper.PaymentMapper;
@@ -69,27 +69,28 @@ public class BillingServiceImpl implements BillingService {
       bill.setGeneratedDate(Calendar.getInstance().getTime());
     }
     customer = customerRepository.findByPhone(bill.getCustomer().getPhone());
-    ItemPriceDeatils itemPriceDeatils = null;
+    ItemPriceDetails itemPriceDetails = null;
     log.info("sold items details: ");
     for (SoldItem soldItem : bill.getSoldItems()) {
       // check item is existing in DB
-      if (soldItem.getItemPriceDeatils().getId() != null) {
-        itemPriceDeatils = itemPriceDetailsRepositoty
-            .findOne(soldItem.getItemPriceDeatils().getId());
+      if (soldItem.getItemPriceDetails().getId() != null) {
+        itemPriceDetails = itemPriceDetailsRepositoty
+            .findOne(soldItem.getItemPriceDetails().getId());
         // update quantity
-        if (itemPriceDeatils.getQuantity() != null) {
-          itemPriceDeatils.setQuantity(itemPriceDeatils.getQuantity() - soldItem.getQuantity());
+        if (itemPriceDetails.getQuantity() != null) {
+          itemPriceDetails.setQuantity(itemPriceDetails.getQuantity() - soldItem.getQuantity());
         }
-        log.info("Item price details exists in DB with id: " + itemPriceDeatils.getId());
-        soldItem.setItemPriceDeatils(itemPriceDeatils);
+        log.info("Item price details exists in DB with id: " + itemPriceDetails.getId());
+        soldItem.setItemPriceDetails(itemPriceDetails);
       }
       // Item or company is new, then add them to pricedetails
       else {
         log.info("Item details not found in DB - creating new item details");
+        itemPriceDetails = soldItem.getItemPriceDetails();
         // Map Item price details.
-        paymentMapper.findAndMapItemPricedetails(itemPriceDeatils, soldItem.getSoldPrice());
+        paymentMapper.findAndMapItemPricedetails(itemPriceDetails, soldItem.getSoldPrice());
         // set item price details sold item
-        soldItem.setItemPriceDeatils(itemPriceDeatils);
+        soldItem.setItemPriceDetails(itemPriceDetails);
       }
     }
     if (customer != null) {

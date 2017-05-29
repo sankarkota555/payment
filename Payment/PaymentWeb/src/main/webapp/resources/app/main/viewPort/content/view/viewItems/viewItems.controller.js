@@ -60,6 +60,16 @@
             me.newItem = true;
         }
 
+        me.saveNewItem = function () {
+            const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
+            itemsService.addItemDetails(newItem).then(function (data) {
+
+
+            }, function (data) {
+
+            });
+        };
+
         me.getAllItems();
 
 

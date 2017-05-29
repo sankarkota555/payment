@@ -43,8 +43,13 @@
                 },
                 function (response) {
                     console.log("error while searching user:", response);
+                    processError(response);
                     me.billsOnDate = [];
                 });
+        }
+
+        function processError(response) {
+            utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);
         }
     };
 

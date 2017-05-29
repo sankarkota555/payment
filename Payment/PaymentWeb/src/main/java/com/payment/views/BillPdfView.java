@@ -243,7 +243,7 @@ public class BillPdfView extends AbstractItextPdfView {
     float[] columnWidths = new float[] { 20f, 18f, 12f, 13f, 15f };
     // verify capacity need to mention in PDf
     for (SoldItem soldItem : soldItems) {
-      if (soldItem.getItemPriceDeatils().getCapacity() != null) {
+      if (soldItem.getItemPriceDetails().getCapacity() != null) {
         numberOfCols = 6;
         columnWidths = new float[] { 20f, 18f, 12f, 12f, 13f, 15f };
       }
@@ -269,15 +269,15 @@ public class BillPdfView extends AbstractItextPdfView {
     for (SoldItem soldItem : soldItems) {
 
       detailsTable.addCell(new Phrase(
-          soldItem.getItemPriceDeatils().getItemDetails().getItem().getItemName(), textFont)); // itemName
+          soldItem.getItemPriceDetails().getItemDetails().getItem().getItemName(), textFont)); // itemName
 
       detailsTable.addCell(new Phrase(
-          soldItem.getItemPriceDeatils().getItemDetails().getItemCompany().getCompanyName(),
+          soldItem.getItemPriceDetails().getItemDetails().getItemCompany().getCompanyName(),
           textFont)); // company
 
       if (numberOfCols == 6) {
-        detailsTable.addCell(new Phrase((soldItem.getItemPriceDeatils().getCapacity() != null)
-            ? soldItem.getItemPriceDeatils().getCapacity() : "-", textFont)); // Capacity
+        detailsTable.addCell(new Phrase((soldItem.getItemPriceDetails().getCapacity() != null)
+            ? soldItem.getItemPriceDetails().getCapacity() : "-", textFont)); // Capacity
 
       }
 

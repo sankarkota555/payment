@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.payment.domain.Item;
-import com.payment.domain.ItemPriceDeatils;
+import com.payment.domain.ItemPriceDetails;
 import com.payment.service.ItemService;
 
 @RestController
@@ -42,13 +42,13 @@ public class ItemController {
   }
 
   @RequestMapping(value = "/updateItemDetails", method = RequestMethod.POST)
-  public boolean updateItemDetails(@RequestBody ItemPriceDeatils itemPriceDeatils) {
-    return itemService.updateItemDetails(itemPriceDeatils);
+  public boolean updateItemDetails(@RequestBody ItemPriceDetails itemPriceDetails) {
+    return itemService.updateItemDetails(itemPriceDetails);
   }
 
   @RequestMapping(value = "/addItemDetails", method = RequestMethod.POST)
-  public Long addItemDetails(@RequestBody ItemPriceDeatils itemPriceDeatils) {
-    return itemService.addNewItemDetails(itemPriceDeatils);
+  public Long addItemDetails(@RequestBody ItemPriceDetails itemPriceDetails) {
+    return itemService.addNewItemDetails(itemPriceDetails);
   }
 
 }

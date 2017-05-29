@@ -14,20 +14,21 @@
             billData.generatedDate = bill.generatedDate;
             // billData.netAmount = 
             for (const item of bill.items) {
-                const itemObj = { itemPriceDeatils: { id: null }, quantity: item.quantity, soldPrice: item.price };
+                const itemObj = { itemPriceDetails: { id: null }, quantity: item.quantity, soldPrice: item.price };
                 // existing item price details selected
                 if (item.detailsId) {
-                    itemObj.itemPriceDeatils.id = item.detailsId;
+                    itemObj.itemPriceDetails.id = item.detailsId;
                 }
                 // check item is new or not, if new create new item and item details
                 //else if (item.selectedItem == null || item.selectedCompany == null) {
                 else {
                     // itemObj.itemName = item.searchItemText;
-                    itemObj.itemPriceDeatils = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
-                    itemObj.itemPriceDeatils.itemDetails = { id: null, itemCompany: null, item: null };
-                    itemObj.itemPriceDeatils.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
-                    itemObj.itemPriceDeatils.itemDetails.item = { itemName: item.searchItemText.toLowerCase() };
-
+                    itemObj.itemPriceDetails = mapItemPriceDetails(item);
+                    /* itemObj.itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
+                     itemObj.itemPriceDetails.itemDetails = { id: null, itemCompany: null, item: null };
+                     itemObj.itemPriceDetails.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
+                     itemObj.itemPriceDetails.itemDetails.item = { itemName: item.searchItemText.toLowerCase() };
+                     */
                 }// check item company is new or not 
                 /*else if (item.selectedCompany == null) {
                     itemObj.itemPriceDeatils = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
