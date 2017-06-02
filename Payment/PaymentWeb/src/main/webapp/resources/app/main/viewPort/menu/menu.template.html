@@ -1,14 +1,59 @@
 <div ng-cloak>
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <ul class="nav navbar-nav navbar-right">
-            <li ng-class="{ active: isActive('/')}"><a ui-sref="home">home</a></li>
-            <li ng-class="{ active: isActive('/billing')}"><a ui-sref="billing">Billing</a></li>
-            <li ng-class="{ active: isActive('/view')}"><a ui-sref="view">View</a></li>
-            <li ng-class="{ active: isActive('/manage')}"><a ui-sref="manage">Manage</a></li>
-            <!-- <li ng-class="{ active: isActive('/gallery')}"><a ui-sref="gallery">GALLERY</a></li> -->
-            <li ng-controller="userActivityController as userActivityController">
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <ul class="nav navbar-nav navbar-right capital-text">
+      <li ng-class="{ active: isActive('/')}"><a ui-sref="home">home</a></li>
+      <li ng-class="{ active: isActive('/billing')}"><a ui-sref="billing">Billing</a></li>
+      <li ng-class="{ active: isActive('/view')}"><a ui-sref="view">View</a></li>
+      <li ng-class="{ active: isActive('/settings')}">
+        <!--  <li ng-class="{ active: isActive('/view')}"><a ui-sref="logout">Logout</a></li> -->
+        <md-menu-bar>
+          <md-menu>
+            <div class="menu-settings capital-text"><a href="" ng-click="$mdOpenMenu();closeSettings($event)">settings</a> </div>
+            <md-menu-content width="2" class="capital-text">
+              <!--  <md-menu-item>
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">Link1</md-button>
+                  <md-menu-content>
+                    <md-menu-item><md-button>Document</md-button></md-menu-item>
+                    <md-menu-item><md-button>File</md-button></md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </md-menu-item>
+              <md-menu-item>
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">Link2</md-button>
+                  <md-menu-content>
+                    <md-menu-item><md-button>Document</md-button></md-menu-item>
+                    <md-menu-item><md-button>File</md-button></md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </md-menu-item>
+              <md-menu-item>
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">Link3</md-button>
+                  <md-menu-content>
+                    <md-menu-item><md-button>Document</md-button></md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </md-menu-item> -->
+              <md-menu-item ng-controller="userActivityController as userActivityController">
+                <!--  <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">Link4</md-button>
+                  <md-menu-content>
+                    <md-menu-item><md-button>Document</md-button></md-menu-item>
+                  </md-menu-content>
+                </md-menu> -->
+                <md-button class="capital-text" ng-click="userActivityController.logout()">logout</md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </md-menu-bar>
+      </li>
+      <!-- <li ng-class="{ active: isActive('/manage')}"><a ui-sref="manage">Manage</a></li> -->
+      <!-- <li ng-class="{ active: isActive('/gallery')}"><a ui-sref="gallery">GALLERY</a></li> -->
+      <!--  <li ng-controller="userActivityController as userActivityController">
                 <md-button class="md-raised md-warn" ng-click="userActivityController.logout()">Logout</md-button>
-            </li>
-        </ul>
-    </nav>
+            </li> -->
+    </ul>
+  </nav>
 </div>

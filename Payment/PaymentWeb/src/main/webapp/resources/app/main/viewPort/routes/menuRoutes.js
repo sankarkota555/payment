@@ -1,7 +1,7 @@
 "use strict";
 {
 
-    function menuRoutes($stateProvider, $urlRouterProvider) {
+    function menuRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
 
         const prefixUrl = 'javax.faces.resource/';
 
