@@ -8,6 +8,7 @@
         me.availableItems;
         me.currentlyEditingItem = null;
         me.newItem = false;
+        me.foundCompanies = [];
 
         me.getAllItems = function () {
             console.log("getAllItems  from http");
@@ -61,14 +62,34 @@
         }
 
         me.saveNewItem = function () {
-            const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
-            itemsService.addItemDetails(newItem).then(function (data) {
+            if (itemsService.validateNewItem(me.currentlyEditingItem)) {
+                const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
+                itemsService.addItemDetails(newItem).then(function (data) {
+                	utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.",reloadPage);
 
+                }, function (data) {
+
+                });
+            } else {
+                utilsService.alertPopup('Duplicate Item ' + me.currentlyEditingItem.selectedItem.itemName + '!', me.currentlyEditingItem.selectedItem.itemName +
+                    ' with company ' + me.currentlyEditingItem.selectedCompany.companyName + 'and capacity ' + me.currentlyEditingItem.capacity + ' already exists.', null);
+            }
+
+        };
+        
+        
+        function reloadPage(){
+        	window.location.reload(); 
+        }
+
+        me.loadAllCompaniesLike = function (companyName) {
+            itemsService.findCompaniesLike(companyName).then(function (data) {
+                me.foundCompanies = data.data;
 
             }, function (data) {
-
+                utilsService.processError(data.data, data.config);
             });
-        };
+        }
 
         me.getAllItems();
 

@@ -4,7 +4,7 @@
 			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
 				<md-card-title>
 					<md-card-title-text>
-						<span class="md-headline" layout="row" layout-align="center center"></span>
+						<span class="md-headline" layout="row" layout-align="center center">Available Items</span>
 					</md-card-title-text>
 				</md-card-title>
 				<md-card-content layout="column" layout-align="space-between">
@@ -47,7 +47,7 @@
 															<td ng-show="viewItemsController.currentlyEditingItem.id == itemPriceDetail.id">
 																<md-input-container class="md-block input-width">
 																	<input ng-model="viewItemsController.currentlyEditingItem.quantity" type="text" ng-pattern="/^\d+$/" placeholder="Quantity"
-																		ng-required="true">
+																	 ng-required="true">
 																</md-input-container>
 															</td>
 
@@ -95,13 +95,19 @@
 			<md-card>
 				<md-card-title>
 					<md-card-title-text>
-						<span class="md-headline" layout="row" layout-align="center center"></span>
+						<span class="md-headline" layout="row" layout-align="center center">New Item Details</span>
 					</md-card-title-text>
 				</md-card-title>
 				<md-card-content layout="column" layout-align="space-between">
 					<form name="addNewItemForm">
 						<auto-complete-item item="viewItemsController.currentlyEditingItem"></auto-complete-item>
-						<auto-complete-item-company item="viewItemsController.currentlyEditingItem" on-select-callback-functuion="billingController.companySelected">
+						<md-autocomplete md-no-cache="true" required md-search-text-change="viewItemsController.loadAllCompaniesLike(viewItemsController.currentlyEditingItem.searchCompanyText)"
+						 md-selected-item="viewItemsController.currentlyEditingItem.selectedCompany" md-items="company in viewItemsController.foundCompanies"
+						 md-search-text="viewItemsController.currentlyEditingItem.searchCompanyText" md-item-text="company.companyName" md-dropdown-position="bottom"
+						 md-min-length="2" md-floating-label="Select Item" md-select-on-match="false" md-menu-class="autocomplete-custom-template">
+							<md-item-template>
+								<span class="item-title">{{company.companyName}} </span> </md-item-template>
+						</md-autocomplete>
 						</auto-complete-item-company>
 						<md-input-container class="md-block">
 							<label>Capacity</label>
@@ -118,7 +124,7 @@
 					</form>
 				</md-card-content>
 				<md-card-actions layout="row" layout-align="end center">
-					<md-button class="md-raised md-primary" ng-click="viewItemsController.saveNewItem()">save</md-button>
+					<md-button class="md-raised md-primary" ng-click="viewItemsController.saveNewItem()" ng-disabled="addNewItemForm.$invalid">save</md-button>
 					<md-button class="md-raised md-primary" ng-click="viewItemsController.newItem = false;viewItemsController.currentlyEditingItem={}">cancel</md-button>
 				</md-card-actions>
 			</md-card>

@@ -20,7 +20,13 @@
 
         // find by item name.
         me.searchItems = function (itemName) {
-            return $http.get('findItems?searchText=' + itemName);
+            const formDataString = $.param({ itemName: itemName }, true);
+            return $http({
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
+                method: 'POST',
+                url: 'findItems',
+                data: formDataString
+            });
         }
 
         /**
@@ -41,6 +47,43 @@
                 data: itemPriceDetails
             });
         };
+
+        me.findCompaniesLike = function (companyName) {
+            const formDataString = $.param({ companyName: companyName }, true);
+
+            return $http({
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
+                method: 'POST',
+                url: 'findCompaniesLike',
+                data: formDataString
+            });
+
+        };
+        /**
+         * validate new item.
+         */
+        me.validateNewItem = function (newItem) {
+            console.log("New item to validate");
+            console.log(newItem);
+            newItem.selectedCompany.companyId;
+            newItem.capacity;
+            for (const itemDetail of newItem.selectedItem.itemDetails) {
+                console.log('item detail in validate new item: ');
+                console.log(itemDetail);
+                if (itemDetail.itemCompany.companyId == newItem.selectedCompany.companyId) {
+                    for (const itemPriceDetail of itemDetail.itemPriceDetails) {
+                        if (itemPriceDetail.capacity && newItem.capacity && itemPriceDetail.capacity.toLowerCase() == newItem.capacity.toLowerCase()) {
+                            return false;
+                        }
+                    }
+
+                }
+
+            }
+            return true;
+        };
+
+        //findCompaniesLike
 
         /**
         * Get all available items.

@@ -36,9 +36,9 @@ public class ItemController {
     return itemService.getAllItems();
   }
 
-  @RequestMapping(value = "/findItems", method = RequestMethod.GET)
-  public List<Item> findItemsLike(@RequestParam String searchText) {
-    return itemService.findItemsLike(searchText);
+  @RequestMapping(value = "/findItems", method = RequestMethod.POST)
+  public List<Item> findItemsLike(String itemName) {
+    return itemService.findItemsLike(itemName);
   }
 
   @RequestMapping(value = "/updateItemDetails", method = RequestMethod.POST)

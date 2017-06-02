@@ -53,8 +53,8 @@
         }; // END - processError()
 
         // show alert popup
-        me.alertPopup = function (alertTitle, alertDetails, sucessCallbackFunction) {
-            $mdDialog.show(
+        me.alertPopup = function (alertTitle, alertDetails, successCallbackFunction) {
+            const alertPopup = $mdDialog.show(
                 $mdDialog.alert()
                     .clickOutsideToClose(false)
                     .title(alertTitle)
@@ -68,14 +68,20 @@
                     }).closeTo({
                         right: 1500
                     })
-            ).then(function () {
-                sucessCallbackFunction();
-            }, null);
+            );
+            if (successCallbackFunction) {
+                alertPopup.then(function () {
+                    successCallbackFunction();
+                }, null);
+            } /*else {
+                alertPopup.then(null, null);
+            } */
+
 
         }; // END - processError()
 
         me.mapItemPriceDetails = function (item) {
-            itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
+            const itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
             itemPriceDetails.itemDetails = { id: null, itemCompany: null, item: null };
             itemPriceDetails.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
             itemPriceDetails.itemDetails.item = { itemName: item.searchItemText.toLowerCase() };
