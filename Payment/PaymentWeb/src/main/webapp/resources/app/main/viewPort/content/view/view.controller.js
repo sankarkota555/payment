@@ -10,7 +10,8 @@
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
                 // do something
-            })
+                me.activeName = toState.url.replace("/", "");
+            });
 
         /**
          * Get current active tab by URL
@@ -22,13 +23,7 @@
             }
         };
 
-        $scope.$watch('$location.path()', function (value) {
-            console.log(value);
-        });
-
         getCurrentAcrtiveItem();
-
-
 
     };
 
