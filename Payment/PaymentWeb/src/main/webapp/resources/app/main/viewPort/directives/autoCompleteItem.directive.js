@@ -16,7 +16,7 @@
             ' md-items="item in foundItems" md-search-text="item.searchItemText" md-item-text="item.itemName"' +
             ' md-dropdown-position="bottom" md-min-length="2" md-floating-label="Select Item" md-select-on-match="false" md-menu-class="autocomplete-custom-template">' +
             '<md-item-template>' +
-            '  <span class="item-title" md-highlight-text="item.searchItemText">{{item.itemName}} </span>' +
+            '  <span class="item-title capital-text" md-highlight-text="item.searchItemText">{{item.itemName}} </span>' +
             '</md-item-template>' +
             '</md-autocomplete>';
 

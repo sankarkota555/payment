@@ -88,7 +88,10 @@ public class BillingServiceImpl implements BillingService {
         log.info("Item details not found in DB - creating new item details");
         itemPriceDetails = soldItem.getItemPriceDetails();
         // Map Item price details.
-        paymentMapper.findAndMapItemPricedetails(itemPriceDetails, soldItem.getSoldPrice());
+        // mapping is for bill generation, so send true.
+        boolean isForBill = true;
+        paymentMapper.findAndMapItemPricedetails(itemPriceDetails, soldItem.getSoldPrice(),
+            isForBill);
         // set item price details sold item
         soldItem.setItemPriceDetails(itemPriceDetails);
       }

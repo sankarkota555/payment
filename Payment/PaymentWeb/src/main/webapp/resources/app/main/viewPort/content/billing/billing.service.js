@@ -23,7 +23,7 @@
                 //else if (item.selectedItem == null || item.selectedCompany == null) {
                 else {
                     // itemObj.itemName = item.searchItemText;
-                    itemObj.itemPriceDetails = mapItemPriceDetails(item);
+                    itemObj.itemPriceDetails = utilsService.mapItemPriceDetails(item);
                     /* itemObj.itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
                      itemObj.itemPriceDetails.itemDetails = { id: null, itemCompany: null, item: null };
                      itemObj.itemPriceDetails.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };

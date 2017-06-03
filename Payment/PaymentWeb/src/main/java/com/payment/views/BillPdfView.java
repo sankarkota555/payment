@@ -289,7 +289,7 @@ public class BillPdfView extends AbstractItextPdfView {
     }
 
     PdfPCell totalAmount = new PdfPCell();
-    totalAmount.setColspan(4);
+    totalAmount.setColspan(numberOfCols - 1);
     totalAmount.setHorizontalAlignment(Element.ALIGN_CENTER);
     totalAmount.setPhrase((new Phrase("Total Amount", boldFont)));
 

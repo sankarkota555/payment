@@ -35,8 +35,7 @@
 
         };
 
-        function saveBill(test) {
-            console.log("test param received: " + test);
+        function saveBill() {
             billingService.generateBill(me.bill).then(function (response) {
                 console.log("successfully saved");
                 console.log(response);
@@ -117,7 +116,7 @@
          * Update item availableQuantity and actualPrice.
          */
         me.companySelected = function (index, itemPriceDetails) {
-            if (itemPriceDetails.length == 1) {
+            if (itemPriceDetails && itemPriceDetails.length == 1) {
                 me.bill.items[index].availableQuantity = itemPriceDetails[0].quantity;
                 me.bill.items[index].actualPrice = itemPriceDetails[0].price;
                 me.bill.items[index].detailsId = itemPriceDetails[0].id;

@@ -99,16 +99,20 @@ public class PaymentMapperImpl implements PaymentMapper {
   }
 
   /**
-   * Maps given ItemPriceDetails into DB format.<br>
+   * Maps given itemPriceDeatils into DB format.<br>
    * Finds items and companies if present in DB or else creates new ones.
    * 
-   * @param ItemPriceDetails
+   * @param itemPriceDeatils
    *          {@link ItemDetails} to be mapped.
    * @param price
    *          price of item.
+   * @param isForBill
+   *          true, if you are mapping to save bill. <br>
+   *          false, if you are mapping for update/adding new item.
    */
   @Override
-  public void findAndMapItemPricedetails(ItemPriceDetails itemPriceDetails, Integer price) {
+  public void findAndMapItemPricedetails(ItemPriceDetails itemPriceDetails, Integer price,
+      boolean isForBill) {
     writeObjectAsJson(itemPriceDetails);
     ItemDetails itemDetails = null;
     if (itemPriceDetails.getItemDetails().getId() == null) {
@@ -137,14 +141,18 @@ public class PaymentMapperImpl implements PaymentMapper {
       itemDetails.setItem(item);
       itemDetails.setItemCompany(company);
     } else {
-      log.info("Searching for item details in DB with id:{}",itemPriceDetails.getItemDetails().getId());
+      log.info("Searching for item details in DB with id:{}",
+          itemPriceDetails.getItemDetails().getId());
       itemDetails = itemDetailsRepository.findOne(itemPriceDetails.getItemDetails().getId());
     }
 
     // set values to item price details
     itemPriceDetails.setItemDetails(itemDetails);
     itemPriceDetails.setPrice(price);
-
+    // if mapping is for bill generation donot set quantity.
+    if (isForBill) {
+      itemPriceDetails.setQuantity(null);
+    }
   }
 
   /**

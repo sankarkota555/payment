@@ -78,7 +78,7 @@ public class ItemServiceImpl implements ItemService {
   public boolean updateItemDetails(ItemPriceDetails ItemPriceDetails) {
     log.info("Trying to update item price details with id: " + ItemPriceDetails.getId());
     ItemPriceDetails ItemPriceDetailsDb = itemPriceDetailsRepositoty
-        .findOne(ItemPriceDetails.getId());   
+        .findOne(ItemPriceDetails.getId());
     if (ItemPriceDetailsDb != null) {
       // update details
       ItemPriceDetailsDb.setCapacity(ItemPriceDetails.getCapacity());
@@ -101,7 +101,10 @@ public class ItemServiceImpl implements ItemService {
   @Transactional
   public Long addNewItemDetails(ItemPriceDetails ItemPriceDetails) {
     log.info("Trying to save new item price details");
-    paymentMapper.findAndMapItemPricedetails(ItemPriceDetails, ItemPriceDetails.getPrice());
+    // mapping is not for bill, so send false.
+    boolean isForBill = false;
+    paymentMapper.findAndMapItemPricedetails(ItemPriceDetails, ItemPriceDetails.getPrice(),
+        isForBill);
     return itemPriceDetailsRepositoty.save(ItemPriceDetails).getId();
   }
 }

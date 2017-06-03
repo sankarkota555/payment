@@ -6,7 +6,7 @@
 				<div class="modal-header">
 					<h4 class="modal-title" align="center">Enter Bill Details</h4>
 				</div>
-				<form name="billingForm">
+				<form name="billingForm" class="bill-form">
 					<md-input-container class="md-icon-float md-block">
 						<md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon>
 						<input ng-model="billingController.bill.customer.name" type="text" placeholder="Name" ng-required="true">
@@ -55,11 +55,12 @@
 								<div flex="50">
 									<auto-complete-item-company item="item" index="$index" on-select-callback-function="billingController.companySelected" />
 								</div>
-								<div flex="50" ng-if="item.selectedCompany && item.selectedCompany.itemPriceDeatils | capacityFilter">
+								<div flex="50">
 									<md-input-container>
 										<label>Capacity</label>
-										<md-select ng-model="item.detailsId" ng-change="billingController.capacitySelected($index,item.detailsId)" required>
-											<md-option ng-repeat="detail in item.selectedCompany.itemPriceDeatils" value="{{detail.id}}">{{detail.capacity}}</md-option>
+										<md-select ng-model="item.detailsId" ng-change="billingController.capacitySelected($index,item.detailsId)" ng-required="item.selectedCompany && item.selectedCompany.itemPriceDetails | capacityFilter"
+										 ng-disabled="!(item.selectedCompany && item.selectedCompany.itemPriceDetails | capacityFilter)">
+											<md-option ng-repeat="detail in item.selectedCompany.itemPriceDetails" value="{{detail.id}}">{{detail.capacity}}</md-option>
 										</md-select>
 									</md-input-container>
 								</div>

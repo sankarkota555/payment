@@ -37,8 +37,12 @@ public interface PaymentMapper {
    *          {@link ItemDetails} to be mapped.
    * @param price
    *          price of item.
+   * @param isForBill
+   *          true, if you are mapping to save bill. <br>
+   *          false, if you are mapping for update/adding new item.
    */
-  void findAndMapItemPricedetails(ItemPriceDetails itemPriceDetails, Integer price);
+  void findAndMapItemPricedetails(ItemPriceDetails itemPriceDetails, Integer price,
+      boolean isForBill);
 
   /**
    * Converts and prints given object as JSON string.
