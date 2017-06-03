@@ -19,7 +19,7 @@
 		<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
 			<md-card-title>
 				<md-card-title-text>
-					<span class="md-headline" layout="row" layout-align="center center"></span>
+					<span class="md-headline" layout="row" layout-align="center center">{{viewBillsController.description}}</span>
 				</md-card-title-text>
 			</md-card-title>
 			<md-card-content layout="column" layout-align="space-between">
@@ -29,9 +29,9 @@
 							<tr md-row>
 								<th md-column md-order-by="generatedDate"><span>Bill Date</span></th>
 								<th md-column md-order-by="customer.name"><span>Customer Name</span></th>
-								<th md-column md-numeric>Customer Phone</th>
-								<th md-column md-numeric>Num of Items</th>
-								<th md-column md-numeric md-order-by="netAmount">Toatal Amount</th>
+								<th md-column>Customer Phone</th>
+								<th md-column>Num of Items</th>
+								<th md-column md-order-by="netAmount">Toatal Amount</th>
 								<th md-column>Sold item Details <br>
 									<p class="word-space"> Item Company Capacity Price Quantity</p>
 								</th>
@@ -44,8 +44,8 @@
 								<td md-cell>{{bill.generatedDate | date: "MMM d, y h:mm a"}}</td>
 								<td md-cell>{{bill.customer.name}}</td>
 								<td md-cell>{{bill.customer.phone}}</td>
-								<td md-cell>{{bill.billItems.length}}</td>
-								<td md-cell>{{bill.totalAmount}}</td>
+								<td md-cell class="center-text">{{bill.billItems.length}}</td>
+								<td md-cell class="center-text">{{bill.totalAmount}}</td>
 								<td md-cell>
 									<table>
 										<tr ng-repeat="soldItem in bill.billItems">

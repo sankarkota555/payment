@@ -16,10 +16,13 @@
         };
 
         me.getBillsBasedOnDates = function () {
-            if (me.toDate && me.toDate) {
+            if (me.fromDate && me.toDate) {
                 let fromStr = me.fromDate + "";
                 let toStr = me.toDate + "";
                 me.description = "Bill Details between " + fromStr.substr(3, 13) + " And " + toStr.substr(3, 13);
+                const currentTime = new Date();
+                me.toDate.setHours(currentTime.getHours());
+                me.toDate.setMinutes(currentTime.getMinutes());
                 getBills();
             }
         }
