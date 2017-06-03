@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.payment</groupId>
 		<artifactId>Payment</artifactId>
-		<version>1.1.RELEASE</version>
+		<version>1.2.RELEASE</version>
 	</parent>
 	<artifactId>PaymentService</artifactId>
 	<name>PaymentService</name>
