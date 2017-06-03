@@ -88,10 +88,19 @@
         }; // END - processError()
 
         me.mapItemPriceDetails = function (item) {
-            const itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {} };
+            const itemPriceDetails = { id: null, capacity: item.capacity, price: item.price, itemDetails: {}, quantity: item.quantity };
             itemPriceDetails.itemDetails = { id: null, itemCompany: null, item: null };
+            if (item.selectedItem && item.selectedItem.itemDetails && item.selectedCompany) {
+                for (const itemdetail of item.selectedItem.itemDetails) {
+                    if (itemdetail.itemCompany.companyId == item.selectedCompany.companyId) {
+                        itemPriceDetails.itemDetails.id = itemdetail.id;
+                    }
+                }
+
+            }
             itemPriceDetails.itemDetails.itemCompany = { companyName: item.searchCompanyText.toLowerCase() };
             itemPriceDetails.itemDetails.item = { itemName: item.searchItemText.toLowerCase() };
+
             return itemPriceDetails;
         };
     };

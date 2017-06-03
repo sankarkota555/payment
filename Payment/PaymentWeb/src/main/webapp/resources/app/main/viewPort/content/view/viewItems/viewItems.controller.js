@@ -25,6 +25,7 @@
 
         me.editItem = function (itemPriceDetail) {
             angular.copy(itemPriceDetail, me.currentlyEditingItem);
+            me.newItem = false;
         };
 
         me.deleteItem = function (itemPriceDetail) {
@@ -53,6 +54,7 @@
 
         me.addNewItem = function () {
             me.newItem = true;
+            me.cancelEditing();
         }
 
         me.saveNewItem = function () {
@@ -62,11 +64,11 @@
                     utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", reloadPage);
 
                 }, function (data) {
-
+                    processError(response);
                 });
             } else {
                 utilsService.alertPopup('Duplicate Item ' + me.currentlyEditingItem.selectedItem.itemName + '!', me.currentlyEditingItem.selectedItem.itemName +
-                    ' with company ' + me.currentlyEditingItem.selectedCompany.companyName + 'and capacity ' + me.currentlyEditingItem.capacity + ' already exists.', null);
+                    ' with company ' + me.currentlyEditingItem.selectedCompany.companyName + ' and capacity ' + me.currentlyEditingItem.capacity + ' already exists.', null);
             }
 
         };

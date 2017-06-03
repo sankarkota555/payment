@@ -19,6 +19,7 @@ import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.dto.BillItemDTO;
 import com.payment.repositories.ItemCompanyRepository;
+import com.payment.repositories.ItemDetailsRepository;
 import com.payment.repositories.ItemRepository;
 
 @Component
@@ -29,6 +30,9 @@ public class PaymentMapperImpl implements PaymentMapper {
 
   @Autowired
   private ItemCompanyRepository itemCompanyRepository;
+
+  @Autowired
+  private ItemDetailsRepository itemDetailsRepository;
 
   private static final Logger log = LoggerFactory.getLogger(PaymentMapperImpl.class);
 
@@ -104,36 +108,42 @@ public class PaymentMapperImpl implements PaymentMapper {
    *          price of item.
    */
   @Override
-  public void findAndMapItemPricedetails(ItemPriceDetails ItemPriceDetails, Integer price) {
-    writeObjectAsJson(ItemPriceDetails);
-    String soldItemName = ItemPriceDetails.getItemDetails().getItem().getItemName();
-    String soldItemConpanyName = ItemPriceDetails.getItemDetails().getItemCompany()
-        .getCompanyName();
+  public void findAndMapItemPricedetails(ItemPriceDetails itemPriceDetails, Integer price) {
+    writeObjectAsJson(itemPriceDetails);
+    ItemDetails itemDetails = null;
+    if (itemPriceDetails.getItemDetails().getId() == null) {
+      String soldItemName = itemPriceDetails.getItemDetails().getItem().getItemName();
+      String soldItemConpanyName = itemPriceDetails.getItemDetails().getItemCompany()
+          .getCompanyName();
 
-    // search for item in DB
-    Item item = itemRepository.findByItemName(soldItemName);
-    if (item == null) {
-      log.info("Item not found in DB with name: {}", soldItemName);
-      item = new Item();
-      item.setItemName(soldItemName);
+      // search for item in DB
+      Item item = itemRepository.findByItemName(soldItemName);
+      if (item == null) {
+        log.info("Item not found in DB with name: {}", soldItemName);
+        item = new Item();
+        item.setItemName(soldItemName);
+      }
+
+      // search for item company in DB
+      ItemCompany company = itemCompanyRepository.findByCompanyName(soldItemConpanyName);
+      if (company == null) {
+        log.info("Company not found in DB with name:{}", soldItemConpanyName);
+        company = new ItemCompany();
+        company.setCompanyName(soldItemConpanyName);
+      }
+
+      // create and set values to item details
+      itemDetails = new ItemDetails();
+      itemDetails.setItem(item);
+      itemDetails.setItemCompany(company);
+    } else {
+      log.info("Searching for item details in DB with id:{}",itemPriceDetails.getItemDetails().getId());
+      itemDetails = itemDetailsRepository.findOne(itemPriceDetails.getItemDetails().getId());
     }
-
-    // search for item company in DB
-    ItemCompany company = itemCompanyRepository.findByCompanyName(soldItemConpanyName);
-    if (company == null) {
-      log.info("Company not found in DB with name:{}", soldItemConpanyName);
-      company = new ItemCompany();
-      company.setCompanyName(soldItemConpanyName);
-    }
-
-    // create and set values to item details
-    ItemDetails itemDetails = new ItemDetails();
-    itemDetails.setItem(item);
-    itemDetails.setItemCompany(company);
 
     // set values to item price details
-    ItemPriceDetails.setItemDetails(itemDetails);
-    ItemPriceDetails.setPrice(price);
+    itemPriceDetails.setItemDetails(itemDetails);
+    itemPriceDetails.setPrice(price);
 
   }
 

@@ -16,7 +16,7 @@
 							</tr>
 						</thead>
 					</table>
-					<md-table-container style="max-height:450px;" class="border_bottom">
+					<md-table-container style="max-height:450px;" class="border_bottom capital-text">
 						<table md-table>
 							<tbody md-body>
 								<tr md-row ng-repeat="item in viewItemsController.availableItems ">
@@ -99,19 +99,19 @@
 					</md-card-title-text>
 				</md-card-title>
 				<md-card-content layout="column" layout-align="space-between">
-					<form name="addNewItemForm">
+					<form name="addNewItemForm" class="bill-form">
 						<auto-complete-item item="viewItemsController.currentlyEditingItem"></auto-complete-item>
 						<md-autocomplete md-no-cache="true" required md-search-text-change="viewItemsController.loadAllCompaniesLike(viewItemsController.currentlyEditingItem.searchCompanyText)"
 						 md-selected-item="viewItemsController.currentlyEditingItem.selectedCompany" md-items="company in viewItemsController.foundCompanies"
 						 md-search-text="viewItemsController.currentlyEditingItem.searchCompanyText" md-item-text="company.companyName" md-dropdown-position="bottom"
-						 md-min-length="2" md-floating-label="Select Item" md-select-on-match="false" md-menu-class="autocomplete-custom-template">
+						 md-min-length="2" md-floating-label="Select Company" md-select-on-match="false" md-menu-class="autocomplete-custom-template">
 							<md-item-template>
-								<span class="item-title">{{company.companyName}} </span> </md-item-template>
+								<span class="item-title capital-text">{{company.companyName}} </span>
+							</md-item-template>
 						</md-autocomplete>
-						</auto-complete-item-company>
 						<md-input-container class="md-block">
 							<label>Capacity</label>
-							<input ng-model="viewItemsController.currentlyEditingItem.capacity" type="text" ng-required="false">
+							<input ng-model="viewItemsController.currentlyEditingItem.capacity" style="text-transform: uppercase;" type="text" ng-required="false">
 						</md-input-container>
 						<md-input-container class="md-block">
 							<label>Price</label>

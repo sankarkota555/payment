@@ -65,21 +65,23 @@
         me.validateNewItem = function (newItem) {
             console.log("New item to validate");
             console.log(newItem);
-            newItem.selectedCompany.companyId;
-            newItem.capacity;
-            for (const itemDetail of newItem.selectedItem.itemDetails) {
-                console.log('item detail in validate new item: ');
-                console.log(itemDetail);
-                if (itemDetail.itemCompany.companyId == newItem.selectedCompany.companyId) {
-                    for (const itemPriceDetail of itemDetail.itemPriceDetails) {
-                        if (itemPriceDetail.capacity && newItem.capacity && itemPriceDetail.capacity.toLowerCase() == newItem.capacity.toLowerCase()) {
-                            return false;
+            if (newItem.selectedItem && newItem.selectedCompany) {
+                for (const itemDetail of newItem.selectedItem.itemDetails) {
+                    console.log('item detail in validate new item: ');
+                    console.log(itemDetail);
+                    if (itemDetail.itemCompany.companyId == newItem.selectedCompany.companyId) {
+                        for (const itemPriceDetail of itemDetail.itemPriceDetails) {
+                            if ((itemPriceDetail.capacity && newItem.capacity && itemPriceDetail.capacity.toLowerCase() == newItem.capacity.toLowerCase())
+                                || (!itemPriceDetail.capacity && !newItem.capacity)) {
+                                return false;
+                            }
                         }
+
                     }
 
                 }
-
             }
+
             return true;
         };
 
