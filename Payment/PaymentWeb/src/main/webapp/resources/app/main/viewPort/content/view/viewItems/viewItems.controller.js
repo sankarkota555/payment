@@ -59,7 +59,7 @@
             if (itemsService.validateNewItem(me.currentlyEditingItem)) {
                 const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
                 itemsService.addItemDetails(newItem).then(function (data) {
-                	utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.",reloadPage);
+                    utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", reloadPage);
 
                 }, function (data) {
 
@@ -70,10 +70,10 @@
             }
 
         };
-        
-        
-        function reloadPage(){
-        	window.location.reload(); 
+
+
+        function reloadPage() {
+            window.location.reload();
         }
 
         me.loadAllCompaniesLike = function (companyName) {
