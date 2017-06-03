@@ -1,7 +1,7 @@
 "use strict";
 {
 
-    function itemsController($scope, itemsService) {
+    function itemsController($scope, itemsService, utilsService) {
 
         const me = this;
 
@@ -13,7 +13,7 @@
                 console.log("added success fully");
             }, function (data) {
                 // error loading items.
-
+                utilsService.processError(response);
             });
         }
 
@@ -26,7 +26,7 @@
             }, function (data) {
                 // error loading items.
                 //me.load = false;
-                //utilSvc.processError(data.data, data.status, data.headers, data.config);
+                utilsService.processError(response);
             });
         };
 

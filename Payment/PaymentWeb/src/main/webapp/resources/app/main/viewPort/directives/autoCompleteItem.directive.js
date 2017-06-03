@@ -31,15 +31,11 @@
                     function (response) {
                         console.log("error");
                         //show error message opoup
-                        processError(response);
+                        utilsService.processError(response);
                     });;
             };
 
         };
-
-        function processError(response) {
-            utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);
-        }
 
         return directive;
 

@@ -17,12 +17,9 @@
                 /*for (let count = 0; count < 100; count++) {
                     me.availableItems.push({ "itemId": count + 100, "itemName": "item " + count + 100 });
                 } */
-            }, function (data) {
+            }, function (response) {
                 // error loading items.
-                console.log('error message');
-                console.log(data);
-                // data.data, data.status, data.headers, data.config
-                utilsService.processError(data.data, data.config);
+                processError(response);
             });
         }
 
@@ -43,12 +40,9 @@
                 }
                 me.currentlyEditingItem = {};
 
-            }, function (data) {
-                // error loading items.
-                console.log('error message');
-                console.log(data);
-                // data.data, data.status, data.headers, data.config
-                utilsService.processError(data.data, data.config);
+            }, function (response) {
+                // error updating item
+                processError(response);
             });
 
         };
@@ -86,14 +80,16 @@
             itemsService.findCompaniesLike(companyName).then(function (data) {
                 me.foundCompanies = data.data;
 
-            }, function (data) {
-                utilsService.processError(data.data, data.config);
+            }, function (response) {
+                processError(response);
             });
         }
 
         me.getAllItems();
 
-
+        function processError() {
+            utilsService.processError(response);
+        }
 
     };
 

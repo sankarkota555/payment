@@ -49,7 +49,7 @@
         }
 
         function processError(response) {
-            utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);
+            utilsService.processError(response);
         }
     };
 

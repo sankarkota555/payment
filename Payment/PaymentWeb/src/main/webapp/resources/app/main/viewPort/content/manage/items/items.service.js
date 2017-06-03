@@ -96,12 +96,12 @@
                 console.log('error message');
                 console.log(data);
                 // data.data, data.status, data.headers, data.config
-                utilsService.processError(data.data, data.config);
+                processError(data);
             });
         };
 
         function processError(response) {
-            utilsService.processError(response.config.url, "Internal Server Error", response.data.errorMessage);
+            utilsService.processError(response);
         }
         // load items from DB while initialising service.
         //loadAvailableItems();
