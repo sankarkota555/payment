@@ -78,7 +78,7 @@ public class BillPdfUtil {
 
 			doc.add(getFooter(20));
 
-			BarcodeQRCode barcodeQRCode = new BarcodeQRCode(PaymentConstantNames.shopName, 120, 120, null);
+			BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Shop name", 120, 120, null);
 			Image barCodeImage = barcodeQRCode.getImage();
 			barCodeImage.setAbsolutePosition(450, 620);
 			// barCodeImage.setAlignment();
@@ -144,7 +144,7 @@ public class BillPdfUtil {
 
 			PdfPTable innerTable = new PdfPTable(1);
 			innerTable.setWidthPercentage(100);
-			Paragraph heading = new Paragraph(PaymentConstantNames.shopName, PaymentFonts.headingFont);
+			Paragraph heading = new Paragraph("shop Name", PaymentFonts.headingFont);
 
 			PdfPCell textCell = new PdfPCell();
 			textCell.setColspan(2);
@@ -159,7 +159,7 @@ public class BillPdfUtil {
 			addressCell.setPaddingTop(10f);
 			addressCell.setBorder(Rectangle.NO_BORDER);
 			addressCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			addressCell.setPhrase(new Phrase(PaymentConstantNames.shopAddress,PaymentFonts.footerFont));
+			addressCell.setPhrase(new Phrase("shop Address",PaymentFonts.footerFont));
 			innerTable.addCell(addressCell);
 
 			PdfPCell imageCellRight = new PdfPCell(imageRight, true);

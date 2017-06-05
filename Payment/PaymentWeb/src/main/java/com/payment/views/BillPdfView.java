@@ -49,7 +49,8 @@ public class BillPdfView extends AbstractItextPdfView {
   private Date billDate = null;
   private String customerName = null;
   private String customerPhone = null;
-
+  private PaymentConstantNames paymentConstantNames;
+  
   private static final Logger log = LoggerFactory.getLogger(BillPdfView.class);
 
   @Override
@@ -57,8 +58,10 @@ public class BillPdfView extends AbstractItextPdfView {
       HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Bill bill = (Bill) model.get("bill");
+    paymentConstantNames = (PaymentConstantNames) model.get("paymentConstants");
+    ;
     billDate = bill.getGeneratedDate();
-    doc.addAuthor(PaymentConstantNames.shopName);
+    doc.addAuthor(paymentConstantNames.getShopName());
     doc.addCreationDate();
     doc.addProducer();
 
@@ -97,7 +100,7 @@ public class BillPdfView extends AbstractItextPdfView {
   }
 
   private Image getBarcodeImage(long billId, long totalAmount) {
-    StringBuilder stringBuilder = new StringBuilder(PaymentConstantNames.shopName);
+    StringBuilder stringBuilder = new StringBuilder(paymentConstantNames.getShopName());
     stringBuilder.append("\n Customer Name:");
     stringBuilder.append(customerName);
     stringBuilder.append("\n Customer Phone:");
@@ -148,7 +151,8 @@ public class BillPdfView extends AbstractItextPdfView {
 
       PdfPTable innerTable = new PdfPTable(1);
       innerTable.setWidthPercentage(100);
-      Paragraph heading = new Paragraph(PaymentConstantNames.shopName, PaymentFonts.headingFont);
+      Paragraph heading = new Paragraph(paymentConstantNames.getShopName(),
+          PaymentFonts.headingFont);
 
       PdfPCell textCell = new PdfPCell();
       textCell.setColspan(2);
@@ -163,7 +167,7 @@ public class BillPdfView extends AbstractItextPdfView {
       addressCell.setPaddingTop(10f);
       addressCell.setBorder(Rectangle.NO_BORDER);
       addressCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-      addressCell.setPhrase(new Phrase(PaymentConstantNames.shopAddress, footerFont));
+      addressCell.setPhrase(new Phrase(paymentConstantNames.getShopAddress(), footerFont));
       innerTable.addCell(addressCell);
 
       PdfPCell imageCellRight = new PdfPCell(imageRight, true);
@@ -320,11 +324,11 @@ public class BillPdfView extends AbstractItextPdfView {
 
   }
 
-  private static Paragraph getNotes(float spacinngBefore) {
+  private Paragraph getNotes(float spacinngBefore) {
     Paragraph paragraph = new Paragraph();
     paragraph.setAlignment(Rectangle.ALIGN_CENTER);
     paragraph.setFont(footerFont);
-    paragraph.add(PaymentConstantNames.note);
+    paragraph.add(paymentConstantNames.getNote());
     paragraph.setSpacingBefore(spacinngBefore);
     return paragraph;
   }
