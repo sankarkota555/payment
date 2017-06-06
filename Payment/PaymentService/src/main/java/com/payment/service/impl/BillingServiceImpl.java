@@ -124,7 +124,7 @@ public class BillingServiceImpl implements BillingService {
       toDate = DateUtils.getCurrentdate();
     }
     log.info("get bills between dates, from date:{}, to date: {}", frmDate, toDate);
-    List<Bill> bills = billrepository.getBillsBetweenDates(frmDate, toDate);
+    List<Bill> bills = billrepository.findByGeneratedDateBetween(frmDate, toDate);
     log.info("Number if bills: " + bills.size());
 
     return paymentMapper.mapBillToDto(bills);
