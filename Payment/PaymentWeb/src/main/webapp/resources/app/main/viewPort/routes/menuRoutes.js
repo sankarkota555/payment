@@ -3,7 +3,7 @@
 
     function menuRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
 
-        const prefixUrl = 'javax.faces.resource/';
+        const prefixUrl = 'javax.faces.resource/app/main/viewPort/content/';
 
         $urlRouterProvider.otherwise("/billing");
 
@@ -13,42 +13,42 @@
             url: '/',
         }).state('billing', {
             url: '/billing',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/billing/billing.template.html',
+            templateUrl: prefixUrl + 'billing/billing.template.html',
             controller: 'billingController',
             controllerAs: 'billingController'
         }).state('view', {
             url: '/view',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/view/view.template.html',
+            templateUrl: prefixUrl + 'view/view.template.html',
             controller: 'viewController',
             controllerAs: 'viewController'
         }).state('view.bills', {
             url: '/viewBills',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/view/viewBills/viewBills.template.html',
+            templateUrl: prefixUrl + 'view/viewBills/viewBills.template.html',
             controller: 'viewBillsController',
             controllerAs: 'viewBillsController'
         }).state('view.companies', {
             url: '/viewCompanies',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/view/viewBills/viewBills.template.html',
+            templateUrl: prefixUrl + 'view/viewBills/viewBills.template.html',
             controller: 'viewBillsController',
             controllerAs: 'viewBillsController'
         }).state('view.items', {
             url: '/viewItems',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/view/viewItems/viewItems.template.html',
+            templateUrl: prefixUrl + 'view/viewItems/viewItems.template.html',
             controller: 'viewItemsController',
             controllerAs: 'viewItemsController'
-        }).state('manage', {
-            url: '/manage',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/manage/manage.template.html',
-            controller: 'manageController',
-            controllerAs: 'manageController'
-        }).state('manage.items', {
-            url: '/items',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/viewBills/viewBills.template.html',
+        }).state('changePassword', {
+            url: '/changePassword',
+            templateUrl: prefixUrl + 'settings/changePassword/changePassword.template.html',
+            controller: 'changePasswordController',
+            controllerAs: 'changePasswordController'
+        }).state('systems', {
+            url: '/systems',
+            templateUrl: prefixUrl + 'systems/viewBills.template.html',
             controller: 'itemsController',
             controllerAs: 'itemsController'
         }).state('manage.companies', {
             url: '/companies',
-            templateUrl: prefixUrl + 'app/main/viewPort/content/viewBills/viewBills.template.html',
+            templateUrl: prefixUrl + 'viewBills/viewBills.template.html',
             controller: 'itemsController',
             controllerAs: 'itemsController'
         });
