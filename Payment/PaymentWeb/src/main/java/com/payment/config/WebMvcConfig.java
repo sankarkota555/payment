@@ -14,8 +14,8 @@ import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 @Configuration
-@ComponentScan(basePackages="com.payment")
-public class WebMvcConfig extends WebMvcConfigurerAdapter{
+@ComponentScan(basePackages = "com.payment")
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
   @Autowired
   private FlowExecutor flowExecutor;
@@ -52,12 +52,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     handlerMapping.setFlowRegistry(flowRegistry);
     return handlerMapping;
   }
-  
+
   @Bean
-  public ViewResolver getResourceBundleView(){
+  public ViewResolver getResourceBundleView() {
     ResourceBundleViewResolver resourceBundleViewResolver = new ResourceBundleViewResolver();
     resourceBundleViewResolver.setBasename("views");
-    resourceBundleViewResolver.setOrder(2);    
+    resourceBundleViewResolver.setOrder(2);
     return resourceBundleViewResolver;
   }
 
