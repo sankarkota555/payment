@@ -26,6 +26,7 @@ import "./viewPort/content/manage/items/items.controller.js";
 import "./viewPort/content/manage/manage.controller.js";
 import "./viewPort/content/auth/userActicity.controller.js";
 import "./viewPort/content/settings/changePassword/changePassword.controller.js";
+import "./viewPort/content/systems/systems.controller.js";
 //import "./viewPort/content/feed/feed.controller.js";
 
 // Directives
@@ -42,6 +43,7 @@ import "./viewPort/content/manage/items/items.service.js";
 import "./viewPort/utils/util.service.js";
 import "./viewPort/content/auth/userActivity.service.js";
 import "./viewPort/content/settings/settings.service.js";
+import "./viewPort/content/systems/systems.service.js";
 
 // Filters
 import "./viewPort/filters/matchResults.js";

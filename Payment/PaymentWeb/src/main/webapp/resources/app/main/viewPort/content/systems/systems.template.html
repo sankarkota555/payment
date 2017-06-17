@@ -1,0 +1,88 @@
+<div class="container-fluid about-default-font">
+	<div layout="row" layout-align="center center" class="capital-text">
+		<md-card>
+			<md-card-title>
+				<md-card-title-text> <span class="md-headline capital-text" layout="row" layout-align="center center">Systems View</span> </md-card-title-text>
+			</md-card-title>
+			<md-card-content layout="column" layout-align="space-between" style="min-width:700px;">
+				<table md-table>
+					<thead md-head>
+						<tr md-row>
+							<th md-column>system</th>
+							<th md-column class="systems-word-space">customer login hours logout edit</th>
+							<!-- <th md-column>login</th>
+							<th md-column>hours</th>
+							<th md-column>logout</th>
+							<th md-column>edit</th> -->
+						</tr>
+					</thead>
+				</table>
+				<md-table-container style="max-height:450px;" class="border-bottom capital-text">
+					<table md-table>
+						<tbody md-body>
+							<tr md-row ng-repeat="system in systemsController.systems">
+								<td md-cell class="center-text">{{system.systemName}}</td>
+
+								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id" class="center-text systems-customer">{{system.usageDetails[0].cutomerName || '__'}}</td>
+								<td md-cell style="width: 165px;" ng-if="system.id == systemsController.currentlyEditingSystem.id">
+									<md-input-container class="md-block">
+										<label class="capital-text">customer name</label>
+										<input ng-model="systemsController.currentlyEditingSystem.customerName" type="text" ng-required="true" />
+									</md-input-container>
+								</td>
+
+								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id" class="center-text">{{system.usageDetails[0].loginTime || '__'}}</td>
+								<td md-cell ng-if="system.id == systemsController.currentlyEditingSystem.id">
+									<div style="margin-left: -34px;" uib-timepicker ng-model="systemsController.currentlyEditingSystem.loginTime" hour-step="1"
+									 minute-step="1" show-meridian="true"></div>
+								</td>
+
+								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id">{{system.usageDetails[0].hours || '__'}}</td>
+								<td md-cell ng-if="system.id == systemsController.currentlyEditingSystem.id">
+									<md-input-container class="md-block" style="width:60px;margin-left: -40px;">
+										<label class="capital-text">hours</label>
+										<input ng-model="systemsController.currentlyEditingSystem.hours" type="text" ng-pattern="/^\-?\d+((\.|\,)\d+)?$/" ng-required="true" />
+									</md-input-container>
+								</td>
+
+								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id" class="center-text">{{system.usageDetails[0].logoutTime || '__'}}</td>
+								<td md-cell ng-if="system.id == systemsController.currentlyEditingSystem.id">
+									<md-button style="margin-left: -55px;" class="md-icon-button" aria-label="More" title="Save" ng-click="systemsController.addSystemUsageDetails()">
+										<md-icon md-svg-icon="javax.faces.resource/images/thumbs/verification-mark.svg"></md-icon>
+									</md-button>
+									<md-button class="md-icon-button" aria-label="More" title="Cancel" ng-click="systemsController.cancelEdit()">
+										<md-icon md-svg-icon="javax.faces.resource/images/thumbs/cancel.svg"></md-icon>
+									</md-button>
+								</td>
+
+								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id">
+									<md-button class="md-icon-button" aria-label="More" title="Edit" ng-click="systemsController.showEditSystem(system.id)">
+										<md-icon md-svg-icon="javax.faces.resource/images/thumbs/writer.svg"></md-icon>
+									</md-button>
+								</td>
+
+							</tr>
+						</tbody>
+						<div class="center-text capital-text" ng-if=" !systemsController.systems || systemsController.systems ==0">
+							<h3>No Systems available</h3>
+						</div>
+
+					</table>
+				</md-table-container>
+			</md-card-content>
+			<md-card-actions>
+				<div layout="row" layout-align="end center">
+					<md-button class="md-raised md-primary" ng-click="systemsController.showNewSystemForm()" ng-if="!systemsController.enableNewSystemForm">Add new</md-button>
+				</div>
+
+				<div layout="row" layout-align="center center">
+					<form name="newSystemFrom" ng-if="systemsController.enableNewSystemForm">
+						<md-input-container class="md-block">
+							<label class="capital-text">System name</label>
+							<input ng-model="systemsController.currentlyEditingSystem.systemName" type="text" ng-required="true">
+						</md-input-container>
+						<md-button class="md-raised md-primary" ng-click="systemsController.addNewSystem()" ng-disabled="newSystemFrom.$invalid">save</md-button>
+						<md-button class="md-raised md-primary" ng-click="systemsController.cancelNewItem()">cancel</md-button>
+					</form>
+				</div>
+	</div>

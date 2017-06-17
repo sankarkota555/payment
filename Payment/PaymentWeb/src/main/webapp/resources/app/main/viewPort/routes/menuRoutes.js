@@ -43,9 +43,9 @@
             controllerAs: 'changePasswordController'
         }).state('systems', {
             url: '/systems',
-            templateUrl: prefixUrl + 'systems/viewBills.template.html',
-            controller: 'itemsController',
-            controllerAs: 'itemsController'
+            templateUrl: prefixUrl + 'systems/systems.template.html',
+            controller: 'systemsController',
+            controllerAs: 'systemsController'
         }).state('manage.companies', {
             url: '/companies',
             templateUrl: prefixUrl + 'viewBills/viewBills.template.html',
