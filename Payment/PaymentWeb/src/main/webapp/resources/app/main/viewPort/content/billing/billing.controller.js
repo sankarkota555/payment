@@ -130,6 +130,15 @@
             }
         };
 
+        me.itemSelected = function (index, item) {
+            if (!item.selectedItem) {
+                me.bill.items[index].availableQuantity = null;
+                me.bill.items[index].actualPrice = null;
+                me.bill.items[index].detailsId = null;
+                me.bill.items[index].selectedCompany = null;
+            }
+        };
+
         function verifyQuantity(quantity) {
             if (quantity <= 0) {
                 utilsService.alertPopup("Out of stock!!", "Item quantity is 0.", null);
