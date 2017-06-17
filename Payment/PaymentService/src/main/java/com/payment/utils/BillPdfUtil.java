@@ -290,5 +290,36 @@ public class BillPdfUtil {
 		return new Chunk(lineSeparator);
 	}
 
+	 /*String remoteAddress = request.getRemoteAddr();
+  String remoteHost = request.getRemoteHost();
+  String remoteUser = request.getRemoteUser();
+  log.info("remoteAddress: {} ", remoteAddress);
+  log.info("remoteHost: {} ", remoteHost);
+  log.info("remoteUser: {} ", remoteUser);
+  System.out.println("Local Address: " + request.getLocalAddr());
+  
+// Get client's IP address
+  String ipAddress = request.getHeader("x-forwarded-for");
+  if (ipAddress == null) {
+      ipAddress = request.getHeader("X_FORWARDED_FOR");
+      if (ipAddress == null){
+          ipAddress = request.getRemoteAddr();
+      }
+  }
+  log.info("Ip[ from header: {}", ipAddress);
+  
+  String computerName = null;
+  try {
+    InetAddress inetAddress = InetAddress.getByName(remoteAddress);
+    System.out.println("inetAddress: " + inetAddress);
+    computerName = inetAddress.getHostName();
 
+    System.out.println("computerName: " + computerName);
+    log.info("inetAddress.getCanonicalHostName :{}", inetAddress.getCanonicalHostName());
+    computerName = InetAddress.getLocalHost().getCanonicalHostName();
+    log.info("server name : {}" , computerName);
+    log.info("server IP address : {}" , InetAddress.getLocalHost().getHostAddress());
+  } catch (UnknownHostException e) {
+    log.error("error : {}", e);
+  }*/
 }
