@@ -61,7 +61,8 @@
             if (itemsService.validateNewItem(me.currentlyEditingItem)) {
                 const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
                 itemsService.addItemDetails(newItem).then(function (data) {
-                    utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", reloadPage);
+                    utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", me.getAllItems);
+                    me.cancelNewItem();
 
                 }, function (data) {
                     processError(response);
@@ -73,11 +74,6 @@
 
         };
 
-
-        function reloadPage() {
-            window.location.reload();
-        }
-
         me.loadAllCompaniesLike = function (companyName) {
             itemsService.findCompaniesLike(companyName).then(function (data) {
                 me.foundCompanies = data.data;
@@ -85,7 +81,16 @@
             }, function (response) {
                 processError(response);
             });
-        }
+        };
+
+        me.cancelNewItem = function () {
+            me.newItem = false;
+            me.currentlyEditingItem = {};
+            $scope.addNewItemForm.$setPristine();
+            $scope.addNewItemForm.$setUntouched();
+        };
+
+
 
         me.getAllItems();
 

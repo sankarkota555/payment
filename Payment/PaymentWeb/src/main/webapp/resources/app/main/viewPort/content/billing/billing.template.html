@@ -41,7 +41,7 @@
 											<span class="item-title" md-highlight-text="item.searchItemText">{{item.itemName}} </span>
 										</md-item-template>
 									</md-autocomplete> -->
-									<auto-complete-item item="item" />
+									<auto-complete-item item="item" index="$index" on-select-callback-function="billingController.itemSelected"/>
 								</div>
 								<!--<div flex="50">
 									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="company in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"

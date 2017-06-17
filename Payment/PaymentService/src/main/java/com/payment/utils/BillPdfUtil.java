@@ -78,7 +78,7 @@ public class BillPdfUtil {
 
 			doc.add(getFooter(20));
 
-			BarcodeQRCode barcodeQRCode = new BarcodeQRCode(PaymentConstantNames.shopName, 120, 120, null);
+			BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Shop name", 120, 120, null);
 			Image barCodeImage = barcodeQRCode.getImage();
 			barCodeImage.setAbsolutePosition(450, 620);
 			// barCodeImage.setAlignment();
@@ -144,7 +144,7 @@ public class BillPdfUtil {
 
 			PdfPTable innerTable = new PdfPTable(1);
 			innerTable.setWidthPercentage(100);
-			Paragraph heading = new Paragraph(PaymentConstantNames.shopName, PaymentFonts.headingFont);
+			Paragraph heading = new Paragraph("shop Name", PaymentFonts.headingFont);
 
 			PdfPCell textCell = new PdfPCell();
 			textCell.setColspan(2);
@@ -159,7 +159,7 @@ public class BillPdfUtil {
 			addressCell.setPaddingTop(10f);
 			addressCell.setBorder(Rectangle.NO_BORDER);
 			addressCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			addressCell.setPhrase(new Phrase(PaymentConstantNames.shopAddress,PaymentFonts.footerFont));
+			addressCell.setPhrase(new Phrase("shop Address",PaymentFonts.footerFont));
 			innerTable.addCell(addressCell);
 
 			PdfPCell imageCellRight = new PdfPCell(imageRight, true);
@@ -290,5 +290,36 @@ public class BillPdfUtil {
 		return new Chunk(lineSeparator);
 	}
 
+	 /*String remoteAddress = request.getRemoteAddr();
+  String remoteHost = request.getRemoteHost();
+  String remoteUser = request.getRemoteUser();
+  log.info("remoteAddress: {} ", remoteAddress);
+  log.info("remoteHost: {} ", remoteHost);
+  log.info("remoteUser: {} ", remoteUser);
+  System.out.println("Local Address: " + request.getLocalAddr());
+  
+// Get client's IP address
+  String ipAddress = request.getHeader("x-forwarded-for");
+  if (ipAddress == null) {
+      ipAddress = request.getHeader("X_FORWARDED_FOR");
+      if (ipAddress == null){
+          ipAddress = request.getRemoteAddr();
+      }
+  }
+  log.info("Ip[ from header: {}", ipAddress);
+  
+  String computerName = null;
+  try {
+    InetAddress inetAddress = InetAddress.getByName(remoteAddress);
+    System.out.println("inetAddress: " + inetAddress);
+    computerName = inetAddress.getHostName();
 
+    System.out.println("computerName: " + computerName);
+    log.info("inetAddress.getCanonicalHostName :{}", inetAddress.getCanonicalHostName());
+    computerName = InetAddress.getLocalHost().getCanonicalHostName();
+    log.info("server name : {}" , computerName);
+    log.info("server IP address : {}" , InetAddress.getLocalHost().getHostAddress());
+  } catch (UnknownHostException e) {
+    log.error("error : {}", e);
+  }*/
 }

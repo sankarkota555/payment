@@ -4,10 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.header.writers.DelegatingRequestMatcherHeaderWriter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import com.payment.security.PaymentHeaderWriter;
 
 @Configuration
 @EnableWebSecurity
@@ -15,33 +22,52 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private UserDetailsService userDetailsService;
-  
-  /*@Autowired
-  private CustomLogoutHandler customLogoutHandler;*/
+
+  @Autowired
+  private PaymentHeaderWriter paymentHeaderWriter;
+
+  /*
+   * @Autowired private CustomLogoutHandler customLogoutHandler;
+   */
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/pymt/admin").hasRole("ADMIN").antMatchers("/pymt/**")
         .hasAnyRole("ADMIN", "USER")// configuring url for security
-     .and().formLogin();// for login page
+        .and().formLogin();// for login page
 
     // allow basic authentication
     http.httpBasic();
-    
+
     // enable session management
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-        .enableSessionUrlRewriting(false).maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/sessionExpired");
-    
+        .enableSessionUrlRewriting(false).maximumSessions(1).maxSessionsPreventsLogin(false)
+        .expiredUrl("/sessionExpired");
+
     // configure logout
-    http.logout().clearAuthentication(true).deleteCookies("XSRF-TOKEN","JSESSIONID").invalidateHttpSession(true).logoutSuccessUrl("/login");
-    
+    http.logout().clearAuthentication(true).deleteCookies("XSRF-TOKEN", "JSESSIONID")
+        .invalidateHttpSession(true).logoutSuccessUrl("/login");
+
+   /* RequestMatcher matcher = new AntPathRequestMatcher("/pymt/javax.faces.resource/**");
+    DelegatingRequestMatcherHeaderWriter headerWriter = new DelegatingRequestMatcherHeaderWriter(
+        matcher, paymentHeaderWriter);
+
+    // disable cache-control header by spring, set cache-control in csrf filter
+    http.headers().addHeaderWriter(headerWriter);*/
+
+    // http.authorizeRequests().antMatchers("/pymt/javax.faces.resource/**").
 
   }
 
-  /*@Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-  }*/
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    //web.ignoring().antMatchers("/pymt/javax.faces.resource/**");
+  }
+
+  /*
+   * @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+   * auth.inMemoryAuthentication().withUser("user").password("user").roles("USER"); }
+   */
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,10 +75,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     auth.userDetailsService(userDetailsService); // for authenticating using username and password
                                                  // from database.
   }
-  
-/*  @Bean
-  public HttpSessionEventPublisher httpSessionEventPublisher() {
-      return new HttpSessionEventPublisher();
-  }*/
+
+  /*
+   * @Bean public HttpSessionEventPublisher httpSessionEventPublisher() { return new
+   * HttpSessionEventPublisher(); }
+   */
 
 }

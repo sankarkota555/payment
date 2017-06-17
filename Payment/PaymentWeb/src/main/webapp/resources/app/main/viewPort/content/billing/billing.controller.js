@@ -105,8 +105,10 @@
         me.capacitySelected = function (index, detailsId) {
             for (const obj of me.bill.items[index].selectedCompany.itemPriceDetails) {
                 if (obj.id == detailsId) {
+                    verifyQuantity(obj.quantity);
                     me.bill.items[index].availableQuantity = obj.quantity;
                     me.bill.items[index].actualPrice = obj.price;
+                    break;
                 }
             }
 
@@ -117,13 +119,31 @@
          */
         me.companySelected = function (index, itemPriceDetails) {
             if (itemPriceDetails && itemPriceDetails.length == 1) {
+                verifyQuantity(itemPriceDetails[0].quantity);
                 me.bill.items[index].availableQuantity = itemPriceDetails[0].quantity;
                 me.bill.items[index].actualPrice = itemPriceDetails[0].price;
                 me.bill.items[index].detailsId = itemPriceDetails[0].id;
+            } else {
+                me.bill.items[index].availableQuantity = null;
+                me.bill.items[index].actualPrice = null;
+                me.bill.items[index].detailsId = null;
             }
         };
 
+        me.itemSelected = function (index, item) {
+            if (!item.selectedItem) {
+                me.bill.items[index].availableQuantity = null;
+                me.bill.items[index].actualPrice = null;
+                me.bill.items[index].detailsId = null;
+                me.bill.items[index].selectedCompany = null;
+            }
+        };
 
+        function verifyQuantity(quantity) {
+            if (quantity <= 0) {
+                utilsService.alertPopup("Out of stock!!", "Item quantity is 0.", null);
+            }
+        }
 
         function processError(response) {
             utilsService.processError(response);

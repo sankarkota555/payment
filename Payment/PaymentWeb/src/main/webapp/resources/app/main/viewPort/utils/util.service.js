@@ -103,6 +103,10 @@
 
             return itemPriceDetails;
         };
+
+        me.reloadPage = function () {
+            window.location.reload();
+        }
     };
 
     angular.module('payment').service('utilsService', utilsService);

@@ -16,7 +16,7 @@
 							</tr>
 						</thead>
 					</table>
-					<md-table-container style="max-height:450px;" class="border_bottom capital-text">
+					<md-table-container style="max-height:450px;" class="border-bottom capital-text">
 						<table md-table>
 							<tbody md-body>
 								<tr md-row ng-repeat="item in viewItemsController.availableItems ">
@@ -125,7 +125,7 @@
 				</md-card-content>
 				<md-card-actions layout="row" layout-align="end center">
 					<md-button class="md-raised md-primary" ng-click="viewItemsController.saveNewItem()" ng-disabled="addNewItemForm.$invalid">save</md-button>
-					<md-button class="md-raised md-primary" ng-click="viewItemsController.newItem = false;viewItemsController.currentlyEditingItem={}">cancel</md-button>
+					<md-button class="md-raised md-primary" ng-click="viewItemsController.cancelNewItem()">cancel</md-button>
 				</md-card-actions>
 			</md-card>
 		</div>

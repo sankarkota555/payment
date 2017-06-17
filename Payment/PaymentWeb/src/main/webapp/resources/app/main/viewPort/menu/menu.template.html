@@ -4,7 +4,8 @@
       <li ng-class="{active: isActive('/') && !settingsOpened}"><a ui-sref="home" ng-click="onlyColseSettings()">home</a></li>
       <li ng-class="{active: isActive('/billing') && !settingsOpened}"><a ui-sref="billing" ng-click="onlyColseSettings()">Billing</a></li>
       <li ng-class="{active: isActive('/view') && !settingsOpened }"><a ui-sref="view" ng-click="onlyColseSettings()">View</a></li>
-      <li ng-class="{'settings-link-active': settingsOpened}" class="settings-link">
+      <li ng-class="{active: isActive('/systems') && !settingsOpened }"><a ui-sref="systems" ng-click="onlyColseSettings()">systems</a></li>
+      <li ng-class="{'settings-link-active': (settingsOpened || isActive('/changePassword'))}" class="settings-link">
         <md-menu-bar>
           <md-menu>
             <div class="menu-settings capital-text"><a href="" ng-click="$mdMenu.open();toggleSettings()">settings</a> </div>
@@ -35,6 +36,8 @@
                   </md-menu-content>
                 </md-menu>
               </md-menu-item> -->
+              <md-menu-item>
+                    <md-button class="capital-text" ui-sref="changePassword" ng-click="settingsOpened = true">change password</md-button></md-menu-item>
               <md-menu-item ng-controller="userActivityController as userActivityController">
                 <!--  <md-menu>
                   <md-button ng-click="$mdOpenMenu()">Link4</md-button>

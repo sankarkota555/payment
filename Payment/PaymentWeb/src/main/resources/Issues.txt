@@ -1,0 +1,4 @@
+Issues on 17-Jun-2017
+-----------------------
+1) View items table alignment disturbed with big names.
+2) Check all tables alignment with big names.
