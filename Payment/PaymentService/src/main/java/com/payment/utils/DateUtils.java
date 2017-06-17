@@ -9,7 +9,7 @@ import java.util.Date;
 public class DateUtils {
 
   /**
-   * Gives system date(current date)
+   * Gives system date(current date) with time 00:00:00<br>Example: Sat Jun 17 00:00:00
    * 
    * @return {@link Date} curretn date
    */
