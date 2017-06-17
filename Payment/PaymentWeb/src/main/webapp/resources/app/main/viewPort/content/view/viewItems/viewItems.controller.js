@@ -62,6 +62,7 @@
                 const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
                 itemsService.addItemDetails(newItem).then(function (data) {
                     utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", me.getAllItems);
+                    me.cancelNewItem();
 
                 }, function (data) {
                     processError(response);
@@ -80,7 +81,16 @@
             }, function (response) {
                 processError(response);
             });
-        }
+        };
+
+        me.cancelNewItem = function () {
+            me.newItem = false;
+            me.currentlyEditingItem = {};
+            $scope.addNewItemForm.$setPristine();
+            $scope.addNewItemForm.$setUntouched();
+        };
+
+
 
         me.getAllItems();
 
