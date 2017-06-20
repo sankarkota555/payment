@@ -54,7 +54,9 @@
             $mdDialog.show(confirmationDialog).then(function () {
                 successCallbackFunction(successParam);
             }, function () {
-                erroCallbackFunction(errorParam);
+            	if(erroCallbackFunction){
+            		erroCallbackFunction(errorParam);
+            	}      
             });
 
         }; // END - processError()
