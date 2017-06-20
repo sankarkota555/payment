@@ -322,4 +322,22 @@ public class BillPdfUtil {
   } catch (UnknownHostException e) {
     log.error("error : {}", e);
   }*/
+	
+	/*public static void main(String[] args) throws InterruptedException {
+    try {
+      Process pro =  Runtime.getRuntime().exec("cf logs SnapUI");
+     java.io.InputStream is=  pro.getInputStream();
+     byte [] arr= new byte[10];
+     //while(true){
+       //is = pro.getInputStream();
+       while(is.read(arr) != -1){
+         System.out.print(""+new String(arr));
+       }
+     //}
+    
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }*/
 }
