@@ -15,24 +15,24 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "users")
+@Table(name = "USERS")
 public class PaymentUser implements Serializable {
 
   private static final long serialVersionUID = -7119663532432655054L;
 
   @Id
-  @Column(name = "id")
+  @Column(name = "ID")
   @GenericGenerator(name = "inc", strategy = "increment")
   @GeneratedValue(generator = "inc")
   private Long id;
 
-  @Column(name = "username", length = 50, unique = true)
+  @Column(name = "USERNAME", length = 50, unique = true)
   private String userName;
 
-  @Column(name = "password", length = 50)
+  @Column(name = "PASSWORD", length = 50)
   private String password;
 
-  @Column(name = "role", length = 10)
+  @Column(name = "ROLE", length = 10)
   private String role;
 
   public Long getId() {

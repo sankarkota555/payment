@@ -17,25 +17,25 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @DynamicInsert
-@Table(name = "solditem")
+@Table(name = "SOLD_ITEM")
 public class SoldItem implements Serializable {
 
 	private static final long serialVersionUID = 1942326327198211908L;
 
 	@Id
-	@Column(name = "solditem_id")
+	@Column(name = "ID")
 	@GenericGenerator(name = "inc", strategy = "increment")
 	@GeneratedValue(generator = "inc")
 	private Long soldItemId;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "itemPriceDetails_id")
+	@JoinColumn(name = "ITEMPRICEDETAILS_ID")
 	private ItemPriceDetails itemPriceDetails;
 
-	@Column(name = "quantity")
+	@Column(name = "QUANTITY")
 	private Integer quantity;
 
-	@Column(name = "soldprice")
+	@Column(name = "SOLDPRICE")
 	private Integer soldPrice;
 
 	public Long getSoldItemId() {

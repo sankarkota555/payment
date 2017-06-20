@@ -26,32 +26,32 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @DynamicInsert
-@Table(name = "Bill")
+@Table(name = "BILL")
 public class Bill implements Serializable {
 
   private static final long serialVersionUID = 3801681122081332394L;
 
   @Id
-  @Column(name = "bill_id")
+  @Column(name = "ID")
   @GenericGenerator(name = "inc", strategy = "increment")
   @GeneratedValue(generator = "inc")
   private Long billId;
 
   @OneToMany(cascade=CascadeType.PERSIST)
-  @JoinColumn(name = "bill_id")
+  @JoinColumn(name = "BILL_ID")
   @Fetch(FetchMode.JOIN) 
   private List<SoldItem> soldItems;
 
   @ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
-  @JoinColumn(name = "customer_id")
+  @JoinColumn(name = "CUSTOMER_ID")
   @JsonBackReference
   private Customer customer;
 
-  @Column(name = "net_amount")
+  @Column(name = "NET_AMOUNT")
   private Long netAmount;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "generated_date")
+  @Column(name = "GENERATED_DATE")
   private Date generatedDate;
   
   public Long getBillId() {

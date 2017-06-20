@@ -23,28 +23,28 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "customer")
+@Table(name = "CUSTOMER")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Customer implements Serializable{
 
   private static final long serialVersionUID = -2224463901198787144L;
 
   @Id
-  @Column(name = "id")
+  @Column(name = "ID")
   @GenericGenerator(name = "inc", strategy = "increment")
   @GeneratedValue(generator = "inc")
   private Long id;
 
-  @Column(name = "name", length = 50)
+  @Column(name = "NAME", length = 50)
   private String name;
 
-  @Column(name = "address")
+  @Column(name = "ADDRESS")
   private String address;
 
-  @Column(name = "email", length = 50, unique = true)
+  @Column(name = "EMAIL", length = 50, unique = true)
   private String email;
 
-  @Column(name = "phone", length = 15, unique = true)
+  @Column(name = "PHONE", length = 15, unique = true)
   private String phone;
 
   @OneToMany(cascade=CascadeType.PERSIST, mappedBy= "customer")

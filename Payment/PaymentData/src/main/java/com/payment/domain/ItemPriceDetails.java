@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -19,8 +20,8 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "itemPriceDetails", uniqueConstraints = {
-    @UniqueConstraint(columnNames = { "capacity", "itemdetails_id" }) })
+@Table(name = "ITEM_PRICE_DETAILS", uniqueConstraints = {
+    @UniqueConstraint(columnNames = { "CAPACITY", "ITEM_DETAILS_ID" }) })
 @DynamicUpdate
 @DynamicInsert
 public class ItemPriceDetails implements Serializable{
@@ -28,24 +29,25 @@ public class ItemPriceDetails implements Serializable{
   private static final long serialVersionUID = -3876472800137573252L;
 
   @Id
-  @Column(name = "id")
+  @Column(name = "ID")
   @GenericGenerator(name = "incrementGenerator", strategy = "increment")
   @GeneratedValue(generator = "incrementGenerator")
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
+  @JoinColumn(name="ITEM_DETAILS_ID")
   @JsonBackReference
   private ItemDetails itemDetails;
 
-  @Column(name = "capacity", length = 20)
+  @Column(name = "CAPACITY", length = 20)
   private String capacity;
 
-  @Column(name = "price")
+  @Column(name = "PRICE")
   private Integer price;
   
-  @Column(name = "quantity")
+  @Column(name = "QUANTITY")
   private Integer quantity;
-
+  
   public Long getId() {
     return id;
   }

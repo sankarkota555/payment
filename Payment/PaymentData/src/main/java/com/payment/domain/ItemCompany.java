@@ -17,17 +17,18 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "ItemCompany")
+@Table(name = "ITEM_COMPANY")
 public class ItemCompany implements Serializable{
 
   private static final long serialVersionUID = 5744165048369913046L;
 
   @Id
+  @Column(name="ID")
   @GenericGenerator(name = "incrementGenerator", strategy = "increment")
   @GeneratedValue(generator = "incrementGenerator")
   private Long companyId;
 
-  @Column(name="companyName", length = 50, unique = true)
+  @Column(name="COMPANY_NAME", length = 50, unique = true)
   private String companyName;
 
 /*  @ManyToMany(mappedBy = "itemCompanies")

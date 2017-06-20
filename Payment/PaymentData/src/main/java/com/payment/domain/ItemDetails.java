@@ -27,8 +27,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "ItemDetails", uniqueConstraints = {
-    @UniqueConstraint(columnNames = { "company_id", "item_id" }) })
+@Table(name = "ITEM_DETAILS", uniqueConstraints = {
+    @UniqueConstraint(columnNames = { "COMPANY_ID", "ITEM_ID" }) })
 public class ItemDetails implements Serializable {
 
   private static final long serialVersionUID = 8803067465655470784L;
@@ -36,21 +36,21 @@ public class ItemDetails implements Serializable {
   @Id
   @GeneratedValue(generator = "inc")
   @GenericGenerator(strategy = "increment", name = "inc")
-  @Column(name = "id")
+  @Column(name = "ID")
   private Long id;
 
   @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
-  @JoinColumn(name = "company_id")
+  @JoinColumn(name = "COMPANY_ID")
   private ItemCompany itemCompany;
 
   @OneToMany(cascade = CascadeType.PERSIST)
-  @JoinColumn(name = "itemdetails_id")
+  @JoinColumn(name = "ITEM_DETAILS_ID")
   @LazyCollection(LazyCollectionOption.TRUE)
   @JsonManagedReference
   private List<ItemPriceDetails> itemPriceDetails;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
+  @JoinColumn(name = "ITEM_ID")
   @JsonBackReference
   private Item item;
 

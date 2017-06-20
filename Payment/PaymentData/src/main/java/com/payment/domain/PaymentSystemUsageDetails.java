@@ -22,14 +22,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "PAYMENT_SYSTEM_USAGE_DETAILS", uniqueConstraints = {
-    @UniqueConstraint(columnNames = { "SYSTEM_ID", "login_time" }) })
+    @UniqueConstraint(columnNames = { "SYSTEM_ID", "LOGIN_TIME" }) })
 @DynamicUpdate
 public class PaymentSystemUsageDetails implements Serializable {
 
   private static final long serialVersionUID = -5491185210066217320L;
 
   @Id
-  @Column(name = "id")
+  @Column(name = "ID")
   @GenericGenerator(name = "incrementGenerator", strategy = "increment")
   @GeneratedValue(generator = "incrementGenerator")
   private Long id;
@@ -39,10 +39,10 @@ public class PaymentSystemUsageDetails implements Serializable {
   @JsonBackReference
   private PaymentSystem paymentSystem;
 
-  @Column(name = "customer_name", length = 30)
+  @Column(name = "CUSTOMER_NAME", length = 30)
   private String cutomerName;
 
-  @Column(name = "login_time")
+  @Column(name = "LOGIN_TIME")
   @Temporal(TemporalType.TIMESTAMP)
   private Date loginTime;
 

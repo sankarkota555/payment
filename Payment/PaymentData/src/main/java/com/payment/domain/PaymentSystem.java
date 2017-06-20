@@ -27,7 +27,7 @@ public class PaymentSystem implements Serializable {
   @GeneratedValue(generator = "incrementGenerator")
   private Long id;
 
-  @Column(name = "system_name", length = 30, unique = true)
+  @Column(name = "SYSTEM_NAME", length = 30, unique = true)
   private String systemName;
 
   @OneToMany(mappedBy = "paymentSystem", cascade = CascadeType.PERSIST)
