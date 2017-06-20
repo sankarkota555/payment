@@ -2,3 +2,5 @@ Issues on 17-Jun-2017
 -----------------------
 1) View items table alignment disturbed with big names.
 2) Check all tables alignment with big names.
+3) column name "ITEMPRICEDETAILS_ID" in class SoldItem.java
+4) with customer bills also loading.
