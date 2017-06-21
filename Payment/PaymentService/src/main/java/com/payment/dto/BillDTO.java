@@ -11,7 +11,7 @@ public class BillDTO implements Serializable {
   private static final long serialVersionUID = -4103566902005024218L;
 
   private Long billId;
-  private Customer customer;
+  private CustomerDTO customer;
   private List<BillItemDTO> billItems;
   private Date generatedDate;
   private Long totalAmount;
@@ -24,11 +24,11 @@ public class BillDTO implements Serializable {
     this.billId = billId;
   }
 
-  public Customer getCustomer() {
+  public CustomerDTO getCustomer() {
     return customer;
   }
 
-  public void setCustomer(Customer customer) {
+  public void setCustomer(CustomerDTO customer) {
     this.customer = customer;
   }
 

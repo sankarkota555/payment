@@ -2,12 +2,12 @@ package com.payment.mapper;
 
 import java.util.List;
 
-import org.hibernate.loader.collection.OneToManyJoinWalker;
-
 import com.payment.domain.Bill;
+import com.payment.domain.Customer;
 import com.payment.domain.ItemDetails;
 import com.payment.domain.ItemPriceDetails;
 import com.payment.dto.BillDTO;
+import com.payment.dto.CustomerDTO;
 
 public interface PaymentMapper {
 
@@ -51,4 +51,12 @@ public interface PaymentMapper {
    *          object which is to be converted as JSON.
    */
   void writeObjectAsJson(Object object);
+  
+  /**
+   * Converts {@link Customer} into {@link CustomerDTO}
+   * @param customer {@link Customer}
+   * @param includeBills true, bills will be mapped.
+   * @return {@link CustomerDTO}
+   */
+  CustomerDTO mapCustomer(Customer customer, boolean includeBills);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.payment.domain.Bill;
+import com.payment.domain.Customer;
 import com.payment.domain.Item;
 import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
@@ -18,6 +19,7 @@ import com.payment.domain.ItemPriceDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.dto.BillItemDTO;
+import com.payment.dto.CustomerDTO;
 import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemDetailsRepository;
 import com.payment.repositories.ItemRepository;
@@ -69,7 +71,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     billDto = new BillDTO();
     billDto.setBillId(bill.getBillId());
     billDto.setGeneratedDate(bill.getGeneratedDate());
-    billDto.setCustomer(bill.getCustomer());
+    billDto.setCustomer(mapCustomer(bill.getCustomer(),false));
     billDto.setTotalAmount(bill.getNetAmount());
     BillItemDTO billItemDto;
     List<BillItemDTO> billItemsList = new ArrayList<>();
@@ -170,6 +172,20 @@ public class PaymentMapperImpl implements PaymentMapper {
       log.error("Unable to conver given object as JSON String, class name: " + object.getClass());
     }
 
+  }
+
+  @Override
+  public CustomerDTO mapCustomer(Customer customer,boolean includeBills) {
+    CustomerDTO customerDTO = new CustomerDTO();
+    customerDTO.setAddress(customer.getAddress());
+    customerDTO.setEmail(customer.getEmail());
+    customerDTO.setId(customer.getId());
+    customerDTO.setName(customer.getName());
+    customerDTO.setPhone(customer.getPhone());
+    if(includeBills){
+      customerDTO.setBills(mapBillToDto(customer.getBills()));
+    }
+    return customerDTO;
   }
 
 }
