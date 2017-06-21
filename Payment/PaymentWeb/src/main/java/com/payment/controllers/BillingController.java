@@ -40,7 +40,7 @@ public class BillingController {
 
   @RequestMapping(value = "/getBillsBasedOnDates", method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public List<BillDTO> getCustomerBills(Date fromDate, Date toDate) {
+  public List<BillDTO> getBillsBetweebDates(Date fromDate, Date toDate) {
     return billingService.getBillsBetweebDates(fromDate, toDate);
   }
 
