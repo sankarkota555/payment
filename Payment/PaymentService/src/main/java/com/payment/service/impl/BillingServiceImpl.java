@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.payment.domain.Bill;
 import com.payment.domain.Customer;
-import com.payment.domain.Item;
-import com.payment.domain.ItemCompany;
-import com.payment.domain.ItemDetails;
 import com.payment.domain.ItemPriceDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
@@ -106,18 +103,15 @@ public class BillingServiceImpl implements BillingService {
 
   }
 
-  @Transactional
   public List<Bill> getCustomerBills(Long customerId) {
     Customer customer = customerRepository.findOne(customerId);
     return customer.getBills();
   }
 
-  @Transactional
   public Bill getBillById(long billId) {
     return billrepository.findOne(billId);
   }
 
-  @Transactional(readOnly = true)
   public List<BillDTO> getBillsBetweebDates(Date frmDate, Date toDate) {
     frmDate = DateUtils.removeTime(frmDate);
     if (toDate == null) {
