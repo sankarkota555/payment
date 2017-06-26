@@ -1,13 +1,13 @@
 "use strict";
 {
 
-    function menuRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
+    function menuRoutes($stateProvider, $urlRouterProvider) {
 
         const prefixUrl = 'javax.faces.resource/app/main/viewPort/content/';
 
         $urlRouterProvider.otherwise("/billing");
 
-        $urlRouterProvider.when("/view", "/view/viewBills");
+        $urlRouterProvider.when("/view", "/view/viewItems");
 
         $stateProvider.state('home', {
             url: '/',
@@ -26,11 +26,6 @@
             templateUrl: prefixUrl + 'view/viewBills/viewBills.template.html',
             controller: 'viewBillsController',
             controllerAs: 'viewBillsController'
-        }).state('view.companies', {
-            url: '/viewCompanies',
-            templateUrl: prefixUrl + 'view/viewBills/viewBills.template.html',
-            controller: 'viewBillsController',
-            controllerAs: 'viewBillsController'
         }).state('view.items', {
             url: '/viewItems',
             templateUrl: prefixUrl + 'view/viewItems/viewItems.template.html',
@@ -46,11 +41,6 @@
             templateUrl: prefixUrl + 'systems/systems.template.html',
             controller: 'systemsController',
             controllerAs: 'systemsController'
-        }).state('manage.companies', {
-            url: '/companies',
-            templateUrl: prefixUrl + 'viewBills/viewBills.template.html',
-            controller: 'itemsController',
-            controllerAs: 'itemsController'
         });
 
     };
