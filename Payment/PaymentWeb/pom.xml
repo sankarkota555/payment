@@ -87,7 +87,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>PaymentWeb</finalName>
 		<plugins>
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
