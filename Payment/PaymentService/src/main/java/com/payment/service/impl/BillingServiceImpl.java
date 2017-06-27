@@ -124,4 +124,34 @@ public class BillingServiceImpl implements BillingService {
     return paymentMapper.mapBillToDto(bills);
   }
 
+  /* Setters to set Mock objects */
+
+  public void setBillrepository(BillRepository billrepository) {
+    this.billrepository = billrepository;
+  }
+
+  public void setCustomerRepository(CustomerRepository customerRepository) {
+    this.customerRepository = customerRepository;
+  }
+
+  public void setItemDetailsRepository(ItemDetailsRepository itemDetailsRepository) {
+    this.itemDetailsRepository = itemDetailsRepository;
+  }
+
+  public void setItemPriceDetailsRepositoty(ItemPriceDetailsRepositoty itemPriceDetailsRepositoty) {
+    this.itemPriceDetailsRepositoty = itemPriceDetailsRepositoty;
+  }
+
+  public void setItemRepository(ItemRepository itemRepository) {
+    this.itemRepository = itemRepository;
+  }
+
+  public void setItemCompanyRepository(ItemCompanyRepository itemCompanyRepository) {
+    this.itemCompanyRepository = itemCompanyRepository;
+  }
+
+  public void setPaymentMapper(PaymentMapper paymentMapper) {
+    this.paymentMapper = paymentMapper;
+  }
+
 }
