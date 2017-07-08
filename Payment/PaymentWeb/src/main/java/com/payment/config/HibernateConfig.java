@@ -13,6 +13,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -28,12 +29,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
                                                                   // spring data repositories
                                                                   // written
 @PropertySource("classpath:dataSource.properties")
+@EntityScan(basePackages="com.payment.domain")
 public class HibernateConfig {
 
   private static final Logger log = LoggerFactory.getLogger(HibernateConfig.class);
-
-  @Autowired
-  private DataSource dataSource;
   
   @Resource
   private Environment environment;
@@ -46,7 +45,7 @@ public class HibernateConfig {
     ds.setPassword(environment.getProperty("dataSourcePassword"));
     ds.setUrl(environment.getProperty("dataSourceUrl"));
     ds.setDriverClassName(environment.getProperty("dataSourceDriverClass"));
-    log.info("Data source object created " + ds);
+    log.info("++++++ Data source object created ++++: " + ds);
     return ds;
   }
 
@@ -55,7 +54,7 @@ public class HibernateConfig {
    * = new JndiObjectFactoryBean(); jndiObjectFactoryBean.setJndiName("jdbc/dataSource"); return
    * jndiObjectFactoryBean; }
    */
-  @Bean
+ /* @Bean
   public HibernateJpaVendorAdapter getHibernateJpaAdapter() {
     HibernateJpaVendorAdapter adpter = new HibernateJpaVendorAdapter();
     adpter.setShowSql(true);
@@ -63,9 +62,9 @@ public class HibernateConfig {
     adpter.setDatabasePlatform("org.hibernate.dialect.OracleDialect");
 
     return adpter;
-  }
+  }*/
 
-  @Bean(name = "entityManagerFactory") // same name "entityManagerFactory" required if u change name
+ /* @Bean(name = "entityManagerFactory") // same name "entityManagerFactory" required if u change name
                                        // then @EnableJpaRepositories(entityManagerFactoryRef="name"
                                        // ,basePackages="com.data.repositories")
   public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() throws IOException {
@@ -80,7 +79,7 @@ public class HibernateConfig {
                                                                                               // file
     factory.setJpaProperties(hibernateProperties);
     return factory;
-  }
+  }*/
 
   /**
    * close database connection on server stopping time.
@@ -90,7 +89,7 @@ public class HibernateConfig {
     log.info("In side pre destroy of hibernate config");
     Connection connection = null;
     try {
-      connection = dataSource.getConnection();
+      connection = getDataSource().getConnection();
       if (connection != null) {
         log.info("Closing database connection");
         connection.close();
