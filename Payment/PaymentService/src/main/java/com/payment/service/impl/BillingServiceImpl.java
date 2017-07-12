@@ -53,7 +53,7 @@ public class BillingServiceImpl implements BillingService {
    * @return saved bill id.
    */
   @Transactional
-  public Long saveBill(Bill bill) {
+  public Long saveBill(final Bill bill) {
     log.info("bill details");
     Customer customer = bill.getCustomer();
     log.info("cutomer details: ");
@@ -97,9 +97,9 @@ public class BillingServiceImpl implements BillingService {
       bill.setCustomer(customer);
     }
     log.info("NOT saving bill, uncomment to save");
-    bill = billrepository.save(bill);
-    log.info("bill saved success fully with id:{} ", bill.getBillId());
-    return bill.getBillId();
+    Bill savedBill = billrepository.save(bill);
+    log.info("bill saved success fully with id:{} ", savedBill.getBillId());
+    return savedBill.getBillId();
 
   }
 
