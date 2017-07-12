@@ -13,7 +13,7 @@ public interface BillingService {
    * @param {@link Bill} object to save
    * @return saved bill id.
    */
-  public Long saveBill(Bill bill);
+  public Long saveBill(final Bill bill);
   
   /**
    * Gives customer bills as list
