@@ -9,7 +9,8 @@ import java.util.Date;
 public class DateUtils {
 
   /**
-   * Gives system date(current date) with time 00:00:00<br>Example: Sat Jun 17 00:00:00
+   * Gives system date(current date) with time 00:00:00<br>
+   * Example: Sat Jun 17 00:00:00
    * 
    * @return {@link Date} curretn date
    */
@@ -45,6 +46,14 @@ public class DateUtils {
   public static Date removeTime(Date date) {
     return Date.from(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         .atStartOfDay(ZoneId.systemDefault()).toInstant());
+  }
+
+  /**
+   * Gives current time with date.
+   * @return current time and date as {@link Date}
+   */
+  public static Date getCurrentTimeStamp() {
+    return Date.from(Instant.now());
   }
 
 }
