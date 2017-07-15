@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "CUSTOMER")
+@Table(name = "CUSTOMER", indexes = { @Index(columnList = "NAME", unique = true) })
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Customer implements Serializable {
 
