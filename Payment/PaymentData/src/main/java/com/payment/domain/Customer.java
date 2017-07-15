@@ -35,7 +35,7 @@ public class Customer implements Serializable {
   @GeneratedValue(generator = "inc")
   private Long id;
 
-  @Column(name = "NAME", length = 50)
+  @Column(name = "NAME", unique = true, length = 50)
   private String name;
 
   @Column(name = "ADDRESS")
