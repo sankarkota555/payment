@@ -64,7 +64,7 @@
                     utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", me.getAllItems);
                     me.cancelNewItem();
 
-                }, function (data) {
+                }, function (response) {
                     processError(response);
                 });
             } else {
