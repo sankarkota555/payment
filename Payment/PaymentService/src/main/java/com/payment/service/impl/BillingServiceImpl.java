@@ -56,18 +56,16 @@ public class BillingServiceImpl implements BillingService {
   public Long saveBill(final Bill bill) {
     log.info("bill details");
     Customer customer = bill.getCustomer();
-    log.info("cutomer details: {}",customer);
+    log.info("cutomer details: ");
+    log.info("name: " + customer.getName() + "  email:" + customer.getEmail() + " Address: "
+        + customer.getAddress() + " phone:" + customer.getPhone());
     log.info("bill generated date: " + bill.getGeneratedDate());
     log.info("bill getNetAmount: " + bill.getNetAmount());
 
     if (bill.getGeneratedDate() == null) {
       bill.setGeneratedDate(Calendar.getInstance().getTime());
     }
-    if(customer.getPhone() == null){
-      customer = customerRepository.findByName(customer.getName());
-    }else{
-      customer = customerRepository.findByPhone(customer.getPhone());
-    }
+    customer = customerRepository.findByPhone(bill.getCustomer().getPhone());
     ItemPriceDetails itemPriceDetails = null;
     log.info("sold items details: ");
     for (SoldItem soldItem : bill.getSoldItems()) {
@@ -96,7 +94,6 @@ public class BillingServiceImpl implements BillingService {
       }
     }
     if (customer != null) {
-      log.info("Setting customer from DB to bill: {}", customer);
       bill.setCustomer(customer);
     }
     log.info("NOT saving bill, uncomment to save");
