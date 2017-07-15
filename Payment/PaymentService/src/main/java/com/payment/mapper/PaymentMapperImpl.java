@@ -123,7 +123,7 @@ public class PaymentMapperImpl implements PaymentMapper {
           .getCompanyName();
 
       // search for item in DB
-      Item item = itemRepository.findByItemName(soldItemName);
+      Item item = itemRepository.findByItemNameIgnoreCase(soldItemName);
       if (item == null) {
         log.info("Item not found in DB with name: {}", soldItemName);
         item = new Item();
@@ -131,7 +131,7 @@ public class PaymentMapperImpl implements PaymentMapper {
       }
 
       // search for item company in DB
-      ItemCompany company = itemCompanyRepository.findByCompanyName(soldItemConpanyName);
+      ItemCompany company = itemCompanyRepository.findByCompanyNameIgnoreCase(soldItemConpanyName);
       if (company == null) {
         log.info("Company not found in DB with name:{}", soldItemConpanyName);
         company = new ItemCompany();

@@ -39,7 +39,7 @@ public class SystemServiceImpl implements SystemService {
   @Override
   @Transactional
   public Long addNewSystem(String systemName) {
-    if (systemRepository.findBySystemName(systemName) != null) {
+    if (systemRepository.findBySystemNameIgnoreCase(systemName) != null) {
       return -1L;
     } else {
       PaymentSystem system = new PaymentSystem();

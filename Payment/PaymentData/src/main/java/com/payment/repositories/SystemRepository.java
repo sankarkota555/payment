@@ -6,6 +6,6 @@ import com.payment.domain.PaymentSystem;
 
 public interface SystemRepository extends CrudRepository<PaymentSystem, Long> {
 
-  PaymentSystem findBySystemName(String systemName);
+  PaymentSystem findBySystemNameIgnoreCase(String systemName);
 
 }

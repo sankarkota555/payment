@@ -8,8 +8,8 @@ import com.payment.domain.ItemCompany;
 
 public interface ItemCompanyRepository extends PagingAndSortingRepository<ItemCompany, Long> {
 
-  public ItemCompany findByCompanyName(String companyName);
+  public ItemCompany findByCompanyNameIgnoreCase(String companyName);
   
-  public List<ItemCompany> findByCompanyNameStartingWith(String companyName);
+  public List<ItemCompany> findByCompanyNameStartingWithIgnoreCase(String companyName);
 
 }
