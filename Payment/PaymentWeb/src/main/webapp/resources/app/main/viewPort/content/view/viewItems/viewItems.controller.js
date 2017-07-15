@@ -94,7 +94,7 @@
 
         me.getAllItems();
 
-        function processError() {
+        function processError(response) {
             utilsService.processError(response);
         }
 
