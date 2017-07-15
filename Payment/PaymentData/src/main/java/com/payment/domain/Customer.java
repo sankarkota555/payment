@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "CUSTOMER")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Customer implements Serializable{
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Customer implements Serializable {
 
   private static final long serialVersionUID = -2224463901198787144L;
 
@@ -47,7 +47,7 @@ public class Customer implements Serializable{
   @Column(name = "PHONE", length = 15, unique = true)
   private String phone;
 
-  @OneToMany(cascade=CascadeType.PERSIST, mappedBy= "customer")
+  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "customer")
   @LazyCollection(value = LazyCollectionOption.TRUE)
   @JsonManagedReference
   private List<Bill> bills;
@@ -92,7 +92,7 @@ public class Customer implements Serializable{
     this.phone = phone;
   }
 
- public List<Bill> getBills() {
+  public List<Bill> getBills() {
     return bills;
   }
 
@@ -104,5 +104,5 @@ public class Customer implements Serializable{
   public String toString() {
     return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + "]";
   }
-  
+
 }
