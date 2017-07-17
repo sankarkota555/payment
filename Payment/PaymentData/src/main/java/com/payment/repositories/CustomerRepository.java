@@ -6,7 +6,7 @@ import com.payment.domain.Customer;
 
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 	
-	public Customer findByName(String name);
+	public Customer findByNameIgnoreCase(String name);
 
 	public Customer findByPhone(String phone);
 

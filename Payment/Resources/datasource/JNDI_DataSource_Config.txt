@@ -1,0 +1,22 @@
+Please insert below <Resource> in <GlobalNamingResources>
+
+<Resource auth="Container" connectionProperties="defaultNChar=true"
+			driverClassName="oracle.jdbc.OracleDriver" initialSize="2"
+			jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;
+			org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer;
+			org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReport(threshold=2000)"
+			jmxEnabled="true" logAbandoned="true" maxActive="10" maxWait="10000"
+			name="jdbc/localDataSource" removeAbandoned="true"
+			removeAbandonedTimeout="3000" testOnBorrow="true" testOnReturn="true" validationInterval="30" validationQuery="select 1 from dual"
+			testWhileIdle="true" type="javax.sql.DataSource"
+			url="jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.01)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = XE)))"
+			username="" password="" />
+
+
+Please insert below <ResourceLink> in <Context>	
+	
+<ResourceLink name="jdbc/paymentLocalDataSource"
+                global="jdbc/localDataSource"
+                auth="Container"
+                type="javax.sql.DataSource" />
+                

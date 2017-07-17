@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "CUSTOMER")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Customer implements Serializable{
+@Table(name = "CUSTOMER", indexes = { @Index(columnList = "NAME", unique = true) })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Customer implements Serializable {
 
   private static final long serialVersionUID = -2224463901198787144L;
 
@@ -35,7 +36,7 @@ public class Customer implements Serializable{
   @GeneratedValue(generator = "inc")
   private Long id;
 
-  @Column(name = "NAME", length = 50)
+  @Column(name = "NAME", unique = true, length = 50)
   private String name;
 
   @Column(name = "ADDRESS")
@@ -47,7 +48,7 @@ public class Customer implements Serializable{
   @Column(name = "PHONE", length = 15, unique = true)
   private String phone;
 
-  @OneToMany(cascade=CascadeType.PERSIST, mappedBy= "customer")
+  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "customer")
   @LazyCollection(value = LazyCollectionOption.TRUE)
   @JsonManagedReference
   private List<Bill> bills;
@@ -92,7 +93,7 @@ public class Customer implements Serializable{
     this.phone = phone;
   }
 
- public List<Bill> getBills() {
+  public List<Bill> getBills() {
     return bills;
   }
 
@@ -102,7 +103,9 @@ public class Customer implements Serializable{
 
   @Override
   public String toString() {
-    return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + "]";
+    return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email
+        + ", phone=" + phone + "]";
   }
-  
+
+
 }

@@ -15,7 +15,7 @@
 					<md-input-container class="md-block">
 						<md-icon md-svg-src="javax.faces.resource/images/thumbs/phone.svg" class="phone"></md-icon>
 						<input ng-model="billingController.bill.customer.phone" type="text" placeholder="Phone Number" ng-pattern="/^[0-9]{10,10}$/"
-						 ng-required="true">
+						 ng-required="false">
 					</md-input-container>
 
 					<md-input-container class="md-block">
@@ -41,7 +41,7 @@
 											<span class="item-title" md-highlight-text="item.searchItemText">{{item.itemName}} </span>
 										</md-item-template>
 									</md-autocomplete> -->
-									<auto-complete-item item="item" index="$index" on-select-callback-function="billingController.itemSelected"/>
+									<auto-complete-item item="item" index="$index" on-select-callback-function="billingController.itemSelected" />
 								</div>
 								<!--<div flex="50">
 									<md-autocomplete md-no-cache="true" required md-selected-item="item.selectedCompany" md-items="company in item.selectedItem.itemDetails | matchResults: 'itemCompany.companyName': item.searchCompanyText"

@@ -32,6 +32,6 @@ public class CompanyServiceImpl implements CompanyService{
    */
   @Override
   public List<ItemCompany> findCompaniesLike(String companyName){
-    return  itemCompanyRepository.findByCompanyNameStartingWith(companyName);
+    return  itemCompanyRepository.findByCompanyNameStartingWithIgnoreCase(companyName);
   }
 }

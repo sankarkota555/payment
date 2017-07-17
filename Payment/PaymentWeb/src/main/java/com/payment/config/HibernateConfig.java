@@ -1,43 +1,37 @@
 package com.payment.config;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.payment.repositories") // package name where is you
                                                                   // spring data repositories
                                                                   // written
-@PropertySource("classpath:dataSource.properties")
+//@PropertySource("classpath:dataSource.properties")
 @EntityScan(basePackages="com.payment.domain")
 public class HibernateConfig {
 
   private static final Logger log = LoggerFactory.getLogger(HibernateConfig.class);
   
-  @Resource
-  private Environment environment;
+  /*@Resource
+  private Environment environment;*/
+  
+  @Autowired
+  private DataSource dataSource;
+  
 
-  @Bean
+  /*@Bean
   public DataSource getDataSource() {
     log.info("environ ment: "+ environment);
     BasicDataSource ds = new BasicDataSource();
@@ -46,8 +40,9 @@ public class HibernateConfig {
     ds.setUrl(environment.getProperty("dataSourceUrl"));
     ds.setDriverClassName(environment.getProperty("dataSourceDriverClass"));
     log.info("++++++ Data source object created ++++: " + ds);
+    
     return ds;
-  }
+  }*/
 
   /*
    * @Bean public JndiObjectFactoryBean getJndiObject(){ JndiObjectFactoryBean jndiObjectFactoryBean
@@ -89,7 +84,7 @@ public class HibernateConfig {
     log.info("In side pre destroy of hibernate config");
     Connection connection = null;
     try {
-      connection = getDataSource().getConnection();
+      connection = dataSource.getConnection();
       if (connection != null) {
         log.info("Closing database connection");
         connection.close();
