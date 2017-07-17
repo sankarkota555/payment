@@ -3,21 +3,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>com.payment</groupId>
 		<artifactId>Payment</artifactId>
 		<version>2.2.RELEASE</version>
 	</parent>
-	
+
 	<artifactId>PaymentService</artifactId>
 	<name>PaymentService - Service jar</name>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<itext-pdf-version>5.5.10</itext-pdf-version>
+		<power-mock-version>1.7.0</power-mock-version>
 	</properties>
-	
+
 	<dependencies>
 		<!-- dependencies for testing -->
 		<dependency>
@@ -29,6 +30,21 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Below two are power mockito dependencies -->
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${power-mock-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${power-mock-version}</version>
 			<scope>test</scope>
 		</dependency>
 
