@@ -1,6 +1,5 @@
 package com.payment.service.impl;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -99,7 +98,6 @@ public class BillingServiceImpl implements BillingService {
       log.info("Setting customer from DB to bill: {}", customer);
       bill.setCustomer(customer);
     }
-    log.info("NOT saving bill, uncomment to save");
     Bill savedBill = billrepository.save(bill);
     log.info("bill saved success fully with id:{} ", savedBill.getBillId());
     return savedBill.getBillId();
@@ -120,9 +118,9 @@ public class BillingServiceImpl implements BillingService {
     if (toDate == null) {
       toDate = DateUtils.getCurrentdate();
     }
-    log.info("get bills between dates, from date:{}, to date: {}", frmDate, toDate);
+    log.info("Getting bills between dates, from date:{}, to date: {}", frmDate, toDate);
     List<Bill> bills = billrepository.findByGeneratedDateBetween(frmDate, toDate);
-    log.info("Number if bills: " + bills.size());
+    log.info("Number of bills found between {} and {} is :{}", frmDate, toDate, bills.size());
 
     return paymentMapper.mapBillToDto(bills);
   }
