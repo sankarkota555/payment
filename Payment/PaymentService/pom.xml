@@ -10,10 +10,12 @@
 	</parent>
 	<artifactId>PaymentService</artifactId>
 	<name>PaymentService</name>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<itext-pdf-version>5.5.10</itext-pdf-version>
 	</properties>
+	
 	<dependencies>
 	
 		<dependency>
@@ -25,7 +27,7 @@
 		<dependency>
 			<groupId>com.payment</groupId>
 			<artifactId>PaymentData</artifactId>
-			<version>${project-version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!-- for PDF generation -->

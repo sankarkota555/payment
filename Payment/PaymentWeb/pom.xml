@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>com.payment</groupId>
 			<artifactId>PaymentService</artifactId>
-			<version>${project-version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
