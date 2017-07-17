@@ -116,7 +116,7 @@ public class BillingServiceImpl implements BillingService {
   public List<BillDTO> getBillsBetweebDates(Date frmDate, Date toDate) {
     frmDate = DateUtils.removeTime(frmDate);
     if (toDate == null) {
-      toDate = DateUtils.getCurrentdate();
+      toDate = DateUtils.getCurrentTimeStamp();
     }
     log.info("Getting bills between dates, from date:{}, to date: {}", frmDate, toDate);
     List<Bill> bills = billrepository.findByGeneratedDateBetween(frmDate, toDate);
