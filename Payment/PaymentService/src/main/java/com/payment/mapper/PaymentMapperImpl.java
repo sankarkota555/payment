@@ -71,7 +71,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     billDto = new BillDTO();
     billDto.setBillId(bill.getBillId());
     billDto.setGeneratedDate(bill.getGeneratedDate());
-    billDto.setCustomer(mapCustomer(bill.getCustomer(),false));
+    billDto.setCustomer(mapCustomer(bill.getCustomer(), false));
     billDto.setTotalAmount(bill.getNetAmount());
     BillItemDTO billItemDto;
     List<BillItemDTO> billItemsList = new ArrayList<>();
@@ -151,7 +151,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     // set values to item price details
     itemPriceDetails.setItemDetails(itemDetails);
     itemPriceDetails.setPrice(price);
-    // if mapping is for bill generation donot set quantity.
+    // if mapping is for bill generation do not set quantity.
     if (isForBill) {
       itemPriceDetails.setQuantity(null);
     }
@@ -175,17 +175,30 @@ public class PaymentMapperImpl implements PaymentMapper {
   }
 
   @Override
-  public CustomerDTO mapCustomer(Customer customer,boolean includeBills) {
+  public CustomerDTO mapCustomer(Customer customer, boolean includeBills) {
     CustomerDTO customerDTO = new CustomerDTO();
     customerDTO.setAddress(customer.getAddress());
     customerDTO.setEmail(customer.getEmail());
     customerDTO.setId(customer.getId());
     customerDTO.setName(customer.getName());
     customerDTO.setPhone(customer.getPhone());
-    if(includeBills){
+    if (includeBills) {
       customerDTO.setBills(mapBillToDto(customer.getBills()));
     }
     return customerDTO;
+  }
+
+  /* setters for unit testing */
+  public void setItemRepository(ItemRepository itemRepository) {
+    this.itemRepository = itemRepository;
+  }
+
+  public void setItemCompanyRepository(ItemCompanyRepository itemCompanyRepository) {
+    this.itemCompanyRepository = itemCompanyRepository;
+  }
+
+  public void setItemDetailsRepository(ItemDetailsRepository itemDetailsRepository) {
+    this.itemDetailsRepository = itemDetailsRepository;
   }
 
 }
