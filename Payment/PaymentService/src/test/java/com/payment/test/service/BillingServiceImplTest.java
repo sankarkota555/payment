@@ -1,6 +1,7 @@
 package com.payment.test.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -240,6 +241,57 @@ public class BillingServiceImplTest {
     assertEquals("Default bill generation date is incorrect", billGeneratedDate,
         bill.getGeneratedDate());
 
+  }
+
+  /**
+   * Verify get bill between dates.
+   */
+  @Test
+  public void testGetBillsBetweebDates() {
+    Date fromDate = DateUtils.getCurrentTimeStamp();
+    Date toDate = DateUtils.getCurrentTimeStamp();
+    billingServiceImpl.getBillsBetweebDates(fromDate, toDate);
+    verify(billrepository).findByGeneratedDateBetween(DateUtils.removeTime(fromDate), toDate);
+  }
+
+  /**
+   * Verify get bill with todate as null value.
+   */
+  @Test
+  @PrepareForTest({ DateUtils.class })
+  public void testGetBillsBetweebDatesWithToDateNull() {
+    Date fromDate = DateUtils.getCurrentTimeStamp();
+
+    Date toDate = DateUtils.getCurrentTimeStamp();
+    // Mock static method of DateUtils
+    PowerMockito.mockStatic(DateUtils.class);
+    when(DateUtils.getCurrentTimeStamp()).thenReturn(toDate);
+
+    billingServiceImpl.getBillsBetweebDates(fromDate, null);
+    verify(billrepository).findByGeneratedDateBetween(DateUtils.removeTime(fromDate), toDate);
+
+  }
+
+  @Test
+  public void testGetBillById() {
+    long billId = 1l;
+    billingServiceImpl.getBillById(billId);
+    verify(billrepository).findOne(billId);
+  }
+
+  @Test
+  public void testGetCustomerBills() {
+    long customerId = 1l;
+    Customer customer = mock(Customer.class);
+    List<Bill> bills = new ArrayList<Bill>();
+    when(customerRepository.findOne(customerId)).thenReturn(customer);
+    when(customer.getBills()).thenReturn(bills);
+    List<Bill> foundBills = billingServiceImpl.getCustomerBills(customerId);
+
+    verify(customerRepository).findOne(customerId);
+    verify(customer).getBills();
+
+    assertEquals("Customer bills returned incorrect", bills, foundBills);
   }
 
   private Customer getDummyCustomer() {
