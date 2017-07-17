@@ -61,7 +61,7 @@ public class BillingServiceImpl implements BillingService {
     log.info("bill getNetAmount: " + bill.getNetAmount());
 
     if (bill.getGeneratedDate() == null) {
-      bill.setGeneratedDate(Calendar.getInstance().getTime());
+      bill.setGeneratedDate(DateUtils.getCurrentTimeStamp());
     }
     if (customer.getPhone() == null || customer.getPhone().isEmpty()) {
       customer = customerRepository.findByNameIgnoreCase(customer.getName());
