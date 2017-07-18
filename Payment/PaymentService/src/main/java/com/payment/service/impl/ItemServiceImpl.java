@@ -34,17 +34,6 @@ public class ItemServiceImpl implements ItemService {
   @Autowired
   private PaymentMapper paymentMapper;
 
-  /*
-   * @Transactional public boolean addItem(ItemDTO itemDTO) {
-   * 
-   * log.info("item in service: " + itemDTO.getItemName()); Item item = new Item();
-   * item.setItemName(itemDTO.getItemName()); List<ItemCompany> companies = new ArrayList<>();
-   * companies.add(itemCompanyRepository.findOne(itemDTO.getCompanyId()));
-   * item.setItemCompanies(companies); itemRepository.save(item);
-   * 
-   * return true; }
-   */
-
   /**
    * get All Items from DB
    * 
@@ -99,12 +88,12 @@ public class ItemServiceImpl implements ItemService {
    */
   @Override
   @Transactional
-  public Long addNewItemDetails(ItemPriceDetails ItemPriceDetails) {
+  public Long addNewItemDetails(ItemPriceDetails itemPriceDetails) {
     log.info("Trying to save new item price details");
     // mapping is not for bill, so send false.
     boolean isForBill = false;
-    paymentMapper.findAndMapItemPricedetails(ItemPriceDetails, ItemPriceDetails.getPrice(),
+    paymentMapper.findAndMapItemPricedetails(itemPriceDetails, itemPriceDetails.getPrice(),
         isForBill);
-    return itemPriceDetailsRepositoty.save(ItemPriceDetails).getId();
+    return itemPriceDetailsRepositoty.save(itemPriceDetails).getId();
   }
 }
