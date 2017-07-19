@@ -64,17 +64,17 @@ public class ItemServiceImpl implements ItemService {
    */
   @Override
   @Transactional
-  public boolean updateItemDetails(ItemPriceDetails ItemPriceDetails) {
-    log.info("Trying to update item price details with id: " + ItemPriceDetails.getId());
-    ItemPriceDetails ItemPriceDetailsDb = itemPriceDetailsRepositoty
-        .findOne(ItemPriceDetails.getId());
-    if (ItemPriceDetailsDb != null) {
+  public boolean updateItemDetails(ItemPriceDetails itemPriceDetails) {
+    log.info("Trying to update item price details with id: " + itemPriceDetails.getId());
+    ItemPriceDetails itemPriceDetailsDb = itemPriceDetailsRepositoty
+        .findOne(itemPriceDetails.getId());
+    if (itemPriceDetailsDb != null) {
       // update details
-      ItemPriceDetailsDb.setCapacity(ItemPriceDetails.getCapacity());
-      ItemPriceDetailsDb.setQuantity(ItemPriceDetails.getQuantity());
-      ItemPriceDetailsDb.setPrice(ItemPriceDetails.getPrice());
+      itemPriceDetailsDb.setCapacity(itemPriceDetails.getCapacity());
+      itemPriceDetailsDb.setQuantity(itemPriceDetails.getQuantity());
+      itemPriceDetailsDb.setPrice(itemPriceDetails.getPrice());
     } else {
-      log.info("Item price details not found in DB with id: " + ItemPriceDetails.getId());
+      log.info("Item price details not found in DB with id: " + itemPriceDetails.getId());
       return false;
     }
     // No need to save object manually, Transaction will be auto commit the object.
@@ -96,4 +96,38 @@ public class ItemServiceImpl implements ItemService {
         isForBill);
     return itemPriceDetailsRepositoty.save(itemPriceDetails).getId();
   }
+
+  public ItemRepository getItemRepository() {
+    return itemRepository;
+  }
+
+  public void setItemRepository(ItemRepository itemRepository) {
+    this.itemRepository = itemRepository;
+  }
+
+  public ItemCompanyRepository getItemCompanyRepository() {
+    return itemCompanyRepository;
+  }
+
+  public void setItemCompanyRepository(ItemCompanyRepository itemCompanyRepository) {
+    this.itemCompanyRepository = itemCompanyRepository;
+  }
+
+  public ItemPriceDetailsRepositoty getItemPriceDetailsRepositoty() {
+    return itemPriceDetailsRepositoty;
+  }
+
+  public void setItemPriceDetailsRepositoty(ItemPriceDetailsRepositoty itemPriceDetailsRepositoty) {
+    this.itemPriceDetailsRepositoty = itemPriceDetailsRepositoty;
+  }
+
+  public PaymentMapper getPaymentMapper() {
+    return paymentMapper;
+  }
+
+  public void setPaymentMapper(PaymentMapper paymentMapper) {
+    this.paymentMapper = paymentMapper;
+  }
+  
+  
 }
