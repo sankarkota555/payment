@@ -20,11 +20,11 @@
 						<table md-table>
 							<tbody md-body>
 								<tr md-row ng-repeat="item in viewItemsController.availableItems ">
-									<td md-cell>{{item.itemName}}</td>
+									<td md-cell class="viewItemsTableColWidth">{{item.itemName}}</td>
 									<td md-cell>
 										<table>
 											<tr ng-class="{ 'border_bottom': !$last && itemDetail.itemPriceDetails.length> 1}" ng-repeat="itemDetail in item.itemDetails">
-												<td class="item-details">{{itemDetail.itemCompany.companyName}}</td>
+												<td class="item-details viewItemsTableColWidth">{{itemDetail.itemCompany.companyName}}</td>
 												<td>
 													<table>
 														<tr ng-repeat="itemPriceDetail in itemDetail.itemPriceDetails">
