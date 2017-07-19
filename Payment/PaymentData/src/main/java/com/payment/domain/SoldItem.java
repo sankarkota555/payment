@@ -29,13 +29,13 @@ public class SoldItem implements Serializable {
 	private Long soldItemId;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ITEMPRICEDETAILS_ID")
+	@JoinColumn(name = "ITEM_PRICE_DETAILS_ID")
 	private ItemPriceDetails itemPriceDetails;
 
 	@Column(name = "QUANTITY")
 	private Integer quantity;
 
-	@Column(name = "SOLDPRICE")
+	@Column(name = "SOLD_PRICE")
 	private Integer soldPrice;
 
 	public Long getSoldItemId() {
