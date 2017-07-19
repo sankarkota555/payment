@@ -21,9 +21,9 @@
 					<table md-table>
 						<tbody md-body>
 							<tr md-row ng-repeat="system in systemsController.systems">
-								<td md-cell class="center-text">{{system.systemName}}</td>
+								<td md-cell class="center-text systemsTableColWidth">{{system.systemName}}</td>
 
-								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id" class="center-text systems-customer">{{system.usageDetails[0].cutomerName || '__'}}</td>
+								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id" class="center-text systems-customer systemsTableCusWidth">{{system.usageDetails[0].cutomerName || '__'}}</td>
 								<td md-cell style="width: 165px;" ng-if="system.id == systemsController.currentlyEditingSystem.id">
 									<md-input-container class="md-block">
 										<label class="capital-text">customer name</label>
