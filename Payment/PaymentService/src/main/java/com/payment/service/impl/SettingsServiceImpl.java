@@ -53,4 +53,8 @@ public class SettingsServiceImpl implements SettingsService {
     return 0;
   }
 
+  public void setUserRepository(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
 }
