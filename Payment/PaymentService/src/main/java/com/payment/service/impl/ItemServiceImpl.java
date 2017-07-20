@@ -97,37 +97,20 @@ public class ItemServiceImpl implements ItemService {
     return itemPriceDetailsRepositoty.save(itemPriceDetails).getId();
   }
 
-  public ItemRepository getItemRepository() {
-    return itemRepository;
-  }
-
   public void setItemRepository(ItemRepository itemRepository) {
     this.itemRepository = itemRepository;
-  }
-
-  public ItemCompanyRepository getItemCompanyRepository() {
-    return itemCompanyRepository;
   }
 
   public void setItemCompanyRepository(ItemCompanyRepository itemCompanyRepository) {
     this.itemCompanyRepository = itemCompanyRepository;
   }
 
-  public ItemPriceDetailsRepositoty getItemPriceDetailsRepositoty() {
-    return itemPriceDetailsRepositoty;
-  }
-
   public void setItemPriceDetailsRepositoty(ItemPriceDetailsRepositoty itemPriceDetailsRepositoty) {
     this.itemPriceDetailsRepositoty = itemPriceDetailsRepositoty;
-  }
-
-  public PaymentMapper getPaymentMapper() {
-    return paymentMapper;
   }
 
   public void setPaymentMapper(PaymentMapper paymentMapper) {
     this.paymentMapper = paymentMapper;
   }
-  
   
 }
