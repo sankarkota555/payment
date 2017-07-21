@@ -5,6 +5,7 @@ ${AnsiColor.BRIGHT_GREEN}
 |   ___/  /  /_\  \  \_    _/   |  |\/|  | |   __|  |  . `  |     |  |     
 |  |     /  _____  \   |  |     |  |  |  | |  |____ |  |\   |     |  |     
 | _|    /__/     \__\  |__|     |__|  |__| |_______||__| \__|     |__|     
+
 ${AnsiColor.BRIGHT_BLUE}:: ${application.title}${application.formatted-version} (^_^) 
 ${AnsiColor.BLACK}:: Spring Boot${spring-boot.formatted-version} (^_^)
                                                                            
