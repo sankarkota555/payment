@@ -1,6 +1,7 @@
 // Plugin Styles
 import 'angular-material/angular-material.min.css';
 import 'lato-font/css/lato-font.css';
+import 'angular-ui-notification/dist/angular-ui-notification.min.css';
 
 //Plugins
 import 'jquery/dist/jquery.min.js';

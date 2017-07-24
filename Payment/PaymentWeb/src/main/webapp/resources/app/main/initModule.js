@@ -12,6 +12,7 @@ import timepicker from 'angular-ui-bootstrap/src/timepicker';
 import modal from 'angular-ui-bootstrap/src/modal';
 import uiRouter from 'angular-ui-router';
 import mdDataTable from 'angular-material-data-table';
+import notifications from 'angular-ui-notification';
 
 angular.module("payment", [
 	bootstrap,
@@ -26,7 +27,8 @@ angular.module("payment", [
 	datepicker,
 	timepicker,
 	modal,
-	mdDataTable
+	mdDataTable,
+	notifications
 ]);
 
 setTimeout(
