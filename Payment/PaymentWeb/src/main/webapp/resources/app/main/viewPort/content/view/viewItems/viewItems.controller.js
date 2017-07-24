@@ -29,7 +29,7 @@
         };
 
         me.deleteItem = function (itemPriceDetail) {
-            //utilsService.
+            utilsService.warning("Functinality not available");
         };
 
         me.updateItem = function (parentParentIndex, parentIndex) {
@@ -61,7 +61,8 @@
             if (itemsService.validateNewItem(me.currentlyEditingItem)) {
                 const newItem = utilsService.mapItemPriceDetails(me.currentlyEditingItem);
                 itemsService.addItemDetails(newItem).then(function (data) {
-                    utilsService.alertPopup("Item added successfully!", "Your page will be reloaded.", me.getAllItems);
+                    utilsService.success("Item added successfully!");
+                    me.getAllItems();
                     me.cancelNewItem();
 
                 }, function (response) {

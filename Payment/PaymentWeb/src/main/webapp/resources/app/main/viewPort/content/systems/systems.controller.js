@@ -45,7 +45,8 @@
 				if (response.data == -1) {
 					utilsService.alertPopup("Duplicate system name!", "A system with given name already exists.", null);
 				} else {
-					utilsService.alertPopup("Successfully added!", "Your page will be reloaded..", me.getSystemsStatus);
+					utilsService.success("Successfully added!");
+					me.getSystemsStatus();
 					me.cancelNewItem();
 				}
 

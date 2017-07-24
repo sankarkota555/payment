@@ -1,7 +1,7 @@
 "use strict";
 {
 
-    function utilsService($mdDialog) {
+    function utilsService($mdDialog, Notification) {
 
         const me = this;
 
@@ -54,9 +54,9 @@
             $mdDialog.show(confirmationDialog).then(function () {
                 successCallbackFunction(successParam);
             }, function () {
-            	if(erroCallbackFunction){
-            		erroCallbackFunction(errorParam);
-            	}      
+                if (erroCallbackFunction) {
+                    erroCallbackFunction(errorParam);
+                }
             });
 
         }; // END - processError()
@@ -108,7 +108,19 @@
 
         me.reloadPage = function () {
             window.location.reload();
-        }
+        };
+
+        me.success = function (message) {
+            Notification.success(message);
+        };
+
+        me.warning = function (message) {
+            Notification(message);
+        };
+
+        me.error = function (message) {
+            Notification.error(message);
+        };
     };
 
     angular.module('payment').service('utilsService', utilsService);
