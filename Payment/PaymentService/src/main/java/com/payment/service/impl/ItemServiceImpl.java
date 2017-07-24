@@ -16,6 +16,7 @@ import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemPriceDetailsRepositoty;
 import com.payment.repositories.ItemRepository;
 import com.payment.service.ItemService;
+import com.payment.utils.SortUtils;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -41,7 +42,7 @@ public class ItemServiceImpl implements ItemService {
    */
   @Override
   public List<Item> getAllItems() {
-    return itemRepository.findAll();
+    return itemRepository.findAll(SortUtils.ascendingSort("itemId"));
   }
 
   /**
@@ -112,5 +113,5 @@ public class ItemServiceImpl implements ItemService {
   public void setPaymentMapper(PaymentMapper paymentMapper) {
     this.paymentMapper = paymentMapper;
   }
-  
+
 }

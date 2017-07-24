@@ -18,7 +18,7 @@ import com.payment.repositories.SystemRepository;
 import com.payment.repositories.SystemUsageDetailsRepository;
 import com.payment.service.SystemService;
 import com.payment.utils.DateUtils;
-import com.payment.utils.PaymentConstantNames;
+import com.payment.utils.SortUtils;
 
 @Service
 public class SystemServiceImpl implements SystemService {
@@ -33,7 +33,7 @@ public class SystemServiceImpl implements SystemService {
 
   @Override
   public Iterable<PaymentSystem> getAllSystems() {
-    return systemRepository.findAll();
+    return systemRepository.findAll(SortUtils.ascendingSort("id"));
   }
 
   @Override
@@ -61,7 +61,7 @@ public class SystemServiceImpl implements SystemService {
 
   @Override
   public List<PaymentSystem> getSystemsUsageStatus() {
-    Iterator<PaymentSystem> allSystemsIterator = systemRepository.findAll().iterator();
+    Iterator<PaymentSystem> allSystemsIterator = getAllSystems().iterator();
     List<PaymentSystem> allSystemsList = new ArrayList<>();
     List<PaymentSystemUsageDetails> usageList;
     PaymentSystem system;
