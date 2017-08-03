@@ -50,4 +50,7 @@ import "./viewPort/content/systems/systems.service.js";
 import "./viewPort/filters/matchResults.js";
 import "./viewPort/filters/capacityFilter.js";
 
+// socket configuration
+import "./viewPort/content/socket/socketConfig.js";
+
 

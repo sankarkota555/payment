@@ -97,13 +97,18 @@
 		me.cancelNewItem = function () {
 			me.currentlyEditingSystem = {};
 			me.enableNewSystemForm = false
-		}
+		};
 
 		me.getSystemsStatus();
 
 		function processError(response) {
 			utilsService.processError(response);
-		}
+		};
+
+		$scope.$on('event', function (data) {
+			console.log("data received:" + data);
+			me.systems;
+		});
 
 	}
 

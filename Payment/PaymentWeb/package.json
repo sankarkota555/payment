@@ -29,7 +29,9 @@
     "bootstrap": "^3.3.7",
     "lato-font": "^2.0.0",
     "angular-material-data-table": "0.10.9",
-    "angular-ui-notification": "^0.3.6"
+    "angular-ui-notification": "^0.3.6",
+    "sockjs-client":"^1.1.4",
+    "stompjs": "^2.3.3"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",

@@ -121,6 +121,11 @@
         me.error = function (message) {
             Notification.error(message);
         };
+
+        me.noDelayError = function (message) {
+            Notification.error({ message: message, delay: null });
+        };
+
     };
 
     angular.module('payment').service('utilsService', utilsService);
