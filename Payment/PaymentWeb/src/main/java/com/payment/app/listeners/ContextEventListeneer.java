@@ -36,6 +36,12 @@ public class ContextEventListeneer {
   @Value("${localhost.port}")
   private String serverPortNumber;
 
+  @Value("${users.directory.path}")
+  private String userdDir;
+  
+  @Value("${username}")
+  private String loggedUsername;
+  
   private static final String FILE_NAME = "paymentLogin.html";
 
   private static final String ADMIN_TEXT = "admin";
@@ -73,9 +79,31 @@ public class ContextEventListeneer {
   }
 
   private void createShortcutFile() {
+
+    String fileLocation = null;
+
+    /*
+     * if (userHomePath.contains(loggedUsername)) { log.info("user home path contains user name");
+     * fileLocation = userHomePath; }else {
+     */
+
+    log.debug("creating user home path maually");
+    File usersDirectory = new File(userdDir);
+    File[] filesInUser = usersDirectory.listFiles();
+    for (File subFile : filesInUser) {
+      if (subFile.getName().toLowerCase()
+          .contains(loggedUsername.toLowerCase().substring(0, loggedUsername.length() - 2))
+          && subFile.isDirectory()) {
+        log.debug("user names matched - logged user:{}, found user:{}", loggedUsername,
+            subFile.getName());
+        log.debug("file absolute path: {}", subFile.getAbsolutePath());
+        fileLocation = subFile.getAbsolutePath();
+        break;
+      }
+    }
+    // }
     /* Verify shortcut file */
-    final String fileLocation = userHomePath + File.separator + "Desktop" + File.separator
-        + FILE_NAME;
+    fileLocation += File.separator + "Desktop" + File.separator + FILE_NAME;
     log.info("File write location: {}", fileLocation);
     File shortcutFile = new File(fileLocation);
 
