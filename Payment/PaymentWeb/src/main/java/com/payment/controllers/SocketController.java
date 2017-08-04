@@ -1,6 +1,5 @@
 package com.payment.controllers;
 
-import javax.annotation.PostConstruct;
 import javax.websocket.OnError;
 
 import org.slf4j.Logger;
