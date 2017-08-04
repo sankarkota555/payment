@@ -20,9 +20,9 @@ import com.payment.domain.PaymentUser;
 import com.payment.repositories.UserRepository;
 
 @Component
-public class ContextEventListeneer {
+public class ContextEventListener {
 
-  private static final Logger log = LoggerFactory.getLogger(ContextEventListeneer.class);
+  private static final Logger log = LoggerFactory.getLogger(ContextEventListener.class);
 
   @Autowired
   private UserRepository userRepository;
