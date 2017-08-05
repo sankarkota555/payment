@@ -90,8 +90,10 @@ public class ContextEventListener {
     log.debug("creating user home path maually");
     File usersDirectory = new File(userdDir);
     File[] filesInUser = usersDirectory.listFiles();
+    log.debug("loggedUsername:{}", loggedUsername);
     for (File subFile : filesInUser) {
-      if (subFile.getName().toLowerCase()
+    	log.debug("sub file name:{}", subFile.getName());
+      if (subFile.getName().replaceAll("\\s+", "").toLowerCase()
           .contains(loggedUsername.toLowerCase().substring(0, loggedUsername.length() - 2))
           && subFile.isDirectory()) {
         log.debug("user names matched - logged user:{}, found user:{}", loggedUsername,
