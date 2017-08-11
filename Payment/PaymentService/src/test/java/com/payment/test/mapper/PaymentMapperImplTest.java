@@ -281,7 +281,7 @@ public class PaymentMapperImplTest {
 
   }
 
-  @Test(timeout=5)
+  @Test
   public void testMapCustomer() {
     Customer customer = new Customer();
     customer.setAddress("Address of cus");
