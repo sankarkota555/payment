@@ -1,7 +1,7 @@
 "use strict";
 {
 
-	function systemsController(systemsService, utilsService) {
+	function systemsController($scope, systemsService, utilsService) {
 
 
 		const me = this;
