@@ -20,7 +20,7 @@
 				<md-table-container style="max-height:450px;" class="border-bottom capital-text">
 					<table md-table>
 						<tbody md-body>
-							<tr md-row ng-repeat="system in systemsController.systems">
+							<tr md-row ng-repeat="system in systemsController.systems" system-status-color="system.usageDetails[0].logoutTimeInMills">
 								<td md-cell class="center-text systemsTableColWidth">{{system.systemName}}</td>
 
 								<td md-cell ng-if="system.id != systemsController.currentlyEditingSystem.id" class="center-text systems-customer systemsTableCusWidth">{{system.usageDetails[0].cutomerName || '__'}}</td>

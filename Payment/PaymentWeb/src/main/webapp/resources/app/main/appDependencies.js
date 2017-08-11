@@ -37,6 +37,7 @@ import "./viewPort/menu/menu.directive.js";
 import "./viewPort/content/content.directive.js";
 import "./viewPort/directives/autoCompleteItemCompany.directive.js";
 import "./viewPort/directives/autoCompleteItem.directive.js";
+import "./viewPort/directives/systemStatusColor.directive.js";
 
 // Services
 import "./viewPort/content/billing/billing.service.js";
