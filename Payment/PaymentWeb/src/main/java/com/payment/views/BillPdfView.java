@@ -287,7 +287,7 @@ public class BillPdfView extends AbstractItextPdfView {
 
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getSoldPrice()), textFont)); // price
       detailsTable.addCell(new Phrase(String.valueOf(soldItem.getQuantity()), textFont)); // quantity
-      amount = soldItem.getSoldPrice() * soldItem.getQuantity();
+      amount = (float) soldItem.getSoldPrice() * soldItem.getQuantity();
       detailsTable.addCell(new Phrase(String.valueOf(amount), textFont)); // amount
 
     }
