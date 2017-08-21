@@ -16,10 +16,14 @@ import com.payment.domain.Item;
 import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
 import com.payment.domain.ItemPriceDetails;
+import com.payment.domain.PaymentSystem;
+import com.payment.domain.PaymentSystemUsageDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.dto.BillItemDTO;
 import com.payment.dto.CustomerDTO;
+import com.payment.dto.SystemDTO;
+import com.payment.dto.SystemUsageDTO;
 import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemDetailsRepository;
 import com.payment.repositories.ItemRepository;
@@ -186,6 +190,57 @@ public class PaymentMapperImpl implements PaymentMapper {
       customerDTO.setBills(mapBillToDto(customer.getBills()));
     }
     return customerDTO;
+  }
+
+  @Override
+  public SystemUsageDTO mapPaymentSystemUsageDetails(PaymentSystemUsageDetails systemUsageDetails,
+      boolean includeSystem) {
+
+    SystemUsageDTO systemUsageDTO = new SystemUsageDTO();
+    systemUsageDTO.setCutomerName(systemUsageDetails.getCutomerName());
+    systemUsageDTO.setHours(systemUsageDetails.getHours());
+    systemUsageDTO.setId(systemUsageDetails.getId());
+    systemUsageDTO.setLoginTime(systemUsageDetails.getLoginTime());
+    if (includeSystem) {
+      // Don't include system
+      systemUsageDTO
+          .setPaymentSystem(mapPaymentSystem(systemUsageDetails.getPaymentSystem(), false));
+    }
+
+    return systemUsageDTO;
+  }
+
+  @Override
+  public SystemDTO mapPaymentSystem(PaymentSystem system, boolean includeUsageDetails) {
+    SystemDTO systemDTO = new SystemDTO();
+    systemDTO.setId(system.getId());
+    systemDTO.setSystemName(system.getSystemName());
+    if (includeUsageDetails) {
+      // Don't include usagde details
+      systemDTO.setUsageDetails(mapPaymentSystemUsageDetails(system.getUsageDetails(), false));
+    }
+
+    return systemDTO;
+  }
+
+  @Override
+  public List<SystemUsageDTO> mapPaymentSystemUsageDetails(
+      List<PaymentSystemUsageDetails> systemUsageDetails, boolean includeSystem) {
+
+    List<SystemUsageDTO> list = new ArrayList<>();
+    for (PaymentSystemUsageDetails details : systemUsageDetails) {
+      list.add(mapPaymentSystemUsageDetails(details, includeSystem));
+    }
+    return list;
+  }
+
+  @Override
+  public SystemDTO convertSystemUsageToSystem(PaymentSystemUsageDetails details) {
+    List<SystemUsageDTO> usageList = new ArrayList<>();
+    usageList.add(mapPaymentSystemUsageDetails(details, false));
+    SystemDTO systemDTO = mapPaymentSystem(details.getPaymentSystem(), false);
+    systemDTO.setUsageDetails(usageList);
+    return systemDTO;
   }
 
   /* setters for unit testing */

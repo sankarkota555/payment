@@ -1,6 +1,7 @@
 package com.payment.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,7 +33,7 @@ public class PaymentSystem implements Serializable {
 
   @OneToMany(mappedBy = "paymentSystem", cascade = CascadeType.PERSIST)
   @LazyCollection(LazyCollectionOption.TRUE)
-  private List<PaymentSystemUsageDetails> usageDetails;
+  private List<PaymentSystemUsageDetails> usageDetails = new ArrayList<>();
 
   public Long getId() {
     return id;
