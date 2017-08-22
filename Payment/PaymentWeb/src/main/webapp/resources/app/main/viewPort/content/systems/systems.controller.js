@@ -1,7 +1,7 @@
 "use strict";
 {
 
-	function systemsController($scope, systemsService, utilsService) {
+	function systemsController($scope, systemsService, utilsService, $rootScope) {
 
 
 		const me = this;
@@ -46,7 +46,7 @@
 					utilsService.alertPopup("Duplicate system name!", "A system with given name already exists.", null);
 				} else {
 					utilsService.success("Successfully added!");
-					me.getSystemsStatus();
+					//me.getSystemsStatus();
 					me.cancelNewItem();
 				}
 
@@ -72,7 +72,7 @@
 			const detailsObject = systemsService.createSysteUsageDetailsObj(me.currentlyEditingSystem);
 			systemsService.addSystemUsageDetails(detailsObject).then(function (response) {
 				me.cancelEdit();
-				me.getSystemsStatus();
+				//me.getSystemsStatus();
 			}, function (response) {
 				// show error opoup
 				processError(response);
@@ -105,10 +105,46 @@
 			utilsService.processError(response);
 		};
 
-		$scope.$on('event', function (data) {
-			console.log("data received:" + data);
-			me.systems;
+
+		console.log("Registering push $on");
+		$scope.$on('socketUpdate', function (event, data) {
+			if (systemsService.validatePushTime()) {
+				console.log("data received:");
+				console.log(data);
+				console.log("data received value:");
+				console.log(data.value);
+				let foundIndex = -1;
+				for (let index = 0; index < me.systems.length; index++) {
+					if (me.systems[index].id === data.value.id) {
+						console.log('index:' + index);
+						foundIndex = index;
+					}
+				}
+				if (foundIndex != -1) {
+					me.systems.splice(foundIndex, 1, data.value);
+				} else {
+					me.systems.push(data.value);
+				}
+				console.log(me.systems);
+			} else {
+				console.log("Push already processored");
+			}
+
+
 		});
+
+		console.log("$scope.$$listeners");
+		console.log($scope.$$listeners);
+
+		setTimeout(function () {
+			console.log($scope);
+		}, 10000);
+
+		setTimeout(function () {
+			console.log("$rootScope");
+			console.log($rootScope);
+		}, 11000);
+
 
 	}
 

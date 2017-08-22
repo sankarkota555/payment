@@ -4,6 +4,7 @@
     function utilsService($mdDialog, Notification) {
 
         const me = this;
+        let noDelayNotification;
 
         // show error popup
         me.processError = function (response, errorMessage) {
@@ -123,11 +124,41 @@
         };
 
         me.noDelayError = function (message) {
-            Notification.error({ message: message, delay: null });
+            me.closeNoDelayNotification();
+            noDelayNotification = Notification.error({ message: message, delay: null });
         };
+
+        /**
+         * Closes opened no delay notification.
+         */
+        me.closeNoDelayNotification = function () {
+            if (noDelayNotification) {
+                noDelayNotification.then(function (noDelyNote) {
+                    noDelyNote.kill(false);
+                });
+            }
+        };
+
+        /**
+         * Validates socket update matches given class name.
+         */
+        me.validateSocketUpdate = function (className, socketUpdate) {
+            if (className === socketUpdate.header.class) {
+                return true;
+            }
+            return false;
+        }
 
     };
 
     angular.module('payment').service('utilsService', utilsService);
+
+    /* configure postition of notification */
+    angular.module('payment').config(function (NotificationProvider) {
+        console.log(NotificationProvider);
+        NotificationProvider.setOptions({
+            startTop: 100
+        });
+    });
 
 };
