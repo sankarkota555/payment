@@ -143,7 +143,7 @@
          * Validates socket update matches given class name.
          */
         me.validateSocketUpdate = function (className, socketUpdate) {
-            if (className === socketUpdate.header.class) {
+            if (className === socketUpdate.class) {
                 return true;
             }
             return false;
