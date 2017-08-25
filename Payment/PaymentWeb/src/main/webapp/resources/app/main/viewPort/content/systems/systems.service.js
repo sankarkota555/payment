@@ -68,14 +68,16 @@
          * And adds logoutTime property to object.
          */
         me.convertLoginTimes = function (systems) {
-            for (const system of systems) {
-                if (system.usageDetails && system.usageDetails.length) {
-                    system.usageDetails[0].logoutTimeInMills = system.usageDetails[0].loginTime + (system.usageDetails[0].hours * millisPerHour);
-                    system.usageDetails[0].logoutTime = filterTime(system.usageDetails[0].logoutTimeInMills);
-                    system.usageDetails[0].loginTime = filterTime(system.usageDetails[0].loginTime);
+            if (Array.isArray(systems)) {
+                for (const system of systems) {
+                    convertTimes(system);
                 }
+
+                return systems;
+            } else {
+                return convertTimes(systems);
             }
-            return systems;
+
         };
 
         /**
@@ -83,6 +85,16 @@
          */
         function filterTime(date) {
             return $filter('date')(date, "h:mm a");
+        }
+
+        function convertTimes(system) {
+            if (system.usageDetails && system.usageDetails.length) {
+                system.usageDetails[0].logoutTimeInMills = system.usageDetails[0].loginTime + (system.usageDetails[0].hours * millisPerHour);
+                system.usageDetails[0].logoutTime = filterTime(system.usageDetails[0].logoutTimeInMills);
+                system.usageDetails[0].loginTime = filterTime(system.usageDetails[0].loginTime);
+            }
+
+            return system;
         }
 
 
