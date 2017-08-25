@@ -10,6 +10,8 @@
 		me.enableNewSystemForm = false;
 		me.currentlyEditingSystem = {};
 
+		const systemClassName = 'SystemDTO';
+
 		/**
 		 * Load all systems from DB.
 		 */
@@ -83,7 +85,7 @@
 		 * Cancel editing system usage details
 		 */
 		me.cancelEdit = function () {
-			me.currentlyEditingSystem = {};
+			resetEditingItem();
 		};
 
 		/**
@@ -91,11 +93,12 @@
 		 */
 		me.showNewSystemForm = function () {
 			me.enableNewSystemForm = true;
-			me.currentlyEditingSystem = {};
+			resetEditingItem();
 		};
 
 		me.cancelNewItem = function () {
-			me.currentlyEditingSystem = {};
+			resetEditingItem();
+
 			me.enableNewSystemForm = false
 		};
 
@@ -105,14 +108,8 @@
 			utilsService.processError(response);
 		};
 
-
-		console.log("Registering push $on");
 		$scope.$on('socketUpdate', function (event, data) {
-			if (systemsService.validatePushTime()) {
-				console.log("data received:");
-				console.log(data);
-				console.log("data received value:");
-				console.log(data.value);
+			if (utilsService.validateSocketUpdate(systemClassName, data)) {
 				let foundIndex = -1;
 				for (let index = 0; index < me.systems.length; index++) {
 					if (me.systems[index].id === data.value.id) {
@@ -120,31 +117,21 @@
 						foundIndex = index;
 					}
 				}
+				let object = systemsService.convertLoginTimes(data.value);
 				if (foundIndex != -1) {
-					me.systems.splice(foundIndex, 1, data.value);
+					me.systems.splice(foundIndex, 1, object);
 				} else {
-					me.systems.push(data.value);
+					me.systems.push(object);
 				}
-				console.log(me.systems);
 			} else {
-				console.log("Push already processored");
+				console.log("socket update is not belogs here: " + data.class);
 			}
-
 
 		});
 
-		console.log("$scope.$$listeners");
-		console.log($scope.$$listeners);
-
-		setTimeout(function () {
-			console.log($scope);
-		}, 10000);
-
-		setTimeout(function () {
-			console.log("$rootScope");
-			console.log($rootScope);
-		}, 11000);
-
+		function resetEditingItem() {
+			me.currentlyEditingSystem = {};
+		}
 
 	}
 
