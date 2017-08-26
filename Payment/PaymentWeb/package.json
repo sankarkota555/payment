@@ -17,8 +17,8 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
-    "angular-cookies":"^1.5.8",
-    "angular-messages":"^1.5.8",
+    "angular-cookies": "^1.5.8",
+    "angular-messages": "^1.5.8",
     "angular-aria": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-auto-validate": "^1.19.0",
@@ -30,7 +30,7 @@
     "lato-font": "^2.0.0",
     "angular-material-data-table": "0.10.9",
     "angular-ui-notification": "^0.3.6",
-    "sockjs-client":"^1.1.4",
+    "sockjs-client": "^1.1.4",
     "stompjs": "^2.3.3"
   },
   "devDependencies": {
