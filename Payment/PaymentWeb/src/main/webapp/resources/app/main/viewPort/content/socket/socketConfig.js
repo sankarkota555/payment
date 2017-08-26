@@ -29,6 +29,8 @@ import stomp from 'stompjs';
                         $rootScope.$broadcast('socketUpdate', {
                             'class': greeting.headers.class, 'value': JSON.parse(greeting.body)
                         });
+
+                        $rootScope.$apply();
                     });
                 },
                 // errorCallback
