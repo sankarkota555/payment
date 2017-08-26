@@ -16,8 +16,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.payment.socket.SocketUpdate;
+
 @Entity
 @Table(name = "PAYMENT_SYSTEM")
+@SocketUpdate
 public class PaymentSystem implements Serializable {
 
   private static final long serialVersionUID = 8688129275700983799L;

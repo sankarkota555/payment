@@ -19,11 +19,13 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.payment.socket.SocketUpdate;
 
 @Entity
 @Table(name = "PAYMENT_SYSTEM_USAGE_DETAILS", uniqueConstraints = {
     @UniqueConstraint(columnNames = { "SYSTEM_ID", "LOGIN_TIME" }) })
 @DynamicUpdate
+@SocketUpdate
 public class PaymentSystemUsageDetails implements Serializable {
 
   private static final long serialVersionUID = -5491185210066217320L;
