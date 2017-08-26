@@ -1,13 +1,11 @@
 "use strict";
 {
 
-    function menuRoutes($stateProvider, $urlRouterProvider) {
+    function menuRoutes($stateProvider, $urlServiceProvider) {
 
         const prefixUrl = 'javax.faces.resource/app/main/viewPort/content/';
 
-        $urlRouterProvider.otherwise("/billing");
-
-        $urlRouterProvider.when("/view", "/view/viewItems");
+        $urlServiceProvider.rules.initial({ state: 'billing' });
 
         $stateProvider.state('home', {
             url: '/',
@@ -20,7 +18,8 @@
             url: '/view',
             templateUrl: prefixUrl + 'view/view.template.html',
             controller: 'viewController',
-            controllerAs: 'viewController'
+            controllerAs: 'viewController',
+            redirectTo: 'view.items'
         }).state('view.bills', {
             url: '/viewBills',
             templateUrl: prefixUrl + 'view/viewBills/viewBills.template.html',

@@ -10,7 +10,7 @@ import accordion from 'angular-ui-bootstrap/src/accordion';
 import datepicker from 'angular-ui-bootstrap/src/datepicker';
 import timepicker from 'angular-ui-bootstrap/src/timepicker';
 import modal from 'angular-ui-bootstrap/src/modal';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import mdDataTable from 'angular-material-data-table';
 import notifications from 'angular-ui-notification';
 
