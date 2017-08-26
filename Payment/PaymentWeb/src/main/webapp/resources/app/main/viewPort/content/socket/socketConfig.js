@@ -8,9 +8,9 @@ import stomp from 'stompjs';
 
         const me = this;
 
+        let socketRetryCount = 0;
+
         me.connect = function () {
-            // close no delay notification, if any.
-            utilsService.closeNoDelayNotification();
             var socket = new sockJs('openSocket', null, { transports: 'websocket' });
             var stompClient = stomp.over(socket);
             stompClient.debug = null; // To disable console statements
@@ -18,6 +18,9 @@ import stomp from 'stompjs';
                 // Success callback
                 function (frame) {
                     console.log('Connected: ' + frame);
+                    // Reset socketRetryCount
+                    socketRetryCount = 0;
+
                     stompClient.subscribe('/topic/updates', function (greeting) {
                         console.log('received update');
                         console.log(greeting);
@@ -38,10 +41,20 @@ import stomp from 'stompjs';
         };
 
         function onSocketConnectionError(frame) {
-            utilsService.noDelayError('Socket connection Lost !!');
+            if (socketRetryCount >= 3) {
+                utilsService.noDelayError('Socket connection Lost !!');
+            } else {
+                socketRetryCount++;
+                console.log("Auto reconnecting to socket. count: " + socketRetryCount);
+                // Retry for connection after some time delay
+                setTimeout(function () {
+                    me.connect();
+                }, socketRetryCount * 5000);
+
+            }
+
             console.log('socket disconnected, time is: ' + new Date());
-            console.log(frame);
-            me.connect();
+
         };
 
     };
