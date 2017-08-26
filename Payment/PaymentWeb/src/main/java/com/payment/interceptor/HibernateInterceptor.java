@@ -21,6 +21,7 @@ import com.payment.domain.PaymentSystem;
 import com.payment.domain.PaymentSystemUsageDetails;
 import com.payment.mapper.PaymentMapper;
 import com.payment.mapper.PaymentMapperImpl;
+import com.payment.socket.SocketUpdate;
 
 @Component
 public class HibernateInterceptor extends EmptyInterceptor {
@@ -87,15 +88,18 @@ public class HibernateInterceptor extends EmptyInterceptor {
   }
 
   private void updateSet(Object obj) {
-    Object mappedObject = obj;
-    if (obj instanceof PaymentSystemUsageDetails) {
-      // We are not using raw PaymentSystemUsageDetails in UI, so map it to PaymentSystem and push
-      // PaymentSystem
-      mappedObject = paymentMapper.convertSystemUsageToSystem((PaymentSystemUsageDetails) obj);
-    } else if (obj instanceof PaymentSystem) {
-      mappedObject = paymentMapper.mapPaymentSystem((PaymentSystem) obj, true);
+    // Validate object should push or not.
+    if (obj.getClass().isAnnotationPresent(SocketUpdate.class)) {
+      Object mappedObject = obj;
+      if (obj instanceof PaymentSystemUsageDetails) {
+        // We are not using raw PaymentSystemUsageDetails in UI, so map it to PaymentSystem and push
+        // PaymentSystem
+        mappedObject = paymentMapper.convertSystemUsageToSystem((PaymentSystemUsageDetails) obj);
+      } else if (obj instanceof PaymentSystem) {
+        mappedObject = paymentMapper.mapPaymentSystem((PaymentSystem) obj, true);
+      }
+      set.add(mappedObject);
     }
-    set.add(mappedObject);
   }
 
   /**
