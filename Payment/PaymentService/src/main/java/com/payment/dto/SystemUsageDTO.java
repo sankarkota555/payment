@@ -3,6 +3,10 @@ package com.payment.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Using for socket updates.
+ *
+ */
 public class SystemUsageDTO implements Serializable {
 
   private static final long serialVersionUID = -3647093226266645401L;

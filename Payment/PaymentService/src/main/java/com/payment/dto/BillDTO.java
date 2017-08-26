@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.payment.domain.Customer;
-
+/**
+ * Using to show bills in data table(UI).
+ *
+ */
 public class BillDTO implements Serializable {
 
   private static final long serialVersionUID = -4103566902005024218L;

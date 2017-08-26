@@ -2,6 +2,10 @@ package com.payment.dto;
 
 import java.io.Serializable;
 
+/**
+ * Using to show bills in data table(UI).
+ *
+ */
 public class BillItemDTO implements Serializable {
 
   private static final long serialVersionUID = -719118662936944475L;
