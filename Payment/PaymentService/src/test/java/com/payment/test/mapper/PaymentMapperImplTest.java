@@ -6,8 +6,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.aspectj.asm.IRelationshipMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -20,8 +22,15 @@ import com.payment.domain.Item;
 import com.payment.domain.ItemCompany;
 import com.payment.domain.ItemDetails;
 import com.payment.domain.ItemPriceDetails;
+import com.payment.domain.PaymentSystem;
+import com.payment.domain.PaymentSystemUsageDetails;
 import com.payment.domain.SoldItem;
 import com.payment.dto.CustomerDTO;
+import com.payment.dto.ItemDTO;
+import com.payment.dto.ItemDetailsDTO;
+import com.payment.dto.ItemPriceDetailsDTO;
+import com.payment.dto.SystemDTO;
+import com.payment.dto.SystemUsageDTO;
 import com.payment.mapper.PaymentMapperImpl;
 import com.payment.repositories.ItemCompanyRepository;
 import com.payment.repositories.ItemDetailsRepository;
@@ -309,15 +318,93 @@ public class PaymentMapperImplTest {
     assertEquals("Customer email mapped incorrect", customer.getEmail(), customerDTO.getEmail());
     assertEquals("Customer address mapped incorrect", customer.getAddress(),
         customerDTO.getAddress());
-    assertEquals("Customer bills should not map",null,
-        customerDTO.getBills());
-    
-    
-   /*Test mapping customer with bills*/
+    assertEquals("Customer bills should not map", null, customerDTO.getBills());
+
+    /* Test mapping customer with bills */
     bill.setCustomer(customer);
-   customerDTO = paymentMapperImpl.mapCustomer(customer, true);
-   assertEquals("Customer bills should map",bill.getBillId(),
-       customerDTO.getBills().get(0).getBillId());
+    customerDTO = paymentMapperImpl.mapCustomer(customer, true);
+    assertEquals("Customer bills should map", bill.getBillId(),
+        customerDTO.getBills().get(0).getBillId());
+
+  }
+
+  @Test
+  public void testConvertSystemUsageToSystem() {
+    String cusName = "Customer name";
+    String sysName = "Sys name";
+    Long sysId = 3223L;
+    Float hours = 1.0f;
+    Long detailsId = 12L;
+    Date loginTime = new Date();
+
+    PaymentSystem paymentSystem = new PaymentSystem();
+    paymentSystem.setId(sysId);
+    paymentSystem.setSystemName(sysName);
+
+    PaymentSystemUsageDetails usageDetails = new PaymentSystemUsageDetails();
+    usageDetails.setCutomerName(cusName);
+    usageDetails.setHours(hours);
+    usageDetails.setId(detailsId);
+    usageDetails.setLoginTime(loginTime);
+    usageDetails.setPaymentSystem(paymentSystem);
+
+    SystemDTO systemDTO = paymentMapperImpl.convertSystemUsageToSystem(usageDetails);
+
+    SystemUsageDTO usageDTO = systemDTO.getUsageDetails().get(0);
+
+    assertEquals("System ID mapped incorrect", sysId, systemDTO.getId());
+    assertEquals("System name mapped incorrect", sysName, systemDTO.getSystemName());
+    assertEquals("SystemUsageDTO list size should be 1", 1, systemDTO.getUsageDetails().size());
+
+    assertEquals("Customer name mapped incorrect", cusName, usageDTO.getCutomerName());
+    assertEquals("Hours mapped incorrect", hours, usageDTO.getHours());
+    assertEquals("detailsId  detailsId mapped incorrect", detailsId, usageDTO.getId());
+    assertEquals("detailsId  detailsId mapped incorrect", loginTime, usageDTO.getLoginTime());
+    assertEquals("detailsId  detailsId mapped incorrect", null, usageDTO.getPaymentSystem());
+
+  }
+
+  @Test
+  public void testConvertItemPriceDetailsToItem() {
+    String capacity = "MM";
+    Integer price = 100;
+    Long detailsId = 12L;
+    Long priceDetailsId = 156L;
+    Integer quantity = 10;
+
+    Item item = getDummyItem();
+    ItemCompany itemCompany = getDummyItemCompanty();
+
+    ItemDetails itemDetails = new ItemDetails();
+    itemDetails.setId(detailsId);
+    itemDetails.setItem(item);
+    itemDetails.setItemCompany(itemCompany);
+
+    ItemPriceDetails itemPriceDetails = new ItemPriceDetails();
+    itemPriceDetails.setCapacity(capacity);
+    itemPriceDetails.setId(priceDetailsId);
+    itemPriceDetails.setPrice(price);
+    itemPriceDetails.setQuantity(quantity);
+    itemPriceDetails.setItemDetails(itemDetails);
+
+    ItemDTO itemDTO = paymentMapperImpl.convertItemPriceDetailsToItem(itemPriceDetails);
+    ItemDetailsDTO itemDetailsDTO = itemDTO.getItemDetails().get(0);
+    ItemPriceDetailsDTO itemPriceDetailsDTO = itemDetailsDTO.getItemPriceDetails().get(0);
+
+    assertEquals("Item ID mapped incorrect", item.getItemId(), itemDTO.getItemId());
+    assertEquals("Item name mapped incorrect", item.getItemName(), itemDTO.getItemName());
+    assertEquals("Item details list size should be 1", 1, itemDTO.getItemDetails().size());
+
+    assertEquals("Item details Id  mapped incorrect", detailsId, itemDetailsDTO.getId());
+    assertEquals("itemCompany mapped incorrect", itemCompany, itemDetailsDTO.getItemCompany());
+
+    assertEquals("Item price  detailsId should be 1", 1,
+        itemDetailsDTO.getItemPriceDetails().size());
+
+    assertEquals("capacity mapped incorrect", capacity, itemPriceDetailsDTO.getCapacity());
+    assertEquals("priceDetailsId mapped incorrect", priceDetailsId, itemPriceDetailsDTO.getId());
+    assertEquals("price mapped incorrect", price, itemPriceDetailsDTO.getPrice());
+    assertEquals("quantity mapped incorrect", quantity, itemPriceDetailsDTO.getQuantity());
 
   }
 
