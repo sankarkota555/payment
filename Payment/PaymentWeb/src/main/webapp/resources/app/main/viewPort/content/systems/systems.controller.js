@@ -110,13 +110,7 @@
 
 		$scope.$on('socketUpdate', function (event, data) {
 			if (utilsService.validateSocketUpdate(systemClassName, data)) {
-				let foundIndex = -1;
-				for (let index = 0; index < me.systems.length; index++) {
-					if (me.systems[index].id === data.value.id) {
-						console.log('index:' + index);
-						foundIndex = index;
-					}
-				}
+				let foundIndex = utilsService.findIndex(me.systems,data.value,'id');
 				let object = systemsService.convertLoginTimes(data.value);
 				if (foundIndex != -1) {
 					me.systems.splice(foundIndex, 1, object);

@@ -147,7 +147,18 @@
                 return true;
             }
             return false;
-        }
+        };
+
+        me.findIndex = function (array, object, property) {
+            let foundIndex = -1;
+            for (let index = 0; index < array.length; index++) {
+                if (array[index][property] === object[property]) {
+                    foundIndex = index;
+                    break;
+                }
+            }
+            return foundIndex;
+        };
 
     };
 
