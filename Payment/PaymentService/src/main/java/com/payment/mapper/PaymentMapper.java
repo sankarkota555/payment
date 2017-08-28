@@ -10,6 +10,7 @@ import com.payment.domain.PaymentSystem;
 import com.payment.domain.PaymentSystemUsageDetails;
 import com.payment.dto.BillDTO;
 import com.payment.dto.CustomerDTO;
+import com.payment.dto.ItemDTO;
 import com.payment.dto.SystemDTO;
 import com.payment.dto.SystemUsageDTO;
 
@@ -110,4 +111,11 @@ public interface PaymentMapper {
    * @return {@link SystemDTO}
    */
   SystemDTO convertSystemUsageToSystem(PaymentSystemUsageDetails details);
+
+  /**
+   * converts {@link ItemPriceDetails} to {@link ItemDTO} for UI purpose.
+   * @param itemPriceDetails {@link ItemPriceDetails}
+   * @return {@link ItemDTO}
+   */
+  ItemDTO convertItemPriceDetailsToItem(ItemPriceDetails itemPriceDetails);
 }

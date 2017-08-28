@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import com.payment.domain.ItemPriceDetails;
 import com.payment.domain.PaymentSystem;
 import com.payment.domain.PaymentSystemUsageDetails;
 import com.payment.mapper.PaymentMapper;
@@ -78,6 +79,14 @@ public class HibernateInterceptor extends EmptyInterceptor {
     log.info("onCollectionRemove: collection: {}, key:{}", collection, key);
   }
 
+  public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState,
+      Object[] previousState, String[] propertyNames, Type[] types) {
+    updateSet(entity);
+    log.info("onFlushDirty: entity: {}, id:{}", entity, id);
+    return false;
+
+  }
+
   @Override
   public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames,
       Type[] types) {
@@ -97,6 +106,8 @@ public class HibernateInterceptor extends EmptyInterceptor {
         mappedObject = paymentMapper.convertSystemUsageToSystem((PaymentSystemUsageDetails) obj);
       } else if (obj instanceof PaymentSystem) {
         mappedObject = paymentMapper.mapPaymentSystem((PaymentSystem) obj, true);
+      } else if (obj instanceof ItemPriceDetails) {
+        mappedObject = paymentMapper.convertItemPriceDetailsToItem((ItemPriceDetails) obj);
       }
       set.add(mappedObject);
     }

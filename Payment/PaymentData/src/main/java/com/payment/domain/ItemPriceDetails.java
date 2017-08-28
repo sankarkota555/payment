@@ -18,12 +18,14 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.payment.socket.SocketUpdate;
 
 @Entity
 @Table(name = "ITEM_PRICE_DETAILS", uniqueConstraints = {
     @UniqueConstraint(columnNames = { "CAPACITY", "ITEM_DETAILS_ID" }) })
 @DynamicUpdate
 @DynamicInsert
+@SocketUpdate
 public class ItemPriceDetails implements Serializable{
 
   private static final long serialVersionUID = -3876472800137573252L;

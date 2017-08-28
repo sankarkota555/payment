@@ -22,6 +22,9 @@ import com.payment.domain.SoldItem;
 import com.payment.dto.BillDTO;
 import com.payment.dto.BillItemDTO;
 import com.payment.dto.CustomerDTO;
+import com.payment.dto.ItemDTO;
+import com.payment.dto.ItemDetailsDTO;
+import com.payment.dto.ItemPriceDetailsDTO;
 import com.payment.dto.SystemDTO;
 import com.payment.dto.SystemUsageDTO;
 import com.payment.repositories.ItemCompanyRepository;
@@ -241,6 +244,53 @@ public class PaymentMapperImpl implements PaymentMapper {
     SystemDTO systemDTO = mapPaymentSystem(details.getPaymentSystem(), false);
     systemDTO.setUsageDetails(usageList);
     return systemDTO;
+  }
+
+  @Override
+  public ItemDTO convertItemPriceDetailsToItem(ItemPriceDetails itemPriceDetails) {
+
+    List<ItemPriceDetailsDTO> itemPriceDetailsDTOs = new ArrayList<>();
+    itemPriceDetailsDTOs.add(mapItemPriceDetailsToDTO(itemPriceDetails));
+
+    ItemDetailsDTO itemDetailsDTO = mapItemDetailsToDTO(itemPriceDetails.getItemDetails(), false);
+    itemDetailsDTO.setItemPriceDetails(itemPriceDetailsDTOs);
+
+    List<ItemDetailsDTO> itemDetailsDTOs = new ArrayList<>();
+    itemDetailsDTOs.add(itemDetailsDTO);
+
+    ItemDTO itemDTO = new ItemDTO();
+    itemDTO.setItemDetails(itemDetailsDTOs);
+    itemDTO.setItemId(itemPriceDetails.getItemDetails().getItem().getItemId());
+    itemDTO.setItemName(itemPriceDetails.getItemDetails().getItem().getItemName());
+    return itemDTO;
+  }
+
+  private ItemPriceDetailsDTO mapItemPriceDetailsToDTO(ItemPriceDetails itemPriceDetails) {
+    ItemPriceDetailsDTO dto = new ItemPriceDetailsDTO();
+    dto.setCapacity(itemPriceDetails.getCapacity());
+    dto.setId(itemPriceDetails.getId());
+    dto.setPrice(itemPriceDetails.getPrice());
+    dto.setQuantity(itemPriceDetails.getQuantity());
+    return dto;
+  }
+
+  private ItemDetailsDTO mapItemDetailsToDTO(ItemDetails itemDetails,
+      boolean includeItemPriceDetails) {
+    ItemDetailsDTO dto = new ItemDetailsDTO();
+    dto.setId(itemDetails.getId());
+    dto.setItemCompany(itemDetails.getItemCompany());
+    if (includeItemPriceDetails)
+      dto.setItemPriceDetails(mapItemPriceDetailsToDTO(itemDetails.getItemPriceDetails()));
+    return dto;
+  }
+
+  private List<ItemPriceDetailsDTO> mapItemPriceDetailsToDTO(
+      List<ItemPriceDetails> itemPriceDetailsList) {
+    List<ItemPriceDetailsDTO> list = new ArrayList<>();
+    for (ItemPriceDetails details : itemPriceDetailsList) {
+      list.add(mapItemPriceDetailsToDTO(details));
+    }
+    return list;
   }
 
   /* setters for unit testing */
