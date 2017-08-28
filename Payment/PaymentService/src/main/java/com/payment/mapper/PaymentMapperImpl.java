@@ -219,7 +219,7 @@ public class PaymentMapperImpl implements PaymentMapper {
     systemDTO.setId(system.getId());
     systemDTO.setSystemName(system.getSystemName());
     if (includeUsageDetails) {
-      // Don't include usagde details
+      // Don't include usage details
       systemDTO.setUsageDetails(mapPaymentSystemUsageDetails(system.getUsageDetails(), false));
     }
 
