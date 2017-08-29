@@ -20,8 +20,7 @@ public class WebFlowConfig extends AbstractFacesFlowConfiguration {
 
 	@Bean
 	public ViewFactoryCreator viewFactoryCreator() {
-		JsfViewFactoryCreator factoryCreator = new JsfViewFactoryCreator();
-		return factoryCreator;
+	  return new JsfViewFactoryCreator();
 	}
 
 	@Bean

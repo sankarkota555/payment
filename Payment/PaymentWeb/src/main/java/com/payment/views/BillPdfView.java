@@ -42,8 +42,8 @@ public class BillPdfView extends AbstractItextPdfView {
   private static Font boldFont = PaymentFonts.boldFont;
   private static Font textFont = PaymentFonts.textFont;
   private static Font footerFont = PaymentFonts.footerFont;
-  private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-  private static final SimpleDateFormat footerDateFormat = new SimpleDateFormat(
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+  private final SimpleDateFormat footerDateFormat = new SimpleDateFormat(
       "dd/MMM/yyyy EEEEEE h:mm a");
 
   private Date billDate = null;

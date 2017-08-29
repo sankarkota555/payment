@@ -25,7 +25,7 @@ public class BillPdfController {
 
   @RequestMapping(value = "/generateBillPdf", method = RequestMethod.GET, produces={MediaType.APPLICATION_PDF_VALUE})
   public ModelAndView generateBillPdf(@RequestParam Long billId) {
-    Map<String, Object> model = new HashMap<String, Object>();
+    Map<String, Object> model = new HashMap();
     model.put("bill", billingService.getBillById(billId));
     model.put("paymentConstants",paymentConstantNames );
     return new ModelAndView("billPdfView", model);

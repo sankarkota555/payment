@@ -23,15 +23,12 @@ public class CompanyController {
   @RequestMapping(value = "/getAllCompanies", method = RequestMethod.GET)
   public Iterable<ItemCompany> getAllCompanies() {
     // log.info("item received: "+ item.getItemName());
-
-    Iterable<ItemCompany> companies = companyService.getAllCompanies();
-    return companies;
-
+    return companyService.getAllCompanies();
   }
 
   @RequestMapping(value = "/findCompaniesLike", method = RequestMethod.POST)
   public List<ItemCompany> findCompaniesLike(String companyName) {
-    log.info("companyName for searching: " + companyName);
+    log.info("companyName for searching: {}", companyName);
     return companyService.findCompaniesLike(companyName);
 
   }

@@ -32,7 +32,7 @@ public class PaymentUserDetailsService implements UserDetailsService {
     
     PaymentUser user = userRepository.findByUserName(userName);
 
-    final Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+    final Collection<GrantedAuthority> grantedAuthorities = new ArrayList();
     log.info("user role from DB: {} for user with name {}", user.getRole(), user.getUserName());
     if (user.getRole().equalsIgnoreCase("admin")) {
       grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));

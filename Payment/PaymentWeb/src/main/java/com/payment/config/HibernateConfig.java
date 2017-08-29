@@ -91,8 +91,7 @@ public class HibernateConfig {
         log.info("Success fully closed database connection !!!");
       }
     } catch (SQLException e) {
-      log.error("Error while getting database connection");
-      e.printStackTrace();
+      log.error("Error while getting database connection ", e);
     }
   }
 

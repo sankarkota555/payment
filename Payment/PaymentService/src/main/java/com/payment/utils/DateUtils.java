@@ -9,6 +9,13 @@ import java.util.Date;
 public class DateUtils {
 
   /**
+   * Private constructor because all methods are static, no need to create object.
+   */
+  private DateUtils() {
+
+  }
+
+  /**
    * Gives system date(current date) with time 00:00:00<br>
    * Example: Sat Jun 17 00:00:00
    * 
@@ -50,6 +57,7 @@ public class DateUtils {
 
   /**
    * Gives current time with date.
+   * 
    * @return current time and date as {@link Date}
    */
   public static Date getCurrentTimeStamp() {

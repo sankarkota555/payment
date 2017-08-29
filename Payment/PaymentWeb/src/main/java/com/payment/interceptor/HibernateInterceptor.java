@@ -79,6 +79,7 @@ public class HibernateInterceptor extends EmptyInterceptor {
     log.info("onCollectionRemove: collection: {}, key:{}", collection, key);
   }
 
+  @Override
   public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState,
       Object[] previousState, String[] propertyNames, Type[] types) {
     updateSet(entity);
