@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
+import com.payment.gzip.PaymentGzipResponseWrapper;
 import com.payment.utils.DateUtils;
 
 @Component
@@ -27,6 +28,8 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
   private static final int CACHE_DAYS = 7;
 
   private static final String CACHE_MAX_AGE = "max-age=" + (CACHE_DAYS * 24 * 60 * 60);
+  private static final String CACHE_CONTROL = "Cache-Control";
+  private static final String EXPIRES = "Expires";
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -45,12 +48,15 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
     }
 
     if (request.getRequestURI().contains(RESOURCE_CACHE_PATH)) {
-      response.setHeader("Cache-Control", CACHE_MAX_AGE);
-      response.setDateHeader("Expires",
+      response.setHeader(CACHE_CONTROL, CACHE_MAX_AGE);
+      response.setDateHeader(EXPIRES,
           DateUtils.addDaysToDate(DateUtils.getCurrentdate(), CACHE_DAYS).getTime());
+
+      filterChain.doFilter(request, new PaymentGzipResponseWrapper(response));
+    } else {
+      filterChain.doFilter(request, response);
     }
 
-    filterChain.doFilter(request, response);
   }
 
 }
