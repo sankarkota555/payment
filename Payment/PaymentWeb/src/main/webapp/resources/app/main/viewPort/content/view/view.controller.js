@@ -1,15 +1,17 @@
 "use strict";
 {
 
-    function viewController($location, $transitions) {
+    function viewController($scope, $location, $rootScope) {
 
         const me = this;
 
         me.activeName = null;
 
-        $transitions.onSuccess({}, function (transitions) {
-            me.activeName = transitions.$to().url.pattern.replace("/", "");
-        });
+        $rootScope.$on('$stateChangeStart',
+            function (event, toState, toParams, fromState, fromParams) {
+                // do something
+                me.activeName = toState.url.replace("/", "");
+            });
 
         /**
          * Get current active tab by URL
