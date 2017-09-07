@@ -61,4 +61,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     return resourceBundleViewResolver;
   }
 
+/*  @Bean
+  public FilterRegistrationBean someFilterRegistration() {
+
+    FilterRegistrationBean registration = new FilterRegistrationBean();
+    registration.setFilter(new PaymentGzipResponseFilter());
+    registration.addUrlPatterns("/*");
+    // registration.addInitParameter("mimetypes","");
+    registration.setName("GzipResponseFilter");
+    registration.setOrder(3);
+    return registration;
+  }*/
+
 }

@@ -52,7 +52,7 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
       response.setDateHeader(EXPIRES,
           DateUtils.addDaysToDate(DateUtils.getCurrentdate(), CACHE_DAYS).getTime());
 
-      filterChain.doFilter(request, new PaymentGzipResponseWrapper(response));
+       filterChain.doFilter(request, new PaymentGzipResponseWrapper(response,true));
     } else {
       filterChain.doFilter(request, response);
     }

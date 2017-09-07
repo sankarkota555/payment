@@ -2,6 +2,7 @@ package com.payment.gzip;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Set;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletOutputStream;
@@ -16,29 +17,62 @@ public class PaymentGzipResponseWrapper extends HttpServletResponseWrapper {
 
   private static final Logger log = LoggerFactory.getLogger(PaymentGzipResponseWrapper.class);
 
-  /*
-   * private ServletOutputStream output; private PrintWriter writer;
-   */
-  private GZIPOutputStream gzipOutputStream;
+  private Set<String> mimetypes;
+
+  private OutputStream outputStream;
+
+  private boolean compressResponse = false;
 
   private static final String CONTENT_ENCODING = "Content-Encoding";
 
   private static final String GZIP = "gzip";
 
+  /**
+   * <b>No Gzip</b> compression will be applied.
+   * 
+   * @param response
+   *          {@link HttpServletResponse}
+   */
   public PaymentGzipResponseWrapper(HttpServletResponse response) {
     super(response);
-    // set content encoding to gzip, otherwise data will shown as inverted question marks.
-    response.setHeader(CONTENT_ENCODING, GZIP);
+  }
+
+  /**
+   * Gzip compression will be applied when compressResponse is true.
+   * 
+   * @param response
+   *          {@link HttpServletResponse}
+   * @param compressResponse
+   *          <code>true</code> if Gzip compression is required. <br>
+   *          <code>false</code> if Gzip compression not required.
+   */
+  public PaymentGzipResponseWrapper(HttpServletResponse response, boolean compressResponse) {
+    super(response);
+    this.compressResponse = compressResponse;
+  }
+
+  /**
+   * If response contains given mimetypes then only Gzip compression will be applied otherwise Gzip
+   * is not applied.
+   * 
+   * @param response
+   *          {@link HttpServletResponse}
+   * @param mimetypes
+   *          mimetypes for which Gzip compression required.
+   */
+  public PaymentGzipResponseWrapper(HttpServletResponse response, Set<String> mimetypes) {
+    super(response);
+    this.mimetypes = mimetypes;
   }
 
   @Override
   public ServletOutputStream getOutputStream() throws IOException {
-    //create, implement and return ServletOutputStream
+    // create, implement and return ServletOutputStream
     return new ServletOutputStream() {
 
       @Override
       public void write(int b) throws IOException {
-        createGzipOutputStream().write(b);
+        verifyAndCreateGzipOutputStream().write(b);
       }
 
       @Override
@@ -48,22 +82,22 @@ public class PaymentGzipResponseWrapper extends HttpServletResponseWrapper {
 
       @Override
       public void write(byte[] bytes) throws IOException {
-        createGzipOutputStream().write(bytes);
+        verifyAndCreateGzipOutputStream().write(bytes);
       }
 
       @Override
       public void write(byte[] bytes, int offset, int length) throws IOException {
-        createGzipOutputStream().write(bytes, offset, length);
+        verifyAndCreateGzipOutputStream().write(bytes, offset, length);
       }
 
       @Override
       public void flush() throws IOException {
-        createGzipOutputStream().flush();
+        verifyAndCreateGzipOutputStream().flush();
       }
 
       @Override
       public void close() throws IOException {
-        createGzipOutputStream().close();
+        verifyAndCreateGzipOutputStream().close();
       }
 
       @Override
@@ -76,8 +110,8 @@ public class PaymentGzipResponseWrapper extends HttpServletResponseWrapper {
   @Override
   public void flushBuffer() throws IOException {
     super.flushBuffer();
-    if (gzipOutputStream != null) {
-      gzipOutputStream.flush();
+    if (outputStream != null) {
+      outputStream.flush();
     }
   }
 
@@ -88,19 +122,28 @@ public class PaymentGzipResponseWrapper extends HttpServletResponseWrapper {
    *           When an I/O error occurs.
    */
   public void close() throws IOException {
-    if (gzipOutputStream != null) {
-      gzipOutputStream.close();
+    if (outputStream != null) {
+      outputStream.close();
     }
   }
 
-  private OutputStream createGzipOutputStream() throws IOException {
-    if (gzipOutputStream == null) {
-      gzipOutputStream = new GZIPOutputStream(createOutputStream());
+  private OutputStream verifyAndCreateGzipOutputStream() throws IOException {
+    if (outputStream == null) {
+      String contentType = getContentType();
+      // verify Gzip compression required or not based on mimetypes.
+      if (compressResponse
+          || (mimetypes != null && contentType != null && mimetypes.contains(contentType))) {
+        // set content encoding to gzip, otherwise data will shown as inverted question marks.
+        setHeader(CONTENT_ENCODING, GZIP);
+        outputStream = new GZIPOutputStream(createOutputStream());
+      } else {
+        outputStream = createOutputStream();
+      }
     }
-    return gzipOutputStream;
+    return outputStream;
 
   }
-  
+
   private OutputStream createOutputStream() throws IOException {
     HttpServletResponse originalResponse = (HttpServletResponse) getResponse();
     return originalResponse.getOutputStream();
