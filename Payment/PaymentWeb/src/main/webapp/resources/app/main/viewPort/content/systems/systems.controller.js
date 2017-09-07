@@ -60,21 +60,33 @@
 		};
 
 		/**
-		 * Show edit form for system.
+		 * Show form for new system usage.
 		 */
-		me.showEditSystem = function (id) {
+		me.addSystemUsage = function (id) {
 			me.currentlyEditingSystem = { id: id, loginTime: new Date(), hours: 1 };
 			me.enableNewSystemForm = false;
 		};
 
 		/**
+		 * Show edit form for edit system usage.
+		 */
+		me.editSystemUsage = function (index) {
+			let usage = me.systems[index].usageDetails[0];
+			me.currentlyEditingSystem = {
+				id: me.systems[index].id, detailsId: usage.id,
+				loginTime: systemsService.substractHours(usage.logoutTimeInMills, usage.hours),
+				hours: usage.hours, customerName: usage.cutomerName
+			};
+			me.enableNewSystemForm = false;
+		};
+
+
+		/**
 		 * Add system usage details in DB.
 		 */
-		me.addSystemUsageDetails = function () {
-			const detailsObject = systemsService.createSysteUsageDetailsObj(me.currentlyEditingSystem);
+		function addSystemUsageDetails(detailsObject) {
 			systemsService.addSystemUsageDetails(detailsObject).then(function (response) {
 				me.cancelEdit();
-				//me.getSystemsStatus();
 			}, function (response) {
 				// show error opoup
 				processError(response);
@@ -98,11 +110,34 @@
 
 		me.cancelNewItem = function () {
 			resetEditingItem();
-
 			me.enableNewSystemForm = false
 		};
 
+		/**
+		 * Based on gaven object saves new usage or updates usage.
+		 */
+		me.saveOrUpdateSystemUsage = function () {
+			const detailsObject = systemsService.createSysteUsageDetailsObj(me.currentlyEditingSystem);
+			if (detailsObject.id) {
+				updateSystemUsageDetails(detailsObject);
+			} else {
+				addSystemUsageDetails(detailsObject);
+			}
+		};
+
 		me.getSystemsStatus();
+
+		/**
+		 * updates system usage details in DD.
+		 */
+		function updateSystemUsageDetails(detailsObject) {
+			systemsService.updateSystemUsageDetails(detailsObject).then(function (response) {
+				me.cancelEdit();
+			}, function (response) {
+				// show error opoup
+				processError(response);
+			});
+		};
 
 		function processError(response) {
 			utilsService.processError(response);
@@ -110,7 +145,7 @@
 
 		$scope.$on('socketUpdate', function (event, data) {
 			if (utilsService.validateSocketUpdate(systemClassName, data)) {
-				let foundIndex = utilsService.findIndex(me.systems,data.value,'id');
+				let foundIndex = utilsService.findIndex(me.systems, data.value, 'id');
 				let object = systemsService.convertLoginTimes(data.value);
 				if (foundIndex != -1) {
 					me.systems.splice(foundIndex, 1, object);

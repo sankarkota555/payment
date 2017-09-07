@@ -36,5 +36,12 @@ public interface SystemService {
    * @return Id of object saved.
    */
   Long addSystemUsageDetails(PaymentSystemUsageDetails paymentSystemUsageDetails);
+  
+  /**
+   * Updates payment system usage details in DB.
+   * @param paymentSystemUsageDetails {@link PaymentSystemUsageDetails} object
+   * @return Id of object saved.
+   */
+  Long updateSystemUsageDetails(PaymentSystemUsageDetails paymentSystemUsageDetails);
 
 }

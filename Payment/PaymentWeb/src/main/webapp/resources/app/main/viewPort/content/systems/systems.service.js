@@ -59,7 +59,8 @@
             usageObj.paymentSystem.id = systemDetails.id;
             usageObj.cutomerName = systemDetails.customerName;
             usageObj.hours = systemDetails.hours;
-            usageObj.loginTime = systemDetails.loginTime
+            usageObj.loginTime = systemDetails.loginTime;
+            usageObj.id = systemDetails.detailsId;
             return usageObj;
         };
 
@@ -79,6 +80,21 @@
             }
 
         };
+
+        /**
+         * updates system usage details in DB.
+         */
+        me.updateSystemUsageDetails = function (systemUsageDetails) {
+            return $http({
+                method: 'POST',
+                url: 'updateSystemUsageDetails',
+                data: systemUsageDetails
+            });
+        };
+
+        me.substractHours = function (millis, hours) {
+            return millis - (hours * millisPerHour);
+        }
 
         /**
          * Applies Time filter to given date.

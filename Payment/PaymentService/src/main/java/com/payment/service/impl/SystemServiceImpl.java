@@ -81,5 +81,15 @@ public class SystemServiceImpl implements SystemService {
     }
     return allSystemsList;
   }
+  
+  @Override
+  @Transactional
+  public Long updateSystemUsageDetails(PaymentSystemUsageDetails paymentSystemUsageDetails){
+    PaymentSystemUsageDetails existingUsage = systemUsageDetailsRepository.findOne(paymentSystemUsageDetails.getId());
+    existingUsage.setCutomerName(paymentSystemUsageDetails.getCutomerName());
+    existingUsage.setHours(paymentSystemUsageDetails.getHours());
+    existingUsage.setLoginTime(paymentSystemUsageDetails.getLoginTime());
+    return systemUsageDetailsRepository.save(existingUsage).getId();
+  }
 
 }

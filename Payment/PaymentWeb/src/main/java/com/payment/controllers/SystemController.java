@@ -40,4 +40,10 @@ public class SystemController {
       @RequestBody PaymentSystemUsageDetails paymentSystemUsageDetails) {
     return systemService.addSystemUsageDetails(paymentSystemUsageDetails);
   }
+
+  @RequestMapping(value = "/updateSystemUsageDetails", method = RequestMethod.POST)
+  public Long updateSystemUsageDetails(
+      @RequestBody PaymentSystemUsageDetails paymentSystemUsageDetails) {
+    return systemService.updateSystemUsageDetails(paymentSystemUsageDetails);
+  }
 }
