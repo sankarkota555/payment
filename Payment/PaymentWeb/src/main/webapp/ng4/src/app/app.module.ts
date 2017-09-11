@@ -51,7 +51,7 @@ import { ItemsService } from './content/services/Items.service';
     BrowserModule, BrowserAnimationsModule, HttpModule, FormsModule,
     MdMenuModule, MdButtonModule, MdInputModule, MdCardModule, MdIconModule, MdAutocompleteModule,
     FlexLayoutModule,
-    UIRouterModule.forRoot({ states: PaymentStates, useHash: true, otherwise: { state: 'home' }, })
+    UIRouterModule.forRoot({ states: PaymentStates, useHash: true, otherwise: { state: 'billing' }, })
   ],
   providers: [
     ItemsService
