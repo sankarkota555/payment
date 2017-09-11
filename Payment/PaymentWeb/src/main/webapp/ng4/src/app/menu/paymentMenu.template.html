@@ -1,0 +1,27 @@
+<div>
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <ul class="nav navbar-nav navbar-right capital-text">
+      <li uiSrefActive="active">
+        <a [ngClass]="{inactive: settingsOpened}" uiSref="home" (click)="onlyColseSettings()">home</a>
+      </li>
+      <li uiSrefActive="active">
+        <a [ngClass]="{inactive: settingsOpened}" uiSref="billing" (click)="onlyColseSettings()">Billing</a>
+      </li>
+      <li uiSrefActive="active">
+        <a [ngClass]="{inactive: settingsOpened}" uiSref="view" (click)="onlyColseSettings()">View</a>
+      </li>
+      <li [ngClass]="{inactive: settingsOpened }" uiSrefActive="active">
+        <a uiSref="systems" (click)="onlyColseSettings()">systems</a>
+      </li>
+      <li [ngClass]="{'settings-link-active': settingsOpened}" class="settings-link">
+        <div class="menu-settings capital-text">
+          <a [mdMenuTriggerFor]="menu" (onMenuOpen)="settingsOpened = true" (onMenuClose)="settingsOpened = false">settings</a>
+        </div>
+        <md-menu #menu="mdMenu">
+          <button md-menu-item class="capital-text payment-font" uiSref="changePassword" (click)="settingsOpened = true">change password</button>
+          <button md-menu-item class="capital-text payment-font">logout</button>
+        </md-menu>
+      </li>
+    </ul>
+  </nav>
+</div>

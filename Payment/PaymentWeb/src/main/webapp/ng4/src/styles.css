@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+/* styleUrls: ['../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css'], */
+
+/* @import url(../node_modules/@angular/material/prebuilt-themes/indigo-pink.css);  */
+/* @import url(../node_modules/bootstrap/dist/css/bootstrap.css);  */
+/* @import url(../node_modules/lato-font/css/lato-font.min.css);  */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~lato-font/css/lato-font.min.css';
+
+
+/* For lower upper words. */
+.upper-text{
+  text-transform: uppercase !important;
+}
+
+.capital-text{
+  text-transform: capitalize !important;
+}
+
+.lower-text{
+  text-transform: lowercase !important;
+}
+
+
+/* For settings li in menu bar */
+.settings-link{
+    height: 50px;
+ }
+
+.settings-link-active{
+    background-color: #e6e6e6;
+}
+.menu-settings{
+    margin-top: 14px;
+    margin-left: 12px;
+    color: #717171;
+    margin-right: 25px;
+    cursor: pointer;
+}
+  
+.menu-settings > a{
+    color: #717171;
+}
+  
+.menu-settings > a:focus, .menu-settings > a:hover {
+    text-decoration: none;
+    color: #2d2b2b;;
+}
+
+.inactive{
+    background-color: #f8f8f8 !important;
+}
+
+/* Style for common font size and family */
+.payment-font{
+    font-size: 14px;
+    font-family: Lato;
+}
+
+
+/* ----------------- Override plugin styles --------------------*/
+
+/* Override md-menu style for setting and change password links. */
+.cdk-overlay-container{
+    margin-top: 30px;
+}
+
+
+
+.container-custom {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: Lato !important;
+    font-size: 14px;
+}   

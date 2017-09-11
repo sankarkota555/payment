@@ -1,0 +1,151 @@
+<div fxLayout="row" fxLayoutAlign="center" style="max-height:800px;">
+
+    <!-- <div layout="row" layout-align="center start">
+        <div class="modal-body" id="modal-body">
+            <md-card flex layout-padding>
+                <div class="modal-header">
+                    <h4 class="modal-title" align="center">Enter Bill Details</h4>
+                </div> -->
+    <div fxLayout="column" layout-align="center start">
+        <md-card>
+            <md-card-title fxLayoutAlign="center"> Title {{bill}}</md-card-title>
+            <md-card-content>
+                <form name="billingForm" class="bill-form" fxLayout="column">
+                    <md-form-field>
+                        <md-icon mdPrefix svgIcon="person"></md-icon>
+                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                        <input mdInput type="text" [(ngModel)]="bill.customer.name" placeholder="Name" required name="name">
+                    </md-form-field>
+                    <md-form-field>
+                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                        <input mdInput type="text" placeholder="Phone number" [(ngModel)]="bill.customer.phone" name="phone">
+                    </md-form-field>
+
+                    <md-form-field>
+                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                        <input mdInput type="text" placeholder="Email" [(ngModel)]="bill.customer.email" name="email">
+                    </md-form-field>
+
+                    <md-form-field>
+                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                        <input mdInput type="text" placeholder="Address" [(ngModel)]="bill.customer.address" name="address" required>
+                    </md-form-field>
+                    <div style="max-height:200px;overflow-y:auto; ">
+                        <div *ngFor="let item of bill.soldItems;  let index=index">
+                            <div fxLayout="row" fxLayoutAlign="start start">
+                                <div>
+                                    <auto-complete-item [item]="item" [index]="index"></auto-complete-item>
+                                </div>
+                                <div>
+                                    <md-form-field>
+                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                                        <input mdInput type="text" placeholder="Company auto complete" required>
+                                    </md-form-field>
+                                </div>
+                                <div>
+                                    <md-form-field>
+                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                                        <input mdInput type="text" placeholder="capacity" required>
+                                    </md-form-field>
+                                </div>
+                                <div>
+                                    <md-form-field>
+                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                                        <input mdInput type="text" placeholder="Quantity" required>
+                                    </md-form-field>
+                                </div>
+                                <div>
+                                    <md-form-field>
+                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
+                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                                        <input mdInput type="text" placeholder="price" required>
+                                    </md-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <<button mdButton (click)="billObject()"></button>
+                        <!--
+                    <div>
+                        <h5 style="margin-left:1%; ">Number of items: {{billingController.bill.items.length}}</h5>
+                    </div>
+                    <div style="max-height:200px;overflow-y:auto; ">
+                        <div layout="row" layout-align="start start" ng-repeat="item in billingController.bill.items">
+                            <section layout="row" layout-sm="column" layout-align="start start">
+                                <div flex="50"> 
+
+                                <auto-complete-item item="item" index="$index" on-select-callback-function="billingController.itemSelected" />
+                                </div>
+
+                                <div flex="50">
+                                    <auto-complete-item-company item="item" index="$index" on-select-callback-function="billingController.companySelected" />
+                                </div>
+                                <div flex="50">
+                                  <md-input-container> 
+                                        <label>Capacity</label>
+                                        <md-select ng-model="item.detailsId" ng-change="billingController.capacitySelected($index,item.detailsId)" ng-required="item.selectedCompany && item.selectedCompany.itemPriceDetails | capacityFilter"
+                                            ng-disabled="!(item.selectedCompany && item.selectedCompany.itemPriceDetails | capacityFilter)">
+                                            <md-option ng-repeat="detail in item.selectedCompany.itemPriceDetails" value="{{detail.id}}">{{detail.capacity}}</md-option>
+                                        </md-select>
+                                    </md-input-container> 
+                                </div>
+                                <div flex="20">
+                                    <md-input-container class="md-block">
+                                        <md-tooltip md-direction="top" ng-if="item.availableQuantity">Quantity Available: {{item.availableQuantity}}</md-tooltip>
+
+                                        <input ng-model="item.quantity" name="quantity" type="text" ng-pattern="/^\d+$/" placeholder="Quantity" required>
+
+                                    </md-input-container>
+                                </div>
+                                <div flex="15">
+                                    <md-input-container class="md-block">
+                                        <md-tooltip md-direction="top" ng-if="item.actualPrice">Actual Price:{{item.actualPrice}}</md-tooltip>
+                                        <input ng-model="item.price" type="text" ng-pattern="/^\d+$/" placeholder="Price" required>
+                                    </md-input-container>
+                                </div>
+                                <div flex="15">
+                                    <button md-button class="md-fab md-mini md-primary md-hue-2" title="Add item" aria-label="delete item" ng-if="$last" ng-click="billingController.addItem()">
+                                    
+                                        <md-icon md-svg-src="javax.faces.resource/images/thumbs/add Icon file.svg"></md-icon>
+                                    </button>
+                                    <button md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item" aria-label="delete item" ng-if="!$last"
+                                        ng-click="billingController.deleteItem($index)">
+                                        <md-icon md-svg-src="javax.faces.resource/images/thumbs/delete Icon file.svg"></md-icon>
+                                    </button>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <section layout="row" layout-sm="row" layout-align="start start">
+                        <md-datepicker flex="50" ng-model="billingController.bill.generatedDate" md-placeholder="Enter date" />
+
+                        <div flex="50" style="margin-top: -4%;" uib-timepicker ng-model="billingController.bill.generatedDate" hour-step="billingController.hrstep"
+                            minute-step="billingController.minstep" show-meridian="true"></div>
+                    </section>
+                </form>
+                <div layout="row" layout-align="end end">
+                     <div style="height: 4%;margin-top:-2%;"><md-progress-circular ng-disabled="false" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular></div>
+                    <button md-button class="md-raised md-primary" ng-disabled="billingForm.$invalid || billingController.inProgress" ng-click="billingController.generateBill()">{{billingController.generateButtonText}}
+                        <span ng-if="billingController.inProgress">
+                            <md-progress-circular ng-disabled="!billingController.inProgress" class="md-accent md-hue-1" md-diameter="17"></md-progress-circular>
+                        </span>
+                    </button>
+                    <button md-button class="md-raised md-warn" ng-click="billingController.resetForm()">Cancel</button>
+                </div>
+            </md-card>
+        </div> -->
+
+                </form>
+            </md-card-content>
+        </md-card>
+    </div>
+
+</div>
