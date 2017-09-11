@@ -22,11 +22,26 @@ export class PaymentRoot {
   constructor(mdIconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
     mdIconRegistry
       .addSvgIcon('person',
-      sanitizer.bypassSecurityTrustResourceUrl('http://127.0.0.1:8086/PaymentWeb/pymt/javax.faces.resource/images/thumbs/person.svg'))
-      .addSvgIconSetInNamespace('phone',
-      sanitizer.bypassSecurityTrustResourceUrl('/javax.faces.resource/images/thumbs/phone.svg'))
-      .addSvgIconSetInNamespace('phone',
-      sanitizer.bypassSecurityTrustResourceUrl('/javax.faces.resource/images/thumbs/phone.svg'))
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/person.svg'))
+      .addSvgIcon('phone',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/phone.svg'))
+      .addSvgIcon('cancel',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/cancel.svg'))
+      .addSvgIcon('email',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/email.svg'))
+      .addSvgIcon('menu',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/menu.svg'))
+      .addSvgIcon('multiply',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/multiply.svg'))
+      .addSvgIcon('verification-mark',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/verification-mark.svg'))
+      .addSvgIcon('writer',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/writer.svg'))
+      .addSvgIcon('home',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/home.svg'))
+      .addSvgIcon('phone',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/phone.svg'))
+
       .registerFontClassAlias('fontawesome', 'fa');
 
   }
