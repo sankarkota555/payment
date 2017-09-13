@@ -1,0 +1,43 @@
+import { ItemDetails } from './../../../domains/ItemDetails';
+import { SoldItem } from './../../../domains/SoldItem';
+import { Component, Input } from '@angular/core';
+import { MdAutocompleteSelectedEvent } from '@angular/material'
+
+@Component({
+    selector: 'auto-complete-company',
+    templateUrl: './auto-complete-company.template.html'
+})
+
+export class AutoCompleteCompanyComponent {
+
+    @Input('item') item: SoldItem;
+    @Input('index') index: number;
+
+    searchCompanyName: string;
+    foundCompanies;
+
+    constructor() { }
+
+    searchCompany(companyName: string): void {
+        if (typeof companyName === 'string') {
+            this.foundCompanies = this.item.selectedItem.itemDetails.filter(itemDetail => itemDetail.itemCompany.companyName.indexOf(companyName) == 0);
+        } else {
+            this.foundCompanies = [];
+        }
+        console.log('this.foundCompanies');
+        console.log(this.foundCompanies);
+    }
+
+    companySelected(event: MdAutocompleteSelectedEvent): void {
+
+    }
+
+
+    showCompany(itemDetail: ItemDetails): string {
+        if (itemDetail) {
+            return itemDetail.itemCompany.companyName;
+        }
+        return null;
+    }
+
+}

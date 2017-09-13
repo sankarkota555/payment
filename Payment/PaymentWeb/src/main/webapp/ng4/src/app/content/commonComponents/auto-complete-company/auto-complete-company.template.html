@@ -1,0 +1,9 @@
+<md-form-field>
+    <input mdInput type="text" placeholder="Comapny" [mdAutocomplete]="companyAutoComplete" name="company" [(ngModel)]="searchCompanyName"
+        (ngModelChange)="searchCompany(searchCompanyName)" required>
+    <md-autocomplete #companyAutoComplete="mdAutocomplete" (optionSelected)="companySelected($event)" [displayWith]="showCompany">
+        <md-option *ngFor="let company of foundCompanies" [value]="company">
+            <span>{{showCompany(company)}}</span>
+        </md-option>
+    </md-autocomplete>
+</md-form-field>
