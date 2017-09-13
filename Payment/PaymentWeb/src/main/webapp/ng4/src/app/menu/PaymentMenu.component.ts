@@ -16,7 +16,7 @@ export class PaymentMenuComponent {
 
     @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
 
-    onlyColseSettings() {
+    onlyColseSettings(): void {
         this.trigger.closeMenu();
         // this.settingsOpened = false;
     }
