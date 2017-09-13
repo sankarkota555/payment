@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import $ from 'jquery';
 
 @Injectable()
 export class ItemsService {
-    constructor(private http: Http) { }
 
-    // find by item name.
-    test() {
+    constructor(private http: HttpClient) { }
 
+    searchItems(searchText: string): Observable<object> {
+        const paramString = $.param({ itemName: searchText }, true);
+        const formHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' });
+        return this.http.post('findItems', paramString, { headers: formHeader })
+            .catch(error => this.processError(error));
     }
-    searchItems(itemName) {
 
-        return [{ name: 'one', price: 1 }, { name: 'two', price: 2 }, { name: 'three', price: 3 }, { name: 'four', price: 4 }];
-        //const formDataString = $.param({ itemName: itemName }, true);
-        // return $http({
-        //     headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
-        //     method: 'POST',
-        //     url: 'findItems',
-        //     data: formDataString
-        // });
+    processError(error: Response) {
+        console.log('Error during http: ');
+        console.log(error);
+        return Observable.throw(error || error);
+
     }
 
 
