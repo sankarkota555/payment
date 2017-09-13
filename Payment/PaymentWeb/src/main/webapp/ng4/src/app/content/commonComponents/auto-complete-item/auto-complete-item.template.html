@@ -1,10 +1,9 @@
 <md-form-field>
     <input mdInput type="text" placeholder="Item" [mdAutocomplete]="itemAutoComplete" name="itemName" [(ngModel)]="searchItemName"
-        (ngModelChange)="foundItems = searchItem(searchItemName)" required>
+        (ngModelChange)="searchItem(searchItemName)" required>
     <md-autocomplete #itemAutoComplete="mdAutocomplete" (optionSelected)="itemSelected($event)" [displayWith]="showItem">
         <md-option *ngFor="let item of foundItems" [value]="item">
-            <!-- <img style="vertical-align:middle;" aria-hidden src="state.flag}}" height="25" /> -->
-            <span>{{ item.name }}{{index}}</span>
+            <span>{{ item.itemName }}</span>
         </md-option>
     </md-autocomplete>
 </md-form-field>

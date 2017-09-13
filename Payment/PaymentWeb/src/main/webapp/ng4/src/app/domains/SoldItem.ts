@@ -1,10 +1,12 @@
 import { ItemPriceDetails } from './ItemPriceDetails';
+import { Item } from './Item';
 
 export class SoldItem {
     soldItemId: number;
     quantity: number;
     soldPrice: number;
     itemPriceDetails: ItemPriceDetails;
+    selectedItem: Item;
 
     public constructor() {
         this.soldItemId = null;
