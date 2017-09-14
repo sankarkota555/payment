@@ -1,10 +1,10 @@
-import { SoldItem } from './SoldItem';
+import { BillItem } from './BillItem';
 import { Customer } from './Customer';
 
 export class Bill {
     billId: number;
     customer: Customer;
-    soldItems: SoldItem[];
+    soldItems: BillItem[];
     netAmount: number;
     generatedDate: Date;
 

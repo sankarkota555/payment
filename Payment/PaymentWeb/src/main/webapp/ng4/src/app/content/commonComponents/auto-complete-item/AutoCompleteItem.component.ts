@@ -1,5 +1,5 @@
+import { BillItem } from './../../../domains/BillItem';
 import { Item } from './../../../domains/Item';
-import { SoldItem } from './../../../domains/SoldItem';
 import { ItemsService } from './../../services/Items.service';
 import { Component, Input } from '@angular/core';
 import { MdAutocompleteSelectedEvent } from '@angular/material';
@@ -11,14 +11,12 @@ import { MdAutocompleteSelectedEvent } from '@angular/material';
 
 export class AutoCompleteItemComponent {
 
-    @Input('item') item: SoldItem;
+    @Input('item') item: BillItem;
 
     @Input('index') index: number;
 
     searchItemName: string;
-    foundItems;
-
-
+    foundItems: Item[];
 
     constructor(private itemsService: ItemsService) {
 

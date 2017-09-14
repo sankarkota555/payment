@@ -6,7 +6,6 @@ export class SoldItem {
     quantity: number;
     soldPrice: number;
     itemPriceDetails: ItemPriceDetails;
-    selectedItem: Item;
 
     public constructor() {
         this.soldItemId = null;

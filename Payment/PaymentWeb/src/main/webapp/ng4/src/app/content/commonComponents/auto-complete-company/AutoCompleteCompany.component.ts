@@ -1,5 +1,5 @@
+import { BillItem } from './../../../domains/BillItem';
 import { ItemDetails } from './../../../domains/ItemDetails';
-import { SoldItem } from './../../../domains/SoldItem';
 import { Component, Input } from '@angular/core';
 import { MdAutocompleteSelectedEvent } from '@angular/material'
 
@@ -10,11 +10,11 @@ import { MdAutocompleteSelectedEvent } from '@angular/material'
 
 export class AutoCompleteCompanyComponent {
 
-    @Input('item') item: SoldItem;
+    @Input('item') item: BillItem;
     @Input('index') index: number;
 
     searchCompanyName: string;
-    foundCompanies;
+    foundCompanies: ItemDetails[];
 
     constructor() { }
 
@@ -29,6 +29,12 @@ export class AutoCompleteCompanyComponent {
     }
 
     companySelected(event: MdAutocompleteSelectedEvent): void {
+        let details = event.option.value.itemPriceDetails;
+        if (details.length === 1) {
+            this.item.availableQuantity = details[0].quantity;
+            this.item.actualPrice = details[0].price;
+            this.item.detailsId = details[0].id;
+        }
 
     }
 
