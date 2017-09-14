@@ -14,13 +14,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // UIRouterModule is  for state based routing
 import { UIRouterModule } from '@uirouter/angular';
 
-// Import for Angular material modules
+// Imports for Angular material modules
 import { MdMenuModule } from '@angular/material';
 import { MdButtonModule } from '@angular/material';
 import { MdInputModule } from '@angular/material';
 import { MdCardModule } from '@angular/material';
 import { MdIconModule } from '@angular/material';
 import { MdAutocompleteModule } from '@angular/material';
+import { MdTooltipModule } from '@angular/material';
 
 // FlexLayoutModule is for Flex alignment
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -58,7 +59,7 @@ import { CookiesService } from './cookies/Cookies.service';
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, HttpModule, HttpClientModule,
-    MdMenuModule, MdButtonModule, MdInputModule, MdCardModule, MdIconModule, MdAutocompleteModule,
+    MdMenuModule, MdButtonModule, MdInputModule, MdCardModule, MdIconModule, MdAutocompleteModule, MdTooltipModule,
     FlexLayoutModule,
     UIRouterModule.forRoot({ states: PaymentStates, useHash: true, otherwise: { state: 'billing' }, })
   ],

@@ -12,26 +12,23 @@
             <md-card-content>
                 <form name="billingForm" class="bill-form" fxLayout="column">
                     <md-form-field>
-                        <md-icon mdPrefix svgIcon="person"></md-icon>
-                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
                         <input mdInput type="text" [(ngModel)]="bill.customer.name" placeholder="Name" required name="name">
+                        <md-icon mdSuffix svgIcon="person"></md-icon>
                     </md-form-field>
+
                     <md-form-field>
-                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
                         <input mdInput type="text" placeholder="Phone number" [(ngModel)]="bill.customer.phone" name="phone">
+                        <md-icon mdSuffix svgIcon="phone"></md-icon>
                     </md-form-field>
 
                     <md-form-field>
-                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
                         <input mdInput type="text" placeholder="Email" [(ngModel)]="bill.customer.email" name="email">
+                        <md-icon mdSuffix svgIcon="email"></md-icon>
                     </md-form-field>
 
                     <md-form-field>
-                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
                         <input mdInput type="text" placeholder="Address" [(ngModel)]="bill.customer.address" name="address" required>
+                        <md-icon mdSuffix svgIcon="home"></md-icon>
                     </md-form-field>
                     <div style="max-height:200px;overflow-y:auto; ">
                         <div *ngFor="let item of bill.soldItems;  let index=index">
@@ -40,30 +37,20 @@
                                     <auto-complete-item [item]="item" [index]="index"></auto-complete-item>
                                 </div>
                                 <div>
-                                    <md-form-field>
-                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
-                                        <input mdInput type="text" placeholder="Company auto complete" required>
-                                    </md-form-field>
+                                    <auto-complete-company [item]="item" [index]="index"></auto-complete-company>
                                 </div>
                                 <div>
                                     <md-form-field>
-                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
                                         <input mdInput type="text" placeholder="capacity" required>
                                     </md-form-field>
                                 </div>
                                 <div>
-                                    <md-form-field>
-                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                                    <md-form-field mdTooltipPosition="above" mdTooltipDisabled="{{item.availableQuantity===null}}" mdTooltip="Quantity Available: {{item.availableQuantity}}">
                                         <input mdInput type="text" placeholder="Quantity" required>
                                     </md-form-field>
                                 </div>
                                 <div>
-                                    <md-form-field>
-                                        <md-icon mdPrefix svgIcon="phone"></md-icon>
-                                        <!-- <md-icon md-svg-src="javax.faces.resource/images/thumbs/person.svg" class="name"></md-icon> -->
+                                    <md-form-field mdTooltipPosition="above" mdTooltipDisabled="{{item.actualPrice === null}}" mdTooltip="Actual Price: {{item.actualPrice}}">
                                         <input mdInput type="text" placeholder="price" required>
                                     </md-form-field>
                                 </div>
@@ -72,8 +59,8 @@
                         </div>
 
                     </div>
-                    <<button mdButton (click)="billObject()"></button>
-                        <!--
+                    <button mdButton (click)="billObject()"></button>
+                    <!--
                     <div>
                         <h5 style="margin-left:1%; ">Number of items: {{billingController.bill.items.length}}</h5>
                     </div>
