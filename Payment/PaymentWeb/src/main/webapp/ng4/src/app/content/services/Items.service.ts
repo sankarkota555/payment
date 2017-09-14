@@ -1,3 +1,4 @@
+import { Item } from './../../domains/Item';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +12,7 @@ export class ItemsService {
 
     constructor(private http: HttpClient) { }
 
-    searchItems(searchText: string): Observable<object> {
+    searchItems(searchText: string): Observable<Item[]> {
         const paramString = $.param({ itemName: searchText }, true);
         const formHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' });
         return this.http.post('findItems', paramString, { headers: formHeader })
