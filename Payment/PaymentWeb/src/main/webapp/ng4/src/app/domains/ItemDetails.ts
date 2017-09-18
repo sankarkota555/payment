@@ -7,4 +7,11 @@ export class ItemDetails {
     itemCompany: ItemCompany;
     item: Item;
     itemPriceDetails: ItemPriceDetails[];
+
+    constructor() {
+        this.id = null;
+        this.itemCompany = null;
+        this.item = null;
+        this.itemPriceDetails = [];
+    }
 }

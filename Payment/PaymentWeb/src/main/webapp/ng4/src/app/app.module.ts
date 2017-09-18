@@ -22,6 +22,7 @@ import { MdCardModule } from '@angular/material';
 import { MdIconModule } from '@angular/material';
 import { MdAutocompleteModule } from '@angular/material';
 import { MdTooltipModule } from '@angular/material';
+import { MdSelectModule } from '@angular/material';
 
 // FlexLayoutModule is for Flex alignment
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -59,7 +60,7 @@ import { CookiesService } from './cookies/Cookies.service';
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, HttpModule, HttpClientModule,
-    MdMenuModule, MdButtonModule, MdInputModule, MdCardModule, MdIconModule, MdAutocompleteModule, MdTooltipModule,
+    MdMenuModule, MdButtonModule, MdInputModule, MdCardModule, MdIconModule, MdAutocompleteModule, MdTooltipModule, MdSelectModule,
     FlexLayoutModule,
     UIRouterModule.forRoot({ states: PaymentStates, useHash: true, otherwise: { state: 'billing' }, })
   ],

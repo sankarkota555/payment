@@ -1,7 +1,7 @@
+import { ItemDetails } from './../../domains/ItemDetails';
+import { Item } from './../../domains/Item';
 import { BillItem } from './../../domains/BillItem';
-import { SoldItem } from './../../domains/SoldItem';
 import { Component } from '@angular/core';
-
 import { Customer } from './../../domains/Customer';
 import { Bill } from './../../domains/Bill';
 
@@ -30,6 +30,21 @@ export class BillingComponent {
     billObject() {
         console.log('bill object ');
         console.log(this.bill);
+    }
+
+    checkCapacityEnableStatus(itemDetails: ItemDetails) {
+        console.log('capacity filter fired:', itemDetails);
+
+        if (itemDetails) {
+            for (const object of itemDetails.itemPriceDetails) {
+                if (object.capacity) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
     }
     saveBill() {
 

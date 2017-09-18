@@ -29,11 +29,12 @@ export class AutoCompleteCompanyComponent {
     }
 
     companySelected(event: MdAutocompleteSelectedEvent): void {
+        this.item.selectedCompany = event.option.value;
         let details = event.option.value.itemPriceDetails;
         if (details.length === 1) {
             this.item.availableQuantity = details[0].quantity;
             this.item.actualPrice = details[0].price;
-            this.item.detailsId = details[0].id;
+            this.item.itemPriceDetailsId = details[0].id;
         }
 
     }

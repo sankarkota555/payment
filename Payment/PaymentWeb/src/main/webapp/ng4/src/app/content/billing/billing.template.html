@@ -40,9 +40,11 @@
                                     <auto-complete-company [item]="item" [index]="index"></auto-complete-company>
                                 </div>
                                 <div>
-                                    <md-form-field>
-                                        <input mdInput type="text" placeholder="capacity" required>
-                                    </md-form-field>
+                                    <md-select placeholder="Capacity" name="capacity_{{index}}" [ngModel]="item.itemPriceDetailsId" [disabled]="checkCapacityEnableStatus(item.selectedCompany)">
+                                        <md-option *ngFor="let priceDetail of item.selectedCompany.itemPriceDetails" [value]="priceDetail.id">
+                                            {{ priceDetail.capacity }}
+                                        </md-option>
+                                    </md-select>
                                 </div>
                                 <div>
                                     <md-form-field mdTooltipPosition="above" mdTooltipDisabled="{{item.availableQuantity===null}}" mdTooltip="Quantity Available: {{item.availableQuantity}}">
