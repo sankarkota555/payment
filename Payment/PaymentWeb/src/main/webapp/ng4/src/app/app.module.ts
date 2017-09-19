@@ -1,3 +1,4 @@
+import { CustomEventManagerService } from './content/services/CustomEventManager.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -65,7 +66,7 @@ import { CookiesService } from './cookies/Cookies.service';
     UIRouterModule.forRoot({ states: PaymentStates, useHash: true, otherwise: { state: 'billing' }, })
   ],
   providers: [
-    ItemsService, CookiesService,
+    ItemsService, CookiesService, CustomEventManagerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: PaymentHttpInterceptor,

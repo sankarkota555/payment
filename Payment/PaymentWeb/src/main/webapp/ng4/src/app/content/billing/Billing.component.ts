@@ -32,7 +32,7 @@ export class BillingComponent {
         console.log(this.bill);
     }
 
-    checkCapacityEnableStatus(itemDetails: ItemDetails) {
+    checkCapacityEnableStatus(itemDetails: ItemDetails): boolean {
         console.log('capacity filter fired:', itemDetails);
 
         if (itemDetails) {

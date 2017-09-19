@@ -21,4 +21,11 @@ export class BillItem {
         this.actualPrice = null;
         this.itemPriceDetailsId = null;
     }
+
+    /**
+     * Resets selectedComany to its default value.
+     */
+    resetSelectedCompany(): void {
+        this.selectedCompany = new ItemDetails();
+    }
 }

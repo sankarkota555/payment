@@ -1,6 +1,7 @@
+import { CustomEventManagerService } from './../../services/CustomEventManager.service';
 import { BillItem } from './../../../domains/BillItem';
 import { ItemDetails } from './../../../domains/ItemDetails';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { MdAutocompleteSelectedEvent } from '@angular/material'
 
 @Component({
@@ -8,7 +9,7 @@ import { MdAutocompleteSelectedEvent } from '@angular/material'
     templateUrl: './auto-complete-company.template.html'
 })
 
-export class AutoCompleteCompanyComponent {
+export class AutoCompleteCompanyComponent implements OnInit, OnDestroy {
 
     @Input('item') item: BillItem;
     @Input('index') index: number;
@@ -16,11 +17,14 @@ export class AutoCompleteCompanyComponent {
     searchCompanyName: string;
     foundCompanies: ItemDetails[];
 
-    constructor() { }
+    constructor(private customEventManagerService: CustomEventManagerService) {
+
+    }
 
     searchCompany(companyName: string): void {
         if (typeof companyName === 'string') {
             this.foundCompanies = this.item.selectedItem.itemDetails.filter(itemDetail => itemDetail.itemCompany.companyName.indexOf(companyName) == 0);
+            this.item.resetSelectedCompany();
         } else {
             this.foundCompanies = [];
         }
@@ -47,4 +51,19 @@ export class AutoCompleteCompanyComponent {
         return null;
     }
 
+    ngOnInit() {
+        this.customEventManagerService.getItemChangeEvent().subscribe(event => {
+            if (this.index === event) {
+                this.searchCompanyName = null;
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.customEventManagerService.getItemChangeEvent().unsubscribe();
+    }
+
+
 }
+
+
