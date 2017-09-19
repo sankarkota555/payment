@@ -33,8 +33,6 @@ export class BillingComponent {
     }
 
     checkCapacityEnableStatus(itemDetails: ItemDetails): boolean {
-        console.log('capacity filter fired:', itemDetails);
-
         if (itemDetails) {
             for (const object of itemDetails.itemPriceDetails) {
                 if (object.capacity) {
@@ -42,9 +40,7 @@ export class BillingComponent {
                 }
             }
         }
-
         return true;
-
     }
     saveBill() {
 
