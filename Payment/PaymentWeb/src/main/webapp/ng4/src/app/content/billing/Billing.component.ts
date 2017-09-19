@@ -19,11 +19,7 @@ export class BillingComponent {
 
     constructor() {
         this.bill = new Bill();
-        this.bill.customer.name = 'test';
         this.bill.soldItems.push(new BillItem());
-        this.bill.soldItems.push(new BillItem());
-        console.log('sold items ');
-        console.log(this.bill.soldItems);
 
     }
 
