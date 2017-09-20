@@ -6,7 +6,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title" align="center">Enter Bill Details</h4>
                 </div> -->
-    <div fxLayout="column" layout-align="center start">
+    <div fxLayout="column">
         <md-card>
             <md-card-title fxLayoutAlign="center"> Title {{bill}}</md-card-title>
             <md-card-content>
@@ -22,7 +22,7 @@
                     </md-form-field>
 
                     <md-form-field>
-                        <input mdInput type="text" placeholder="Email" [(ngModel)]="bill.customer.email" name="email">
+                        <input mdInput type="email" placeholder="Email" [(ngModel)]="bill.customer.email" name="email">
                         <md-icon mdSuffix svgIcon="email"></md-icon>
                     </md-form-field>
 
@@ -30,38 +30,54 @@
                         <input mdInput type="text" placeholder="Address" [(ngModel)]="bill.customer.address" name="address" required>
                         <md-icon mdSuffix svgIcon="home"></md-icon>
                     </md-form-field>
-                    <div style="max-height:200px;overflow-y:auto; ">
+                    <div style="max-height:200px;overflow-y:auto; " fxLayout="row">
                         <div *ngFor="let item of bill.soldItems;  let index=index">
                             <div fxLayout="row" fxLayoutAlign="start start">
-                                <div>
+                                <div fxFlex="20">
                                     <auto-complete-item [item]="item" [index]="index"></auto-complete-item>
                                 </div>
-                                <div>
+                                <div fxFlex="20">
                                     <auto-complete-company [item]="item" [index]="index"></auto-complete-company>
                                 </div>
-                                <div>
-                                    <md-select placeholder="Capacity" name="capacity_{{index}}" [ngModel]="item.itemPriceDetailsId" [disabled]="checkCapacityEnableStatus(item.selectedCompany)">
+                                <div fxFlex="13">
+                                    <md-select placeholder="Capacity" name="capacity_{{index}}" [(ngModel)]="item.itemPriceDetailsId" [disabled]="checkCapacityEnableStatus(item.selectedCompany)">
                                         <md-option *ngFor="let priceDetail of item.selectedCompany.itemPriceDetails" [value]="priceDetail.id">
                                             {{ priceDetail.capacity }}
                                         </md-option>
                                     </md-select>
                                 </div>
-                                <div>
+                                <div fxFlex="10">
                                     <md-form-field mdTooltipPosition="above" mdTooltipDisabled="{{item.availableQuantity===null}}" mdTooltip="Quantity Available: {{item.availableQuantity}}">
-                                        <input mdInput type="text" placeholder="Quantity" required>
+                                        <input mdInput type="text" [(ngModel)]="item.quantity" name="quantity_{{index}}" placeholder="Quantity" required>
                                     </md-form-field>
                                 </div>
-                                <div>
+                                <div fxFlex="10">
                                     <md-form-field mdTooltipPosition="above" mdTooltipDisabled="{{item.actualPrice === null}}" mdTooltip="Actual Price: {{item.actualPrice}}">
-                                        <input mdInput type="text" placeholder="price" required>
+                                        <input mdInput type="text" [(ngModel)]="item.soldPrice" name="soldPrice_{{index}}" placeholder="Price" required>
                                     </md-form-field>
+                                </div>
+                                <div fxFlex="20">
+                                    <button md-icon-button title="Add item">
+                                                    <md-icon class="md-24" aria-label="Add Item" svgIcon="addIcon">Add item</md-icon>
+                                                  </button>
+                                    <button md-mini-fab color="primary" title="Remove this item">
+                                                        <md-icon class="md-24" aria-label="Remove Item" svgIcon="removeIcon">Remove item</md-icon>
+                                                      </button>
+                                    <!-- <button md-button class="md-fab md-mini md-primary md-hue-2" title="Add item" aria-label="delete item" ng-if="$last" ng-click="billingController.addItem()">
+                                        
+                                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/add Icon file.svg"></md-icon>
+                                        </button> -->
+                                    <!-- <button md-button class="md-fab md-mini md-primary md-hue-2" title="Remove this item" aria-label="delete item" ng-if="!$last"
+                                        ng-click="billingController.deleteItem($index)">
+                                            <md-icon md-svg-src="javax.faces.resource/images/thumbs/delete Icon file.svg"></md-icon>
+                                        </button> -->
                                 </div>
                             </div>
+
 
                         </div>
 
                     </div>
-                    <button mdButton (click)="billObject()"></button>
                     <!--
                     <div>
                         <h5 style="margin-left:1%; ">Number of items: {{billingController.bill.items.length}}</h5>
@@ -134,6 +150,11 @@
 
                 </form>
             </md-card-content>
+            <md-card-actions fxLayoutAlign="end end">
+                <button md-button (click)="billObject()">show bill</button>
+                <button md-raised-button color="primary">Basic</button>
+            </md-card-actions>
+
         </md-card>
     </div>
 
