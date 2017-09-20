@@ -41,8 +41,11 @@ export class PaymentRoot {
       sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/home.svg'))
       .addSvgIcon('phone',
       sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/phone.svg'))
-
-      .registerFontClassAlias('fontawesome', 'fa');
+      .addSvgIcon('addIcon',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/add Icon file.svg'))
+      .addSvgIcon('removeIcon',
+      sanitizer.bypassSecurityTrustResourceUrl('javax.faces.resource/images/thumbs/delete Icon file.svg'))
+    //.registerFontClassAlias('fontawesome', 'fa');
 
   }
 }
