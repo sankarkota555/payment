@@ -7,8 +7,6 @@
 
         me.availableItems = [];
 
-        let previousSearchText = "<<";
-
         console.log("available items:" + me.availableItems.length);
         me.bill = { items: [{ selectedCompany: null, availableQuantity: null, actualPrice: null }] };
 

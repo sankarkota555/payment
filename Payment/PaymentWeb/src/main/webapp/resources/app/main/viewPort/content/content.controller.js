@@ -2,7 +2,6 @@
 {
 
     function contentController($scope) {
-        const me = this;
         // Could not pass controller as object to directive, so using scope
         $scope.showNews = false;
 

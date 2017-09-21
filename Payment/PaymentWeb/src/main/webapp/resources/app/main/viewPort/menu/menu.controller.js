@@ -2,7 +2,6 @@
 {
 
     function menuController($scope, $location, $mdMenu) {
-        const me = this;
         $scope.settingsOpened = false;
         $scope.isActive = function (viewLocation) {
             const path = $location.path();
