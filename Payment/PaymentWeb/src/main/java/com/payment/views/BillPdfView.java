@@ -50,7 +50,7 @@ public class BillPdfView extends AbstractItextPdfView {
   private String customerName = null;
   private String customerPhone = null;
   private PaymentConstantNames paymentConstantNames;
-  
+
   private static final Logger log = LoggerFactory.getLogger(BillPdfView.class);
 
   @Override
@@ -91,7 +91,9 @@ public class BillPdfView extends AbstractItextPdfView {
     doc.add(getNotes(0));
 
     Image barCodeImage = getBarcodeImage(bill.getBillId(), bill.getNetAmount());
-    barCodeImage.setAbsolutePosition(450, 625);
+    if (barCodeImage != null) {
+      barCodeImage.setAbsolutePosition(450, 625);
+    }
     // Add QR code image
     doc.add(barCodeImage);
 
