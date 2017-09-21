@@ -17,7 +17,6 @@ public class PaymentHeaderWriter implements HeaderWriter {
 
   private static final Logger log = LoggerFactory.getLogger(PaymentHeaderWriter.class);
 
-  private static final String RESOURCE_CACHE_PATH = "javax.faces.resource";
   // cache content for 7 days
   private static final int CACHE_DAYS = 7;
 
@@ -33,11 +32,9 @@ public class PaymentHeaderWriter implements HeaderWriter {
       log.info("hd:{} value:{} ", hd, response.getHeader(hd));
     }
 
-    // if (request.getRequestURI().contains(RESOURCE_CACHE_PATH)) {
     response.setHeader("Cache-Control", CACHE_MAX_AGE);
     response.setDateHeader("Expires",
         DateUtils.addDaysToDate(DateUtils.getCurrentdate(), CACHE_DAYS).getTime());
-    // }
 
   }
 

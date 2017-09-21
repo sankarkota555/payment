@@ -18,23 +18,20 @@ import org.hibernate.annotations.GenericGenerator;
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "ITEM_COMPANY")
-public class ItemCompany implements Serializable{
+public class ItemCompany implements Serializable {
 
   private static final long serialVersionUID = 5744165048369913046L;
 
   @Id
-  @Column(name="ID")
+  @Column(name = "ID")
   @GenericGenerator(name = "incrementGenerator", strategy = "increment")
   @GeneratedValue(generator = "incrementGenerator")
   private Long companyId;
 
-  @Column(name="COMPANY_NAME", length = 50, unique = true)
+  @Column(name = "COMPANY_NAME", length = 50, unique = true)
   private String companyName;
 
-/*  @ManyToMany(mappedBy = "itemCompanies")
-  private List<Item> items;*/
-  
-  @OneToMany(mappedBy="itemCompany")
+  @OneToMany(mappedBy = "itemCompany")
   private List<ItemDetails> itemDetails;
 
   public Long getCompanyId() {
@@ -55,10 +52,10 @@ public class ItemCompany implements Serializable{
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    final int PRIME = 31;
     int result = 1;
-    result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
-    result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
+    result = PRIME * result + ((companyId == null) ? 0 : companyId.hashCode());
+    result = PRIME * result + ((companyName == null) ? 0 : companyName.hashCode());
     return result;
   }
 
@@ -83,15 +80,5 @@ public class ItemCompany implements Serializable{
       return false;
     return true;
   }
-
-/*  public List<Item> getItems() {
-    return items;
-  }
-
-  public void setItems(List<Item> items) {
-    this.items = items;
-  }*/
-  
-  
 
 }

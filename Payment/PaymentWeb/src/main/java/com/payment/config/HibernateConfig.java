@@ -85,11 +85,9 @@ public class HibernateConfig {
     Connection connection = null;
     try {
       connection = dataSource.getConnection();
-      if (connection != null) {
-        log.info("Closing database connection");
-        connection.close();
-        log.info("Success fully closed database connection !!!");
-      }
+      log.info("Closing database connection");
+      connection.close();
+      log.info("Success fully closed database connection !!!");
     } catch (SQLException e) {
       log.error("Error while getting database connection ", e);
     }

@@ -55,11 +55,10 @@ public class BillPdfView extends AbstractItextPdfView {
 
   @Override
   protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer,
-      HttpServletRequest request, HttpServletResponse response) throws Exception {
+      HttpServletRequest request, HttpServletResponse response) throws DocumentException {
 
     Bill bill = (Bill) model.get("bill");
     paymentConstantNames = (PaymentConstantNames) model.get("paymentConstants");
-    ;
     billDate = bill.getGeneratedDate();
     doc.addAuthor(paymentConstantNames.getShopName());
     doc.addCreationDate();
@@ -124,14 +123,13 @@ public class BillPdfView extends AbstractItextPdfView {
 
   private PdfPTable getHeaderTable() throws DocumentException {
 
-    final int imgeHeight = 50;
+    final int IMGE_HEIGHT = 50;
 
     try {
 
       String folderPath = getFolderLocation();
       // image path:
       String imageFilePathRight = folderPath + "resources/images/lakshmi.jpg";
-      // Pictures/Tulips.jpg";
       String imageFilePathLeft = folderPath + "resources/images/ganapathi.jpg";
       Image imageLeft = Image.getInstance(imageFilePathLeft);
       imageLeft.setWidthPercentage(20);
@@ -148,7 +146,7 @@ public class BillPdfView extends AbstractItextPdfView {
 
       PdfPCell pdfCell = new PdfPCell(imageLeft, true);
       pdfCell.setBorder(Rectangle.NO_BORDER);
-      pdfCell.setFixedHeight(imgeHeight);
+      pdfCell.setFixedHeight(IMGE_HEIGHT);
       pdfCell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
       PdfPTable innerTable = new PdfPTable(1);
@@ -174,7 +172,7 @@ public class BillPdfView extends AbstractItextPdfView {
 
       PdfPCell imageCellRight = new PdfPCell(imageRight, true);
       imageCellRight.setBorder(Rectangle.NO_BORDER);
-      imageCellRight.setFixedHeight(imgeHeight);
+      imageCellRight.setFixedHeight(IMGE_HEIGHT);
       imageCellRight.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
       // add left side image
@@ -219,7 +217,6 @@ public class BillPdfView extends AbstractItextPdfView {
 
     float[] columnWidths = new float[] { 6f, 20f };
     customerTable.setWidths(columnWidths);
-    // customerTable.setWidthPercentage(80);
     customerTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 
     // customer name

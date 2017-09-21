@@ -18,10 +18,6 @@ public class SettingsController {
 
   @Autowired
   private SettingsService settingsService;
-  
-/*  String remoteAddress = request.getRemoteAddr();
-  String remoteHost = request.getRemoteHost();
-  String remoteUser = request.getRemoteUser();*/
 
   @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
   public int updateItemDetails(String currentPassword, String newpassword,

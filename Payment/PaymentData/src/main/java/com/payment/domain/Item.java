@@ -34,15 +34,6 @@ public class Item implements Serializable {
   @GeneratedValue(generator = "incrementGenerator")
   private Long itemId;
 
-/*  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-  @JoinTable(name = "item_company", joinColumns = {
-      @JoinColumn(name = "items_itemId") }, inverseJoinColumns = {
-          @JoinColumn(name = "itemCompany_companyId") })
-  private List<ItemCompany> itemCompanies;*/
-
- /* @ManyToMany(mappedBy = "items", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-  private List<Bill> bills;*/
-
   @Column(name = "ITEM_NAME", length = 100, unique = true)
   private String itemName;
 
@@ -60,22 +51,6 @@ public class Item implements Serializable {
     this.itemId = itemId;
   }
 
-/*  public List<ItemCompany> getItemCompanies() {
-    return itemCompanies;
-  }
-
-  public void setItemCompanies(List<ItemCompany> itemCompanies) {
-    this.itemCompanies = itemCompanies;
-  }*/
-
-  /*public List<Bill> getBills() {
-    return bills;
-  }
-
-  public void setBills(List<Bill> bills) {
-    this.bills = bills;
-  }
-*/
   public String getItemName() {
     return itemName;
   }

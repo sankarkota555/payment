@@ -28,7 +28,7 @@ public class PaymentUserDetailsService implements UserDetailsService {
                                          // configuration)
 
   @Override
-  public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String userName) {
     
     PaymentUser user = userRepository.findByUserName(userName);
 

@@ -82,11 +82,6 @@ public class ContextEventListener {
 
     String fileLocation = null;
 
-    /*
-     * if (userHomePath.contains(loggedUsername)) { log.info("user home path contains user name");
-     * fileLocation = userHomePath; }else {
-     */
-
     log.debug("creating user home path maually");
     File usersDirectory = new File(userdDir);
     File[] filesInUser = usersDirectory.listFiles();
@@ -103,7 +98,7 @@ public class ContextEventListener {
         break;
       }
     }
-    // }
+
     /* Verify shortcut file */
     fileLocation += File.separator + "Desktop" + File.separator + FILE_NAME;
     log.info("File write location: {}", fileLocation);

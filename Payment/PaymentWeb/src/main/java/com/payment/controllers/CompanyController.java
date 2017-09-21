@@ -22,7 +22,6 @@ public class CompanyController {
 
   @RequestMapping(value = "/getAllCompanies", method = RequestMethod.GET)
   public Iterable<ItemCompany> getAllCompanies() {
-    // log.info("item received: "+ item.getItemName());
     return companyService.getAllCompanies();
   }
 

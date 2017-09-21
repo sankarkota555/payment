@@ -174,7 +174,8 @@ public class PaymentMapperImpl implements PaymentMapper {
   public void writeObjectAsJson(Object object) {
     try {
       log.info("Converting into JSON, given class: " + object.getClass());
-      log.info("JSON string is: {}", new ObjectMapper().writeValueAsString(object));
+      String jsonString = new ObjectMapper().writeValueAsString(object);
+      log.info("JSON string is: {}",jsonString);
     } catch (JsonProcessingException e) {
       log.error("Unable to conver given object as JSON String, class name:{} , Exception: {}",
           object.getClass(), e);

@@ -62,7 +62,7 @@ public class PaymentGzipResponseFilter implements Filter {
 
   @Override
   public void destroy() {
-
+    // Do nothing.
   }
 
   private static Set<String> createSet(String... strings) {
@@ -75,7 +75,7 @@ public class PaymentGzipResponseFilter implements Filter {
 
   private boolean verifyGzip(ServletRequest request) {
     return Arrays.asList(((HttpServletRequest) request).getHeader("Accept-Encoding").split(","))
-        .stream().filter(value -> value.equals("gzip")).findFirst().isPresent();
+        .stream().anyMatch(value -> value.equals("gzip"));
   }
 
 }

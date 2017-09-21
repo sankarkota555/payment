@@ -32,15 +32,15 @@ public class HibernateInterceptor extends EmptyInterceptor {
   private static final Logger log = LoggerFactory.getLogger(HibernateInterceptor.class);
 
   @Autowired
-  private SimpMessagingTemplate messagingTemplate;
+  private transient SimpMessagingTemplate messagingTemplate;
 
   private static SimpMessagingTemplate staticMessagingTemplate;
 
-  private PaymentMapper paymentMapper = new PaymentMapperImpl();
+  private transient PaymentMapper paymentMapper = new PaymentMapperImpl();
 
-  private Set<Object> set = new HashSet<>();
+  private transient Set<Object> set = new HashSet<>();
 
-  private Map<String, Object> headersMap = new HashMap<>();
+  private transient Map<String, Object> headersMap = new HashMap<>();
 
   public HibernateInterceptor() {
     log.info("HibernateInterceptor object created*****");
