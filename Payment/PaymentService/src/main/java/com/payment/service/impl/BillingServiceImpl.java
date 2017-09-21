@@ -113,14 +113,15 @@ public class BillingServiceImpl implements BillingService {
     return billrepository.findOne(billId);
   }
 
-  public List<BillDTO> getBillsBetweebDates(Date frmDate, Date toDate) {
-    frmDate = DateUtils.removeTime(frmDate);
+  public List<BillDTO> getBillsBetweebDates(final Date frmDate,final Date toDate) {
+    Date fromDateValue = DateUtils.removeTime(frmDate);
+    Date toDateValue = null;
     if (toDate == null) {
-      toDate = DateUtils.getCurrentTimeStamp();
+      toDateValue = DateUtils.getCurrentTimeStamp();
     }
-    log.info("Getting bills between dates, from date:{}, to date: {}", frmDate, toDate);
-    List<Bill> bills = billrepository.findByGeneratedDateBetween(frmDate, toDate);
-    log.info("Number of bills found between {} and {} is :{}", frmDate, toDate, bills.size());
+    log.info("Getting bills between dates, from date:{}, to date: {}", fromDateValue, toDateValue);
+    List<Bill> bills = billrepository.findByGeneratedDateBetween(fromDateValue, toDateValue);
+    log.info("Number of bills found between {} and {} is :{}", fromDateValue, toDateValue, bills.size());
 
     return paymentMapper.mapBillToDto(bills);
   }
